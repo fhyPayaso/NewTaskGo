@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TaskGo</string>
+    <string name="empty"></string>
+    <string name="toast_twice_click_exit">再次点击退出应用</string>
+</resources>

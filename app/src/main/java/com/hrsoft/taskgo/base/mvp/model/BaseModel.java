@@ -14,7 +14,6 @@ import java.util.List;
  * @since 18/4/23 18:39.
  * email fanhongyu@hrsoft.net.
  */
-
 public class BaseModel implements IBaseModel, WeakHandler.IHandler {
 
 

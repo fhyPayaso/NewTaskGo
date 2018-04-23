@@ -21,4 +21,22 @@ public class Config {
     public static final int APP_SERVER_CONNECT_TIME_OUT = 15;
 
 
+    /**
+     * 是否为测试版本
+     */
+    public static final boolean DEBUG = true;
+
+
+    /**
+     * 请求头
+     */
+    public static final String TOKEN = "token";
+
+
+    /**
+     * 正确返回码
+     */
+    public static final int[] NET_CORRECT_CODE = {1000, 6000};
+
+
 }

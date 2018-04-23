@@ -7,5 +7,4 @@ package com.hrsoft.taskgo.base.mvp;
  */
 
 public interface INotifyListener {
-
 }

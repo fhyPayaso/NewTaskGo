@@ -13,6 +13,8 @@ import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.utils.ThreadUtil;
 import com.hrsoft.taskgo.utils.ToastUtil;
 
+import butterknife.ButterKnife;
+
 /**
  * @author FanHongyu.
  * @since 18/4/23 17:53.
@@ -35,10 +37,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         //禁止应用横屏
         allowScreenHorizontal(false);
         //设置布局资源文件
         setContentView(getLayoutId());
+        ButterKnife.bind(this);
         //初始化活动
         initActivity(savedInstanceState);
     }

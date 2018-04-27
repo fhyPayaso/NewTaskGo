@@ -1,20 +1,8 @@
-package com.hrsoft.taskgo.test;
-
-import android.os.Handler;
-import android.os.Looper;
+package com.hrsoft.taskgo.mvp.model.account.helper;
 
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
 import com.hrsoft.taskgo.base.mvp.model.BaseModel;
-import com.hrsoft.taskgo.network.ApiService;
-import com.hrsoft.taskgo.network.BaseObserver;
-import com.hrsoft.taskgo.network.NetWorkFactory;
-import com.hrsoft.taskgo.network.response.ApiException;
-import com.hrsoft.taskgo.network.response.ApiResponse;
-import com.hrsoft.taskgo.utils.ThreadUtil;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.internal.observers.BlockingBaseObserver;
-import io.reactivex.schedulers.Schedulers;
+import com.hrsoft.taskgo.mvp.model.account.request.LoginReqModel;
 
 /**
  * @author FanHongyu.
@@ -39,22 +27,6 @@ public class AccountHelper extends BaseModel {
             }
         }, 1000);
 
-
-        NetWorkFactory
-                .getService()
-                .login(reqModel)
-                .compose(BaseObserver.<ApiResponse>setThread())
-                .subscribe(new BaseObserver() {
-                    @Override
-                    public void onSuccess(ApiResponse response) {
-
-                    }
-
-                    @Override
-                    public void onError(ApiException exception) {
-
-                    }
-                });
     }
 
 

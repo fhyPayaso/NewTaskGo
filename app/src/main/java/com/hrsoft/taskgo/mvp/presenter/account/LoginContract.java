@@ -1,4 +1,4 @@
-package com.hrsoft.taskgo.test;
+package com.hrsoft.taskgo.mvp.presenter.account;
 
 import com.hrsoft.taskgo.base.mvp.view.IBaseView;
 

@@ -1,13 +1,15 @@
-package com.hrsoft.taskgo.test;
+package com.hrsoft.taskgo.mvp.view.account;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.hrsoft.taskgo.MainActivity;
+import com.hrsoft.taskgo.mvp.view.MainActivity;
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.mvp.view.BasePresenterActivity;
+import com.hrsoft.taskgo.mvp.model.account.helper.AccountHelper;
+import com.hrsoft.taskgo.mvp.presenter.account.LoginContract;
+import com.hrsoft.taskgo.mvp.presenter.account.LoginPresenter;
 import com.hrsoft.taskgo.utils.ToastUtil;
 
 /**
@@ -74,9 +76,7 @@ public class LoginActivity extends BasePresenterActivity<LoginPresenter, Account
         findViewById(R.id.btn_login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 mPresenter.login(mEditUserName.getText().toString(), mEditPassword.getText().toString());
-
             }
         });
     }

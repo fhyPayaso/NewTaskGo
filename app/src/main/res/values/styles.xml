@@ -25,4 +25,27 @@
         <item name="colorControlNormal">@color/white</item>
     </style>
 
+
+    <!--MainActivity-->
+    <style name="ll_main_bottom_tab">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="img_main_bottom_tab">
+        <item name="android:layout_width">25dp</item>
+        <item name="android:layout_height">25dp</item>
+    </style>
+
+    <style name="txt_main_bottom_tab">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@drawable/txt_menu_selector</item>
+    </style>
+
+
 </resources>

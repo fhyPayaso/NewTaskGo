@@ -4,16 +4,19 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.hrsoft.taskgo.base.activity.BaseActivity;
+import com.hrsoft.taskgo.base.activity.BaseToolBarActivity;
 import com.hrsoft.taskgo.base.mvp.model.BaseModel;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 
 /**
  * @author FanHongyu.
- * @since 18/4/23 19:17.
+ * @since 18/4/24 14:12.
  * email fanhongyu@hrsoft.net.
  */
 
-public abstract class BasePresenterActivity<P extends BasePresenter, M extends BaseModel> extends BaseActivity implements IBaseView {
+public abstract class BaseToolBarPresenterActivity<P extends BasePresenter, M extends BaseModel> extends
+        BaseToolBarActivity implements IBaseView {
+
 
     protected P mPresenter;
 
@@ -32,7 +35,7 @@ public abstract class BasePresenterActivity<P extends BasePresenter, M extends B
 
 
     /**
-     * 获取Model实例
+     * 获取Presenter实例
      *
      * @return
      */
@@ -61,4 +64,6 @@ public abstract class BasePresenterActivity<P extends BasePresenter, M extends B
         }
         super.onDestroy();
     }
+
+
 }

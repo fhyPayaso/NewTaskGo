@@ -1,8 +1,6 @@
-package com.hrsoft.taskgo.test;
+package com.hrsoft.taskgo.mvp.model.account.request;
 
 import com.hrsoft.taskgo.base.mvp.model.BaseBean;
-
-import java.io.Serializable;
 
 /**
  * 登录请求体

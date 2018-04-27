@@ -1,7 +1,7 @@
 package com.hrsoft.taskgo.base.mvp.view;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.content.Context;
+import android.support.v4.app.Fragment;
 
 import com.hrsoft.taskgo.base.activity.BaseActivity;
 import com.hrsoft.taskgo.base.mvp.model.BaseModel;
@@ -9,19 +9,22 @@ import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 
 /**
  * @author FanHongyu.
- * @since 18/4/23 19:17.
+ * @since 18/4/24 14:13.
  * email fanhongyu@hrsoft.net.
  */
 
-public abstract class BasePresenterActivity<P extends BasePresenter, M extends BaseModel> extends BaseActivity implements IBaseView {
+public abstract class BasePresenterFragment<P extends BasePresenter, M extends BaseModel> extends Fragment implements
+        IBaseView {
+
 
     protected P mPresenter;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onAttach(Context context) {
         initPresenter();
-        super.onCreate(savedInstanceState);
+        super.onAttach(context);
     }
+
 
     /**
      * 获取Presenter实例
@@ -32,7 +35,7 @@ public abstract class BasePresenterActivity<P extends BasePresenter, M extends B
 
 
     /**
-     * 获取Model实例
+     * 获取Presenter实例
      *
      * @return
      */
@@ -51,14 +54,12 @@ public abstract class BasePresenterActivity<P extends BasePresenter, M extends B
         }
     }
 
-
     @Override
-    protected void onDestroy() {
-
+    public void onDetach() {
         if (mPresenter != null && mPresenter.isBindView()) {
             mPresenter.unBindView();
             mPresenter = null;
         }
-        super.onDestroy();
+        super.onDetach();
     }
 }

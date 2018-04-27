@@ -1,7 +1,7 @@
 package com.hrsoft.taskgo.network;
 
 import com.hrsoft.taskgo.network.response.ApiResponse;
-import com.hrsoft.taskgo.test.LoginReqModel;
+import com.hrsoft.taskgo.mvp.model.account.request.LoginReqModel;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;

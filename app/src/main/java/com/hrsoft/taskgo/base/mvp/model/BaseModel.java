@@ -5,6 +5,7 @@ import android.os.Message;
 
 import com.hrsoft.taskgo.base.mvp.INotifyListener;
 import com.hrsoft.taskgo.base.mvp.WeakHandler;
+import com.hrsoft.taskgo.mvp.model.account.helper.AccountHelper;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -69,4 +70,6 @@ public class BaseModel implements IBaseModel, WeakHandler.IHandler {
     public void handleMsg(Message msg) {
 
     }
+
+
 }

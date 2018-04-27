@@ -1,8 +1,9 @@
-package com.hrsoft.taskgo.test;
+package com.hrsoft.taskgo.mvp.presenter.account;
 
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
-import com.hrsoft.taskgo.base.mvp.view.BasePresenterActivity;
+import com.hrsoft.taskgo.mvp.model.account.helper.AccountHelper;
+import com.hrsoft.taskgo.mvp.model.account.request.LoginReqModel;
 
 /**
  * @author FanHongyu.

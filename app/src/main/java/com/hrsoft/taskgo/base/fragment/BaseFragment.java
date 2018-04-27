@@ -13,6 +13,9 @@ import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.utils.ThreadUtil;
 import com.hrsoft.taskgo.utils.ToastUtil;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * @author FanHongyu.
  * @since 18/4/23 18:08.
@@ -32,13 +35,14 @@ public abstract class BaseFragment extends Fragment {
      */
     protected ProgressDialog mProgressDialog;
 
-
+    Unbinder unbinder;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
             savedInstanceState) {
         mView = inflater.inflate(getLayoutId(), container, false);
+        unbinder = ButterKnife.bind(this, mView);
         initFragment();
         return mView;
     }
@@ -108,5 +112,12 @@ public abstract class BaseFragment extends Fragment {
      */
     protected View getRootView() {
         return mView;
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        unbinder.unbind();
+        super.onDestroyView();
     }
 }

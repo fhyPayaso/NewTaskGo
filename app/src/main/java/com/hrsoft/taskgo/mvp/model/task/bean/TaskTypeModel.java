@@ -3,6 +3,8 @@ package com.hrsoft.taskgo.mvp.model.task.bean;
 import android.support.annotation.DrawableRes;
 
 /**
+ * 三级任务模块model
+ *
  * @author FanHongyu.
  * @since 18/4/27 14:18.
  * email fanhongyu@hrsoft.net.
@@ -14,10 +16,10 @@ public class TaskTypeModel {
     @DrawableRes
     private int imgResId;
     private String taskTypeName;
-    private int taskTypeFlag;
+    private String taskTypeFlag;
 
 
-    public TaskTypeModel(int imgResId, String taskTypeName, int taskTypeFlag) {
+    public TaskTypeModel(int imgResId, String taskTypeName, String taskTypeFlag) {
         this.imgResId = imgResId;
         this.taskTypeName = taskTypeName;
         this.taskTypeFlag = taskTypeFlag;
@@ -40,11 +42,11 @@ public class TaskTypeModel {
         this.taskTypeName = taskTypeName;
     }
 
-    public int getTaskTypeFlag() {
+    public String getTaskTypeFlag() {
         return taskTypeFlag;
     }
 
-    public void setTaskTypeFlag(int taskTypeFlag) {
+    public void setTaskTypeFlag(String taskTypeFlag) {
         this.taskTypeFlag = taskTypeFlag;
     }
 }

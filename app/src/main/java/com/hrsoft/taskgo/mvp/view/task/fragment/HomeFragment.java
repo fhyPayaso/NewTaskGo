@@ -1,21 +1,14 @@
-package com.hrsoft.taskgo.mvp.view.task;
+package com.hrsoft.taskgo.mvp.view.task.fragment;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.fragment.BaseFragment;
-import com.hrsoft.taskgo.utils.ToastUtil;
+import com.hrsoft.taskgo.common.TaskTypeConfig;
+import com.hrsoft.taskgo.mvp.view.task.activity.TaskGridActivity;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * @author FanHongyu.
@@ -59,6 +52,6 @@ public class HomeFragment extends BaseFragment {
 
     @OnClick(R.id.btn_student_company)
     public void onViewClicked() {
-        startActivity(new Intent(getContext(), TaskTypeActivity.class));
+        TaskGridActivity.startActivity(getContext(), TaskTypeConfig.COLLEGE);
     }
 }

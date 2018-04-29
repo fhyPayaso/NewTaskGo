@@ -1,6 +1,8 @@
 package com.hrsoft.taskgo.mvp.model.task.bean;
 
 /**
+ * 任务列表
+ *
  * @author FanHongyu.
  * @since 18/4/27 15:44.
  * email fanhongyu@hrsoft.net.
@@ -70,4 +72,99 @@ public class BaseTaskModel {
     private String thirdValue;
 
 
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType(String taskType) {
+        this.taskType = taskType;
+    }
+
+    public double getMoney() {
+        return money;
+    }
+
+    public void setMoney(double money) {
+        this.money = money;
+    }
+
+    public int getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(int cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public int getInfoNumber() {
+        return infoNumber;
+    }
+
+    public void setInfoNumber(int infoNumber) {
+        this.infoNumber = infoNumber;
+    }
+
+    public String getFirstTitle() {
+        return firstTitle;
+    }
+
+    public void setFirstTitle(String firstTitle) {
+        this.firstTitle = firstTitle;
+    }
+
+    public String getFirstVaule() {
+        return firstVaule;
+    }
+
+    public void setFirstVaule(String firstVaule) {
+        this.firstVaule = firstVaule;
+    }
+
+    public String getSecondTitle() {
+        return secondTitle;
+    }
+
+    public void setSecondTitle(String secondTitle) {
+        this.secondTitle = secondTitle;
+    }
+
+    public String getSecondVaule() {
+        return secondVaule;
+    }
+
+    public void setSecondVaule(String secondVaule) {
+        this.secondVaule = secondVaule;
+    }
+
+    public String getThirdTitle() {
+        return thirdTitle;
+    }
+
+    public void setThirdTitle(String thirdTitle) {
+        this.thirdTitle = thirdTitle;
+    }
+
+    public String getThirdValue() {
+        return thirdValue;
+    }
+
+    public void setThirdValue(String thirdValue) {
+        this.thirdValue = thirdValue;
+    }
 }

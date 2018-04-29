@@ -7,9 +7,6 @@ import com.hrsoft.taskgo.network.response.ApiException;
 import com.hrsoft.taskgo.network.response.ApiResponse;
 import com.hrsoft.taskgo.utils.ToastUtil;
 
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
-
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
@@ -56,7 +53,7 @@ public abstract class BaseObserver<T> implements Observer<ApiResponse<T>> {
 
         if (e instanceof ApiException) {
 
-            NetWorkErrorHandler.handler((ApiException) e);
+            NetworkErrorHandler.handler((ApiException) e);
         } else {
             ToastUtil.showToast("网络连接失败，请稍后再试");
             Log.i(TAG, "onError: " + e.toString());

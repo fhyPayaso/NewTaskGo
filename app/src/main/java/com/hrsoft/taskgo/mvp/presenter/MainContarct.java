@@ -1,13 +1,10 @@
 package com.hrsoft.taskgo.mvp.presenter;
 
-import android.content.Context;
-import android.os.Message;
-
 import com.hrsoft.taskgo.base.activity.BaseActivity;
 import com.hrsoft.taskgo.base.mvp.view.IBaseView;
 import com.hrsoft.taskgo.mvp.view.message.MessageFragment;
 import com.hrsoft.taskgo.mvp.view.mine.MineFragment;
-import com.hrsoft.taskgo.mvp.view.task.HomeFragment;
+import com.hrsoft.taskgo.mvp.view.task.fragment.HomeFragment;
 
 /**
  * @author FanHongyu.

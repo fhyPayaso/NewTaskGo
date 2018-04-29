@@ -8,7 +8,7 @@ import com.hrsoft.taskgo.utils.ToastUtil;
  * @since 2018/4/24 on 上午1:12
  * fhyPayaso@qq.com
  */
-public class NetWorkErrorHandler {
+public class NetworkErrorHandler {
 
     public static void handler(int code){
         switch (code){

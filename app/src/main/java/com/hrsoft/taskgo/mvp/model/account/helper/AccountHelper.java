@@ -26,7 +26,6 @@ public class AccountHelper extends BaseModel {
                 }
             }
         }, 1000);
-
     }
 
 

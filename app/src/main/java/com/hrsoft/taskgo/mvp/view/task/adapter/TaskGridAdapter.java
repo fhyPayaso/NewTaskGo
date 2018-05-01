@@ -19,13 +19,13 @@ import java.util.List;
  * email fanhongyu@hrsoft.net.
  */
 
-public class TaskTypeGridAdapter extends BaseAdapter {
+public class TaskGridAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<TaskTypeModel> mModelList;
 
 
-    public TaskTypeGridAdapter(Context context, List<TaskTypeModel> modelList) {
+    public TaskGridAdapter(Context context, List<TaskTypeModel> modelList) {
         mContext = context;
         mModelList = modelList;
     }
@@ -73,6 +73,4 @@ public class TaskTypeGridAdapter extends BaseAdapter {
         ImageView imgTaskTypeIcon;
         TextView txtTaskTypeName;
     }
-
-
 }

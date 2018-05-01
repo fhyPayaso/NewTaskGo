@@ -37,14 +37,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         //禁止应用横屏
         allowScreenHorizontal(false);
-        //设置布局资源文件
-        setContentView(getLayoutId());
-        ButterKnife.bind(this);
-        //初始化活动
-        initActivity(savedInstanceState);
     }
 
     protected void initActivity(Bundle savedInstanceState) {

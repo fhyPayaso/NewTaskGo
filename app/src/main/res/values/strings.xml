@@ -2,4 +2,10 @@
     <string name="app_name">TaskGo</string>
     <string name="empty"></string>
     <string name="toast_twice_click_exit">再次点击退出应用</string>
+
+
+    <string name="task_type_name_water_school_six">校六送水</string>
+    <string name="task_type_name_water_school_four">校四送水</string>
+
+
 </resources>

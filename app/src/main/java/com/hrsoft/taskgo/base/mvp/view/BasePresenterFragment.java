@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 
 import com.hrsoft.taskgo.base.activity.BaseActivity;
+import com.hrsoft.taskgo.base.fragment.BaseFragment;
 import com.hrsoft.taskgo.base.mvp.model.BaseModel;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 
@@ -13,7 +14,7 @@ import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
  * email fanhongyu@hrsoft.net.
  */
 
-public abstract class BasePresenterFragment<P extends BasePresenter, M extends BaseModel> extends Fragment implements
+public abstract class BasePresenterFragment<P extends BasePresenter, M extends BaseModel> extends BaseFragment implements
         IBaseView {
 
 

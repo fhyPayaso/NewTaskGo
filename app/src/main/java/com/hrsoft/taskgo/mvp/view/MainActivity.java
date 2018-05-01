@@ -1,7 +1,6 @@
 package com.hrsoft.taskgo.mvp.view;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,11 +12,10 @@ import com.hrsoft.taskgo.mvp.presenter.MainContarct;
 import com.hrsoft.taskgo.mvp.presenter.MainPresenter;
 import com.hrsoft.taskgo.mvp.view.message.MessageFragment;
 import com.hrsoft.taskgo.mvp.view.mine.MineFragment;
-import com.hrsoft.taskgo.mvp.view.task.HomeFragment;
+import com.hrsoft.taskgo.mvp.view.task.fragment.HomeFragment;
 import com.hrsoft.taskgo.utils.FragmentUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends BasePresenterActivity<MainPresenter, BaseModel> implements MainContarct.View {

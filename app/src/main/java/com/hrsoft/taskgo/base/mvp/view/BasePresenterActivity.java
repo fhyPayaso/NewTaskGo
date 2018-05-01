@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.hrsoft.taskgo.base.activity.BaseActivity;
+import com.hrsoft.taskgo.base.activity.BaseNoBarActivity;
 import com.hrsoft.taskgo.base.mvp.model.BaseModel;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 
@@ -13,7 +14,7 @@ import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
  * email fanhongyu@hrsoft.net.
  */
 
-public abstract class BasePresenterActivity<P extends BasePresenter, M extends BaseModel> extends BaseActivity implements IBaseView {
+public abstract class BasePresenterActivity<P extends BasePresenter, M extends BaseModel> extends BaseNoBarActivity implements IBaseView {
 
     protected P mPresenter;
 

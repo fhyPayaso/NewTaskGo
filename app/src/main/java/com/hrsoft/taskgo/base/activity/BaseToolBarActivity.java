@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.hrsoft.taskgo.R;
 
+import butterknife.ButterKnife;
+
 /**
  * @author FanHongyu.
  * @since 18/4/23 17:57.
@@ -29,6 +31,7 @@ public abstract class BaseToolBarActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getToolbarView());
+        ButterKnife.bind(this);
         initActivity(savedInstanceState);
     }
 

@@ -1,25 +1,19 @@
-package com.hrsoft.taskgo.mvp.view.task;
+package com.hrsoft.taskgo.mvp.view.task.fragment;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.fragment.BaseFragment;
 import com.hrsoft.taskgo.mvp.model.task.bean.TaskTypeModel;
-import com.hrsoft.taskgo.mvp.view.task.adapter.TaskTypeGridAdapter;
-import com.hrsoft.taskgo.utils.ToastUtil;
+import com.hrsoft.taskgo.mvp.view.task.activity.TaskListActivity;
+import com.hrsoft.taskgo.mvp.view.task.adapter.TaskGridAdapter;
 import com.hrsoft.taskgo.widget.NoScrollGridView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * @author FanHongyu.
@@ -27,7 +21,7 @@ import butterknife.Unbinder;
  * email fanhongyu@hrsoft.net.
  */
 
-public class GridTaskFragment extends BaseFragment {
+public class TaskGridFragment extends BaseFragment {
 
 
     @BindView(R.id.txt_grid_name)
@@ -37,7 +31,7 @@ public class GridTaskFragment extends BaseFragment {
 
 
     public List<TaskTypeModel> mTypeModelList;
-    private TaskTypeGridAdapter mGridAdapter;
+    private TaskGridAdapter mGridAdapter;
     public String mLabelTitle;
 
 
@@ -50,20 +44,21 @@ public class GridTaskFragment extends BaseFragment {
     protected void initView() {
 
         txtGridName.setText(mLabelTitle);
-        mGridAdapter = new TaskTypeGridAdapter(getContext(),mTypeModelList);
+        mGridAdapter = new TaskGridAdapter(getContext(), mTypeModelList);
         gvTaskType.setAdapter(mGridAdapter);
         gvTaskType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ToastUtil.showToast(mTypeModelList.get(position).getTaskTypeName());
+                TaskListActivity.startActivity(getContext(), mTypeModelList.get(position).getTaskTypeFlag());
+                getActivity().finish();
             }
         });
     }
 
+
     @Override
     protected void initData() {
     }
-
 
     /**
      * 获取fragment实例
@@ -72,8 +67,8 @@ public class GridTaskFragment extends BaseFragment {
      * @param modelList
      * @return
      */
-    public static GridTaskFragment getNewInstance(String label, List<TaskTypeModel> modelList) {
-        GridTaskFragment fragment = new GridTaskFragment();
+    public static TaskGridFragment getNewInstance(String label, List<TaskTypeModel> modelList) {
+        TaskGridFragment fragment = new TaskGridFragment();
         fragment.mTypeModelList = modelList;
         fragment.mLabelTitle = label;
         return fragment;

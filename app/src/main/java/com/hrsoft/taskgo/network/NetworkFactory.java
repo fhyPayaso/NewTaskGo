@@ -21,7 +21,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
  * email fanhongyu@hrsoft.net.
  */
 
-public final class NetWorkFactory {
+public final class NetworkFactory {
 
 
     private static OkHttpClient sOkHttpClient;

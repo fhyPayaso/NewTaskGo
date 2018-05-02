@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.View;
 
 import com.hrsoft.taskgo.R;
-import com.hrsoft.taskgo.base.adapter.BaseRecyclerViewAdapter;
 import com.hrsoft.taskgo.base.adapter.BaseViewHolder;
 import com.hrsoft.taskgo.base.adapter.FooterRecyclerViewAdapter;
 import com.hrsoft.taskgo.mvp.model.task.bean.BaseTaskModel;
@@ -37,9 +36,9 @@ public class TaskListRecyclerAdapter extends FooterRecyclerViewAdapter<BaseTaskM
                 .setText(R.id.txt_task_money, String.valueOf(item.getMoney()))
                 .setText(R.id.txt_task_card_number,String.valueOf(item.getCardNumber()))
                 .setText(R.id.txt_title_first, item.getFirstTitle())
-                .setText(R.id.txt_value_first, item.getFirstVaule())
+                .setText(R.id.txt_value_first, item.getFirstValue())
                 .setText(R.id.txt_title_second, item.getSecondTitle())
-                .setText(R.id.txt_value_second, item.getSecondVaule())
+                .setText(R.id.txt_value_second, item.getSecondValue())
                 .setText(R.id.txt_title_third, item.getThirdTitle())
                 .setText(R.id.txt_value_third, item.getThirdValue());
 

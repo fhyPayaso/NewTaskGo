@@ -36,9 +36,9 @@ public class TaskHelper extends BaseModel {
             model.setCardNumber(i);
 
             model.setFirstTitle("宿舍号 : ");
-            model.setFirstVaule("607" + i);
+            model.setFirstValue("607" + i);
             model.setSecondTitle("送水类型 : ");
-            model.setSecondVaule("自取");
+            model.setSecondValue("自取");
 
 
             baseTaskModels.add(model);

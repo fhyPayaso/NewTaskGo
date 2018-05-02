@@ -15,7 +15,7 @@ import java.util.List;
  * @since 18/4/23 18:39.
  * email fanhongyu@hrsoft.net.
  */
-public class BaseModel implements IBaseModel, WeakHandler.IHandler {
+public class BaseModel implements IBaseModel {
 
 
     protected boolean mIsLoading;
@@ -25,7 +25,6 @@ public class BaseModel implements IBaseModel, WeakHandler.IHandler {
 
     public BaseModel() {
         mIsLoading = false;
-        mHandler = new WeakHandler(Looper.getMainLooper(), this);
     }
 
     /**
@@ -33,8 +32,7 @@ public class BaseModel implements IBaseModel, WeakHandler.IHandler {
      *
      * @param notifyListener
      */
-    @Override
-    public void addNotifyListener(INotifyListener notifyListener) {
+    public <T extends INotifyListener> void addNotifyListener(T notifyListener) {
 
         if (notifyListener == null) {
             throw new NullPointerException("INotifyListener could not be null");
@@ -47,12 +45,19 @@ public class BaseModel implements IBaseModel, WeakHandler.IHandler {
 
     /**
      * 移除通知接口
-     *
      */
     @Override
     public void clearNotifyListener() {
         if (mNotifyListeners != null) {
             mNotifyListeners.clear();
+        }
+    }
+
+    public boolean removeListener(INotifyListener listener) {
+        if (listener != null) {
+            return mNotifyListeners.remove(listener);
+        } else {
+            return false;
         }
     }
 
@@ -65,11 +70,5 @@ public class BaseModel implements IBaseModel, WeakHandler.IHandler {
     public boolean isLoading() {
         return mIsLoading;
     }
-
-    @Override
-    public void handleMsg(Message msg) {
-
-    }
-
 
 }

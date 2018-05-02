@@ -28,7 +28,6 @@ public class AccountHelper extends BaseModel {
         }, 1000);
     }
 
-
     public static class AccountHelperHolder {
         private static final AccountHelper INSTANCE = new AccountHelper();
     }

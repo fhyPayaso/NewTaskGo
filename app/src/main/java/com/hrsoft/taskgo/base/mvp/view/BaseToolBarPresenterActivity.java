@@ -7,6 +7,7 @@ import com.hrsoft.taskgo.base.activity.BaseActivity;
 import com.hrsoft.taskgo.base.activity.BaseToolBarActivity;
 import com.hrsoft.taskgo.base.mvp.model.BaseModel;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
+import com.hrsoft.taskgo.base.mvp.presenter.IBasePresenter;
 
 /**
  * @author FanHongyu.
@@ -14,7 +15,7 @@ import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
  * email fanhongyu@hrsoft.net.
  */
 
-public abstract class BaseToolBarPresenterActivity<P extends BasePresenter, M extends BaseModel> extends
+public abstract class BaseToolBarPresenterActivity<P extends IBasePresenter> extends
         BaseToolBarActivity implements IBaseView {
 
 
@@ -35,33 +36,21 @@ public abstract class BaseToolBarPresenterActivity<P extends BasePresenter, M ex
 
 
     /**
-     * 获取Presenter实例
-     *
-     * @return
-     */
-    protected abstract M getModel();
-
-
-    /**
      * 初始化绑定状态
      */
     @SuppressWarnings("unchecked")
     private void initPresenter() {
         mPresenter = getPresenter();
-        if (mPresenter != null) {
-            mPresenter.bindView(this);
-            mPresenter.bindModel(getModel());
-        }
     }
 
 
     @Override
     protected void onDestroy() {
 
-        if (mPresenter != null && mPresenter.isBindView()) {
-            mPresenter.unBindView();
-            mPresenter = null;
-        }
+//        if (mPresenter != null && mPresenter.isBindView()) {
+//            mPresenter.unBindView();
+//            mPresenter = null;
+//        }
         super.onDestroy();
     }
 

@@ -14,7 +14,7 @@ import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
  * email fanhongyu@hrsoft.net.
  */
 
-public abstract class BasePresenterActivity<P extends BasePresenter, M extends BaseModel> extends BaseNoBarActivity implements IBaseView {
+public abstract class BasePresenterActivity<P extends BasePresenter, M extends BaseModel> extends BaseNoBarActivity {
 
     protected P mPresenter;
 
@@ -46,10 +46,6 @@ public abstract class BasePresenterActivity<P extends BasePresenter, M extends B
     @SuppressWarnings("unchecked")
     private void initPresenter() {
         mPresenter = getPresenter();
-        if (mPresenter != null) {
-            mPresenter.bindView(this);
-            mPresenter.bindModel(getModel());
-        }
     }
 
 

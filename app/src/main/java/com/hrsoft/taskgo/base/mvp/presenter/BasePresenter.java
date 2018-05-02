@@ -9,15 +9,12 @@ import com.hrsoft.taskgo.base.mvp.view.IBaseView;
  * email fanhongyu@hrsoft.net.
  */
 
-public class BasePresenter<M extends BaseModel, V extends IBaseView> implements IBasePresenter<M, V> {
+public abstract class BasePresenter<V extends IBaseView>{
 
-
-    protected M mModel;
     protected V mView;
 
-
-    public BasePresenter() {
-
+    public BasePresenter(V view) {
+        mView = view;
     }
 
     /**
@@ -25,7 +22,6 @@ public class BasePresenter<M extends BaseModel, V extends IBaseView> implements 
      *
      * @param view
      */
-    @Override
     public void bindView(V view) {
         mView = view;
     }
@@ -33,7 +29,6 @@ public class BasePresenter<M extends BaseModel, V extends IBaseView> implements 
     /**
      * 解绑v层
      */
-    @Override
     public void unBindView() {
         if (mView != null) {
             mView = null;
@@ -46,51 +41,12 @@ public class BasePresenter<M extends BaseModel, V extends IBaseView> implements 
      *
      * @return
      */
-    @Override
     public boolean isBindView() {
         return false;
     }
 
     /**
-     * 绑定m层
-     *
-     * @param model
-     */
-    @Override
-    public void bindModel(M model) {
-        if (model != null) {
-            mModel = model;
-        }
-    }
-
-    /**
-     * 获取M层实例
-     *
-     * @return
-     */
-    @Override
-    public M getModel() {
-        return mModel;
-    }
-
-    /**
      * 解绑m层
      */
-    @Override
-    public void unBindModel() {
-        if (mModel != null) {
-            mModel.clearNotifyListener();
-            mModel = null;
-        }
-    }
-
-    /**
-     * 判断是否正在进行数据加载
-     *
-     * @return
-     */
-    @Override
-    public boolean isLoading() {
-        return mModel != null && mModel.isLoading();
-    }
+    protected abstract void unBindModel();
 }

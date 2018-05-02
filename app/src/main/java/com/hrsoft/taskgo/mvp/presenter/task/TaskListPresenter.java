@@ -16,8 +16,12 @@ import java.util.List;
  * email fanhongyu@hrsoft.net.
  */
 
-public class TaskListPresenter extends BasePresenter<TaskHelper, TaskListContract.View> implements TaskListContract
+public class TaskListPresenter extends BasePresenter<TaskListContract.View> implements TaskListContract
         .Presenter {
+
+    public TaskListPresenter(TaskListContract.View view) {
+        super(view);
+    }
 
     @Override
     public void loadTaskList(String taskType) {
@@ -44,16 +48,21 @@ public class TaskListPresenter extends BasePresenter<TaskHelper, TaskListContrac
     private void loadSchoolSixWaterTaskList() {
 
 
-        getModel().loadSchoolSixWaterTaskList(new IDataCallback.Callback<List<BaseTaskModel>>() {
-            @Override
-            public void onFailedLoaded(String error) {
-                mView.onLoadTaskListError(error);
-            }
+//        getModel().loadSchoolSixWaterTaskList(new IDataCallback.Callback<List<BaseTaskModel>>() {
+//            @Override
+//            public void onFailedLoaded(String error) {
+//                mView.onLoadTaskListError(error);
+//            }
+//
+//            @Override
+//            public void onDataLoaded(List<BaseTaskModel> taskModelList) {
+//                mView.onLoadTaskListSuccess(taskModelList);
+//            }
+//        });
+    }
 
-            @Override
-            public void onDataLoaded(List<BaseTaskModel> taskModelList) {
-                mView.onLoadTaskListSuccess(taskModelList);
-            }
-        });
+    @Override
+    protected void unBindModel() {
+
     }
 }

@@ -41,7 +41,7 @@ public class BaseTaskModel {
     /**
      * 第一必填信息
      */
-    private String firstVaule;
+    private String firstValue;
 
     /**
      * 第二标题
@@ -51,7 +51,7 @@ public class BaseTaskModel {
     /**
      * 第二必填信息
      */
-    private String secondVaule;
+    private String secondValue;
 
 
     /**
@@ -114,12 +114,12 @@ public class BaseTaskModel {
         this.firstTitle = firstTitle;
     }
 
-    public String getFirstVaule() {
-        return firstVaule;
+    public String getFirstValue() {
+        return firstValue;
     }
 
-    public void setFirstVaule(String firstVaule) {
-        this.firstVaule = firstVaule;
+    public void setFirstValue(String firstValue) {
+        this.firstValue = firstValue;
     }
 
     public String getSecondTitle() {
@@ -130,12 +130,12 @@ public class BaseTaskModel {
         this.secondTitle = secondTitle;
     }
 
-    public String getSecondVaule() {
-        return secondVaule;
+    public String getSecondValue() {
+        return secondValue;
     }
 
-    public void setSecondVaule(String secondVaule) {
-        this.secondVaule = secondVaule;
+    public void setSecondValue(String secondValue) {
+        this.secondValue = secondValue;
     }
 
     public String getThirdTitle() {

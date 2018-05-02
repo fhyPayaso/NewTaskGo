@@ -16,7 +16,7 @@ public interface IBaseModel {
      *
      * @param notifyListener
      */
-    void addNotifyListener(INotifyListener notifyListener);
+//    void addNotifyListener(INotifyListener notifyListener);
 
     /**
      * 移除通知接口

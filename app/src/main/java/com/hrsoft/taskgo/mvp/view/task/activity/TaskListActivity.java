@@ -33,8 +33,9 @@ import butterknife.OnClick;
  * email fanhongyu@hrsoft.net.
  */
 
-public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListPresenter, TaskHelper> implements
-        TaskListContract.View, OnItemViewClickListener, RecyclerScrollListener.LoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContract.Presenter> implements
+        TaskListContract.View, OnItemViewClickListener, RecyclerScrollListener.LoadMoreListener, SwipeRefreshLayout
+        .OnRefreshListener {
 
 
     @BindView(R.id.recycler_task_list)
@@ -99,14 +100,9 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListPrese
 
     @Override
     protected TaskListPresenter getPresenter() {
-        return new TaskListPresenter();
+        //return new TaskListPresenter();
+        return null;
     }
-
-    @Override
-    protected TaskHelper getModel() {
-        return new TaskHelper();
-    }
-
 
     /**
      * 拉取任务列表成功回调

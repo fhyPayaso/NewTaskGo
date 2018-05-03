@@ -3,31 +3,30 @@ package com.hrsoft.taskgo.mvp.model.account.request;
 import com.hrsoft.taskgo.base.mvp.model.BaseBean;
 
 /**
- * 登录请求体
- *
  * @author FanHongyu.
- * @since 18/4/23 20:01.
+ * @since 18/5/3 19:00.
  * email fanhongyu@hrsoft.net.
  */
 
-public class LoginReqModel extends BaseBean {
+public class RegisterReqModel extends BaseBean{
 
 
-    private String username;
+    private String phoneNumber;
     private String password;
 
 
-    public LoginReqModel(String username, String password) {
-        this.username = username;
+    public RegisterReqModel(String phoneNumber, String password) {
+        this.phoneNumber = phoneNumber;
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getPassword() {

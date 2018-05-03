@@ -1,8 +1,6 @@
 package com.hrsoft.taskgo.mvp.presenter.task;
 
-import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
-import com.hrsoft.taskgo.base.mvp.presenter.IBasePresenter;
-import com.hrsoft.taskgo.base.mvp.view.IBaseView;
+import com.hrsoft.taskgo.base.mvp.IBaseContract;
 import com.hrsoft.taskgo.mvp.model.task.bean.BaseTaskModel;
 
 import java.util.List;
@@ -16,7 +14,7 @@ import java.util.List;
 public interface TaskListContract {
 
 
-    interface Presenter extends IBasePresenter {
+    interface Presenter extends IBaseContract.IBasePresenter {
 
         /**
          * 加载任务列表
@@ -35,7 +33,7 @@ public interface TaskListContract {
     }
 
 
-    interface View extends IBaseView {
+    interface View extends IBaseContract.IBaseView {
 
         /**
          * 加载任务列表成功

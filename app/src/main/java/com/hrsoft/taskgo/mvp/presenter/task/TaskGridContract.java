@@ -1,6 +1,6 @@
 package com.hrsoft.taskgo.mvp.presenter.task;
 
-import com.hrsoft.taskgo.base.mvp.view.IBaseView;
+import com.hrsoft.taskgo.base.mvp.IBaseContract;
 import com.hrsoft.taskgo.mvp.model.task.bean.TaskGridModel;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 public interface TaskGridContract {
 
 
-    interface Presenter {
+    interface Presenter extends IBaseContract.IBasePresenter{
 
         /**
          * 获取GridView的List
@@ -31,7 +31,7 @@ public interface TaskGridContract {
     }
 
 
-    interface View extends IBaseView {
+    interface View extends IBaseContract.IBaseView{
 
 
         /**

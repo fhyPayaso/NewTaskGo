@@ -15,7 +15,12 @@ import com.hrsoft.taskgo.utils.FragmentUtil;
  * email fanhongyu@hrsoft.net.
  */
 
-public class MainPresenter extends BasePresenter<BaseModel, MainContarct.View> implements MainContarct.Presenter {
+public class MainPresenter extends BasePresenter<MainContarct.View> implements MainContarct.Presenter {
+
+    public MainPresenter(MainContarct.View view) {
+        super(view);
+    }
+
     /**
      * 展示home页面
      *

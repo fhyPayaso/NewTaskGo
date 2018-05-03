@@ -3,6 +3,7 @@ package com.hrsoft.taskgo.base.mvp.model;
 import android.os.Looper;
 import android.os.Message;
 
+import com.hrsoft.taskgo.base.mvp.IBaseContract;
 import com.hrsoft.taskgo.base.mvp.INotifyListener;
 import com.hrsoft.taskgo.base.mvp.WeakHandler;
 import com.hrsoft.taskgo.mvp.model.account.helper.AccountHelper;
@@ -15,25 +16,16 @@ import java.util.List;
  * @since 18/4/23 18:39.
  * email fanhongyu@hrsoft.net.
  */
-public class BaseModel implements IBaseModel {
+public abstract class BaseModel implements IBaseContract.IBaseModel {
 
 
-    protected boolean mIsLoading;
     protected WeakHandler mHandler;
     protected List<INotifyListener> mNotifyListeners;
 
 
-    public BaseModel() {
-        mIsLoading = false;
-    }
 
-    /**
-     * 添加通知接口
-     *
-     * @param notifyListener
-     */
-    public <T extends INotifyListener> void addNotifyListener(T notifyListener) {
-
+    @Override
+    public void addNotifyListener(INotifyListener notifyListener) {
         if (notifyListener == null) {
             throw new NullPointerException("INotifyListener could not be null");
         }
@@ -43,32 +35,33 @@ public class BaseModel implements IBaseModel {
         mNotifyListeners.add(notifyListener);
     }
 
-    /**
-     * 移除通知接口
-     */
+
     @Override
-    public void clearNotifyListener() {
+    public boolean removeNotifyListener(INotifyListener listener) {
+        if (listener != null) {
+            return mNotifyListeners.remove(listener);
+        }
+        return false;
+    }
+
+
+    @Override
+    public void removeNotifyListener(List<INotifyListener> listenerList) {
+
+        if (listenerList != null) {
+            for (INotifyListener listener : listenerList) {
+                removeNotifyListener(listener);
+            }
+        }
+    }
+
+
+    @Override
+    public void removeAllNotifyListener() {
         if (mNotifyListeners != null) {
             mNotifyListeners.clear();
         }
     }
 
-    public boolean removeListener(INotifyListener listener) {
-        if (listener != null) {
-            return mNotifyListeners.remove(listener);
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * 判断M层正在加载数据
-     *
-     * @return
-     */
-    @Override
-    public boolean isLoading() {
-        return mIsLoading;
-    }
 
 }

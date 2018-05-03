@@ -3,6 +3,7 @@ package com.hrsoft.taskgo.mvp.model.account.helper;
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
 import com.hrsoft.taskgo.base.mvp.model.BaseModel;
 import com.hrsoft.taskgo.mvp.model.account.request.LoginReqModel;
+import com.hrsoft.taskgo.mvp.model.task.TaskHelper;
 
 /**
  * @author FanHongyu.
@@ -13,8 +14,22 @@ import com.hrsoft.taskgo.mvp.model.account.request.LoginReqModel;
 public class AccountHelper extends BaseModel {
 
 
+    private AccountHelper() {
+
+    }
+
+
+    public static class AccountHelperHolder {
+        private static final AccountHelper INSTANCE = new AccountHelper();
+    }
+
+    public static AccountHelper getInstance() {
+        return AccountHelperHolder.INSTANCE;
+    }
+
+
     public void login(final LoginReqModel reqModel, final IDataCallback.Callback<String> callback) {
-        addNotifyListener(callback);
+
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -26,13 +41,5 @@ public class AccountHelper extends BaseModel {
                 }
             }
         }, 1000);
-    }
-
-    public static class AccountHelperHolder {
-        private static final AccountHelper INSTANCE = new AccountHelper();
-    }
-
-    public static AccountHelper getAccountHelper() {
-        return AccountHelperHolder.INSTANCE;
     }
 }

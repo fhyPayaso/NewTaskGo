@@ -48,21 +48,20 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
     private void loadSchoolSixWaterTaskList() {
 
 
-//        getModel().loadSchoolSixWaterTaskList(new IDataCallback.Callback<List<BaseTaskModel>>() {
-//            @Override
-//            public void onFailedLoaded(String error) {
-//                mView.onLoadTaskListError(error);
-//            }
-//
-//            @Override
-//            public void onDataLoaded(List<BaseTaskModel> taskModelList) {
-//                mView.onLoadTaskListSuccess(taskModelList);
-//            }
-//        });
+        IDataCallback.Callback<List<BaseTaskModel>> loadListCallBack = new IDataCallback.Callback<List<BaseTaskModel>>() {
+            @Override
+            public void onFailedLoaded(String error) {
+                mView.onLoadTaskListError(error);
+            }
+
+            @Override
+            public void onDataLoaded(List<BaseTaskModel> taskModelList) {
+                mView.onLoadTaskListSuccess(taskModelList);
+            }
+        };
+
+        addNotifyListener(loadListCallBack,TaskHelper.getInstance());
+        TaskHelper.getInstance().loadSchoolSixWaterTaskList(loadListCallBack);
     }
 
-    @Override
-    protected void unBindModel() {
-
-    }
 }

@@ -1,10 +1,9 @@
 package com.hrsoft.taskgo.base.mvp.view;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 
-import com.hrsoft.taskgo.base.activity.BaseActivity;
 import com.hrsoft.taskgo.base.fragment.BaseFragment;
+import com.hrsoft.taskgo.base.mvp.IBaseContract;
 import com.hrsoft.taskgo.base.mvp.model.BaseModel;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 
@@ -14,8 +13,7 @@ import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
  * email fanhongyu@hrsoft.net.
  */
 
-public abstract class BasePresenterFragment<P extends BasePresenter, M extends BaseModel> extends BaseFragment implements
-        IBaseView {
+public abstract class BasePresenterFragment<P extends IBaseContract.IBasePresenter> extends BaseFragment {
 
 
     protected P mPresenter;
@@ -36,28 +34,16 @@ public abstract class BasePresenterFragment<P extends BasePresenter, M extends B
 
 
     /**
-     * 获取Presenter实例
-     *
-     * @return
-     */
-    protected abstract M getModel();
-
-
-    /**
      * 初始化绑定状态
      */
     @SuppressWarnings("unchecked")
     private void initPresenter() {
         mPresenter = getPresenter();
-        if (mPresenter != null) {
-            mPresenter.bindView(this);
-            mPresenter.bindModel(getModel());
-        }
     }
 
     @Override
     public void onDetach() {
-        if (mPresenter != null && mPresenter.isBindView()) {
+        if (mPresenter != null) {
             mPresenter.unBindView();
             mPresenter = null;
         }

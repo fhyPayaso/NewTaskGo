@@ -11,8 +11,7 @@ import com.hrsoft.taskgo.mvp.model.account.request.LoginReqModel;
  * email fanhongyu@hrsoft.net.
  */
 
-public class LoginPresenter extends BasePresenter<LoginContract.View> implements LoginContract
-        .Presenter{
+public class LoginPresenter extends BasePresenter<LoginContract.View> implements LoginContract.Presenter {
 
     public LoginPresenter(LoginContract.View view) {
         super(view);
@@ -32,27 +31,27 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
             mView.onLoginFailed("密码不能为空");
         } else {
             mView.showProgress();
+            LoginReqModel reqModel = new LoginReqModel(username, password);
 
 
+            IDataCallback.Callback<String> loginCallBack = new IDataCallback.Callback<String>() {
+                @Override
+                public void onFailedLoaded(String error) {
 
-            //getModel().login(new LoginReqModel(username, password), logiCallback);
+                    mView.onLoginFailed(error);
+                    mView.hideProgress();
+
+                }
+
+                @Override
+                public void onDataLoaded(String s) {
+                    mView.onLoginSuccess();
+                    mView.hideProgress();
+                }
+            };
+
+            addNotifyListener(loginCallBack,AccountHelper.getInstance());
+            AccountHelper.getInstance().login(reqModel, loginCallBack);
         }
     }
-
-    private IDataCallback.Callback<String> logiCallback= new IDataCallback.Callback<String>() {
-
-        @Override
-        public void onFailedLoaded(String error) {
-
-            mView.onLoginFailed(error);
-            mView.hideProgress();
-
-        }
-
-        @Override
-        public void onDataLoaded(String s) {
-            mView.onLoginSuccess();
-            mView.hideProgress();
-        }
-    };
 }

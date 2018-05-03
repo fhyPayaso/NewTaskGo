@@ -1,9 +1,7 @@
 package com.hrsoft.taskgo.mvp.presenter.account;
 
+import com.hrsoft.taskgo.base.mvp.IBaseContract;
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
-import com.hrsoft.taskgo.base.mvp.INotifyListener;
-import com.hrsoft.taskgo.base.mvp.presenter.IBasePresenter;
-import com.hrsoft.taskgo.base.mvp.view.IBaseView;
 
 /**
  * @author FanHongyu.
@@ -14,13 +12,13 @@ import com.hrsoft.taskgo.base.mvp.view.IBaseView;
 public interface LoginContract {
 
 
-    interface Presenter extends IBasePresenter, IDataCallback {
+    interface Presenter extends IBaseContract.IBasePresenter {
 
         void login(String username, String password);
     }
 
 
-    interface View extends IBaseView {
+    interface View extends IBaseContract.IBaseView{
 
         void onLoginSuccess();
 

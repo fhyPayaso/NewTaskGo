@@ -25,7 +25,7 @@ import butterknife.BindView;
  * email fanhongyu@hrsoft.net.
  */
 
-public class TaskGridActivity extends BasePresenterActivity<TaskGridPresenter, BaseModel> implements TaskGridContract.View {
+public class TaskGridActivity extends BasePresenterActivity<TaskGridContract.Presenter> implements TaskGridContract.View {
 
 
     @BindView(R.id.ll_task_type_root_view)
@@ -56,13 +56,9 @@ public class TaskGridActivity extends BasePresenterActivity<TaskGridPresenter, B
 
     @Override
     protected TaskGridPresenter getPresenter() {
-        return new TaskGridPresenter();
+        return new TaskGridPresenter(this);
     }
 
-    @Override
-    protected BaseModel getModel() {
-        return null;
-    }
 
 
     @Override

@@ -1,7 +1,7 @@
 package com.hrsoft.taskgo.mvp.presenter;
 
 import com.hrsoft.taskgo.base.activity.BaseActivity;
-import com.hrsoft.taskgo.base.mvp.view.IBaseView;
+import com.hrsoft.taskgo.base.mvp.IBaseContract;
 import com.hrsoft.taskgo.mvp.view.message.MessageFragment;
 import com.hrsoft.taskgo.mvp.view.mine.MineFragment;
 import com.hrsoft.taskgo.mvp.view.task.fragment.HomeFragment;
@@ -15,7 +15,7 @@ import com.hrsoft.taskgo.mvp.view.task.fragment.HomeFragment;
 public interface MainContarct {
 
 
-    interface Presenter {
+    interface Presenter extends IBaseContract.IBasePresenter{
 
         /**
          * 展示home页面
@@ -35,7 +35,7 @@ public interface MainContarct {
     }
 
 
-    interface View extends IBaseView {
+    interface View extends IBaseContract.IBaseView{
 
         /**
          * 清除所有标签状态

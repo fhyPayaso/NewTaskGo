@@ -8,5 +8,7 @@ import java.io.Serializable;
  * email fanhongyu@hrsoft.net.
  */
 
-public abstract class BaseBean implements Serializable{
+public abstract class BaseBean implements Serializable {
+
+    abstract void checkValue();
 }

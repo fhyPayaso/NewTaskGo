@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.hrsoft.taskgo.base.activity.BaseActivity;
 import com.hrsoft.taskgo.base.activity.BaseNoBarActivity;
+import com.hrsoft.taskgo.base.mvp.IBaseContract;
 import com.hrsoft.taskgo.base.mvp.model.BaseModel;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 
@@ -14,7 +15,7 @@ import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
  * email fanhongyu@hrsoft.net.
  */
 
-public abstract class BasePresenterActivity<P extends BasePresenter, M extends BaseModel> extends BaseNoBarActivity {
+public abstract class BasePresenterActivity<P extends IBaseContract.IBasePresenter> extends BaseNoBarActivity {
 
     protected P mPresenter;
 
@@ -31,15 +32,6 @@ public abstract class BasePresenterActivity<P extends BasePresenter, M extends B
      */
     protected abstract P getPresenter();
 
-
-    /**
-     * 获取Model实例
-     *
-     * @return
-     */
-    protected abstract M getModel();
-
-
     /**
      * 初始化绑定状态
      */
@@ -52,7 +44,7 @@ public abstract class BasePresenterActivity<P extends BasePresenter, M extends B
     @Override
     protected void onDestroy() {
 
-        if (mPresenter != null && mPresenter.isBindView()) {
+        if (mPresenter != null) {
             mPresenter.unBindView();
             mPresenter = null;
         }

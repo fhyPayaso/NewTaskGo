@@ -4,6 +4,7 @@ import android.os.Handler;
 
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
 import com.hrsoft.taskgo.base.mvp.model.BaseModel;
+import com.hrsoft.taskgo.mvp.model.account.helper.AccountHelper;
 import com.hrsoft.taskgo.mvp.model.task.bean.BaseTaskModel;
 
 import java.util.ArrayList;
@@ -18,9 +19,19 @@ import java.util.List;
 public class TaskHelper extends BaseModel {
 
 
-    public void loadSchoolSixWaterTaskList(final IDataCallback.Callback<List<BaseTaskModel>> callback) {
+    private TaskHelper() {
+    }
 
-        addNotifyListener(callback);
+    public static class TaskHelperHolder {
+        private static final TaskHelper INSTANCE = new TaskHelper();
+    }
+
+    public static TaskHelper getInstance() {
+        return TaskHelperHolder.INSTANCE;
+    }
+
+
+    public void loadSchoolSixWaterTaskList(final IDataCallback.Callback<List<BaseTaskModel>> callback) {
 
         final List<BaseTaskModel> baseTaskModels = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
@@ -51,7 +62,7 @@ public class TaskHelper extends BaseModel {
                 callback.onDataLoaded(baseTaskModels);
             }
         }, 2000);
-
-
     }
+
+
 }

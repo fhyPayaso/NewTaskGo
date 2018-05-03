@@ -16,9 +16,13 @@ import java.util.List;
  * email fanhongyu@hrsoft.net.
  */
 
-public class TaskGridPresenter extends BasePresenter<BaseModel, TaskGridContract.View> implements TaskGridContract
+public class TaskGridPresenter extends BasePresenter<TaskGridContract.View> implements TaskGridContract
         .Presenter {
 
+
+    public TaskGridPresenter(TaskGridContract.View view) {
+        super(view);
+    }
 
     @Override
     public void getGridList(String moduleType) {

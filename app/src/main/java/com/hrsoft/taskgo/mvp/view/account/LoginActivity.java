@@ -18,7 +18,7 @@ import com.hrsoft.taskgo.utils.ToastUtil;
  * email fanhongyu@hrsoft.net.
  */
 
-public class LoginActivity extends BasePresenterActivity<LoginPresenter, AccountHelper> implements LoginContract.View {
+public class LoginActivity extends BasePresenterActivity<LoginContract.Presenter> implements LoginContract.View {
 
 
     private EditText mEditUserName;
@@ -31,18 +31,9 @@ public class LoginActivity extends BasePresenterActivity<LoginPresenter, Account
      */
     @Override
     protected LoginPresenter getPresenter() {
-        return new LoginPresenter();
+        return new LoginPresenter(this);
     }
 
-    /**
-     * 获取Presenter实例
-     *
-     * @return
-     */
-    @Override
-    protected AccountHelper getModel() {
-        return AccountHelper.getAccountHelper();
-    }
 
     /**
      * 获取父布局

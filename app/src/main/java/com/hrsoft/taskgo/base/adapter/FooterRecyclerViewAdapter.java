@@ -23,7 +23,7 @@ public abstract class FooterRecyclerViewAdapter<Data> extends RecyclerView.Adapt
 
 
     public static final int ITEM_NORMAL = 1000;
-    public static final int ITEM_FOOTER = 2000;
+    public static final int ITEM_FOOTER = 1001;
 
     protected List<Data> mDataList;
     protected Context mContext;
@@ -76,15 +76,29 @@ public abstract class FooterRecyclerViewAdapter<Data> extends RecyclerView.Adapt
 
     @Override
     public int getItemViewType(int position) {
-        return (mWithFooter && position >= mDataList.size()) ? ITEM_FOOTER : ITEM_NORMAL;
+
+
+        //如果需要底部footer
+        if (mWithFooter) {
+
+            //如果是footerView
+            if (position >= mDataList.size()) {
+                return ITEM_FOOTER;
+            } else {
+                return ITEM_NORMAL;
+            }
+        } else {
+            return ITEM_NORMAL;
+        }
     }
 
 
     @Override
+    @SuppressWarnings("unchecked")
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof BaseViewHolder) {
+        if (holder.getItemViewType() == ITEM_NORMAL) {
             bindView((BaseViewHolder) holder, mDataList.get(position));
-        } else {
+        } else if (holder.getItemViewType() == ITEM_FOOTER) {
             ((FooterViewHolder) holder).setLoadVisibility(false);
         }
     }
@@ -96,6 +110,25 @@ public abstract class FooterRecyclerViewAdapter<Data> extends RecyclerView.Adapt
      * @param item
      */
     protected abstract void bindView(BaseViewHolder viewHolder, Data item);
+
+
+    /**
+     * 重新设置数据
+     *
+     * @param data 数据
+     */
+    public void reSetDataList(Collection<Data> data) {
+        this.mDataList.clear();
+        this.mDataList.addAll(data);
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 获取当前列表的数据
+     */
+    public List<Data> getDataList() {
+        return this.mDataList;
+    }
 
 
     /**

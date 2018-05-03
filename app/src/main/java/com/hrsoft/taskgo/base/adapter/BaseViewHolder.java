@@ -143,4 +143,16 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
     public View getViewById(@IdRes int viewId) {
         return findViewById(viewId);
     }
+
+
+    /**
+     * 获取当前viewHolder位置
+     *
+     * @return
+     */
+    public int getViewHolderPosition() {
+        return getAdapterPosition();
+    }
+
+
 }

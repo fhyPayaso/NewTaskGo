@@ -1,13 +1,11 @@
 package com.hrsoft.taskgo.mvp.presenter.task;
 
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
-import com.hrsoft.taskgo.base.mvp.model.BaseModel;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 import com.hrsoft.taskgo.common.TaskTypeConfig;
 import com.hrsoft.taskgo.mvp.model.task.TaskHelper;
 import com.hrsoft.taskgo.mvp.model.task.bean.BaseTaskModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +24,7 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
     @Override
     public void loadTaskList(String taskType) {
         switch (taskType) {
-            case TaskTypeConfig.COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL_SIX:
+            case TaskTypeConfig.COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL:
                 loadSchoolSixWaterTaskList();
                 break;
             default:
@@ -35,10 +33,10 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
     }
 
     @Override
-    public void acceptTask(BaseTaskModel model) {
+    public void acceptTask(BaseTaskModel model,int position) {
 
 
-        mView.onAcceptTaskSuccess(model);
+        mView.onAcceptTaskSuccess(position);
     }
 
 

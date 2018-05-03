@@ -2,7 +2,6 @@ package com.hrsoft.taskgo.mvp.presenter;
 
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.activity.BaseActivity;
-import com.hrsoft.taskgo.base.mvp.model.BaseModel;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 import com.hrsoft.taskgo.mvp.view.message.MessageFragment;
 import com.hrsoft.taskgo.mvp.view.mine.MineFragment;
@@ -15,9 +14,9 @@ import com.hrsoft.taskgo.utils.FragmentUtil;
  * email fanhongyu@hrsoft.net.
  */
 
-public class MainPresenter extends BasePresenter<MainContarct.View> implements MainContarct.Presenter {
+public class MainPresenter extends BasePresenter<MainContract.View> implements MainContract.Presenter {
 
-    public MainPresenter(MainContarct.View view) {
+    public MainPresenter(MainContract.View view) {
         super(view);
     }
 

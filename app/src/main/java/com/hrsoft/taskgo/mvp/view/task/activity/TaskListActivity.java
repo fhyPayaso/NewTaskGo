@@ -34,7 +34,7 @@ import butterknife.OnClick;
  */
 
 public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContract.Presenter> implements
-        TaskListContract.View, OnItemViewClickListener, RecyclerScrollListener.LoadMoreListener, SwipeRefreshLayout
+        TaskListContract.View, OnItemViewClickListener, SwipeRefreshLayout
         .OnRefreshListener {
 
 
@@ -76,32 +76,29 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
 
         mRecyclerAdapter = new TaskListRecyclerAdapter(mTaskModelList, this, R.layout.item_recycler_task);
         //设置上拉加载更多
-        mRecyclerAdapter.setWithFooter(true);
+        //mRecyclerAdapter.setWithFooter(true);
         //内部控件点击事件
         mRecyclerAdapter.setOnItemViewClickListener(this);
         //设置adapter
         mRecyclerTaskList.setAdapter(mRecyclerAdapter);
         mRecyclerTaskList.setLayoutManager(new LinearLayoutManager(this));
 
+//        //设置滑动事件监听
+//        mScrollListener = new RecyclerScrollListener(mRecyclerTaskList, mRecyclerAdapter);
+//        //动态显示悬浮按钮
+//        mScrollListener.setFloatingButton(mBtnReleaseTask);
+//        //添加加载更多事件监听
+//        mScrollListener.setLoadMoreListener(this);
 
-        //设置滑动事件监听
-        mScrollListener = new RecyclerScrollListener(mRecyclerTaskList, mRecyclerAdapter);
-        //动态显示悬浮按钮
-        mScrollListener.setFloatingButton(mBtnReleaseTask);
-        //添加加载更多事件监听
-        mScrollListener.setLoadMoreListener(this);
         //添加下拉刷新事件监听
         mRefreshLayout.setOnRefreshListener(this);
-
-
         mRefreshLayout.setRefreshing(true);
         mPresenter.loadTaskList(mTaskType);
     }
 
     @Override
     protected TaskListPresenter getPresenter() {
-        //return new TaskListPresenter();
-        return null;
+        return new TaskListPresenter(this);
     }
 
     /**
@@ -131,8 +128,8 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
      * 接受任务成功回调
      */
     @Override
-    public void onAcceptTaskSuccess(BaseTaskModel model) {
-        mRecyclerAdapter.removeItem(model);
+    public void onAcceptTaskSuccess(int position) {
+        mRecyclerAdapter.removeItem(position);
     }
 
     /**
@@ -157,34 +154,20 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
 
     /**
      * 头像点击事件回调
-     *
-     * @param model
      */
     @Override
-    public void onAvatarClick(BaseTaskModel model) {
-        ToastUtil.showToast(model.getUserName());
+    public void onAvatarClick(int position) {
+        ToastUtil.showToast(mTaskModelList.get(position).getUserName());
     }
 
 
     /**
      * 接受按钮点击事件回调
-     *
-     * @param model
      */
     @Override
-    public void onBtnClick(BaseTaskModel model) {
-        mPresenter.acceptTask(model);
+    public void onBtnClick(int position) {
+        mPresenter.acceptTask(mTaskModelList.get(position), position);
     }
-
-
-    /**
-     * 上拉加载更多事件监听
-     */
-    @Override
-    public void onLoad() {
-        mPresenter.loadTaskList(mTaskType);
-    }
-
 
     /**
      * 下拉刷新事件监听
@@ -199,5 +182,6 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
         Intent intent = new Intent(context, TaskListActivity.class);
         intent.putExtra(TaskTypeConfig.KEY_TASK_TYPE, taskType);
         context.startActivity(intent);
+        //token  10f6a71c7287c0612c81dda9d288957d
     }
 }

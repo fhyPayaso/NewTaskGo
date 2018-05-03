@@ -12,7 +12,7 @@ import com.hrsoft.taskgo.mvp.view.task.fragment.HomeFragment;
  * email fanhongyu@hrsoft.net.
  */
 
-public interface MainContarct {
+public interface MainContract {
 
 
     interface Presenter extends IBaseContract.IBasePresenter{

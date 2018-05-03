@@ -29,7 +29,7 @@ public interface TaskListContract {
          *
          * @param model
          */
-        void acceptTask(BaseTaskModel model);
+        void acceptTask(BaseTaskModel model, int position);
     }
 
 
@@ -51,7 +51,7 @@ public interface TaskListContract {
         /**
          * 接受任务成功
          */
-        void onAcceptTaskSuccess(BaseTaskModel model);
+        void onAcceptTaskSuccess(int position);
 
 
         /**

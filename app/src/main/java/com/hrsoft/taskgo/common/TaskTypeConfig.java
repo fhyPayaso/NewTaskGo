@@ -35,8 +35,8 @@ public class TaskTypeConfig {
     /**
      * 校六送水
      */
-    public static final String COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL_SIX = COLLEGE_ENTREPRENEURSHIP +
-            "_water_school_six";
+    public static final String COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL = COLLEGE_ENTREPRENEURSHIP +
+            "_water_school";
 
 
 }

@@ -6,9 +6,8 @@ import android.widget.TextView;
 
 import com.hrsoft.taskgo.App;
 import com.hrsoft.taskgo.R;
-import com.hrsoft.taskgo.base.mvp.model.BaseModel;
 import com.hrsoft.taskgo.base.mvp.view.BasePresenterActivity;
-import com.hrsoft.taskgo.mvp.presenter.MainContarct;
+import com.hrsoft.taskgo.mvp.presenter.MainContract;
 import com.hrsoft.taskgo.mvp.presenter.MainPresenter;
 import com.hrsoft.taskgo.mvp.view.message.MessageFragment;
 import com.hrsoft.taskgo.mvp.view.mine.MineFragment;
@@ -18,7 +17,13 @@ import com.hrsoft.taskgo.utils.FragmentUtil;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends BasePresenterActivity<MainPresenter, BaseModel> implements MainContarct.View {
+/**
+ * @author FanHongyu.
+ * @since 18/4/27 11:49.
+ * email fanhongyu@hrsoft.net.
+ */
+
+public class MainActivity extends BasePresenterActivity<MainContract.Presenter> implements MainContract.View {
 
 
     @BindView(R.id.img_main_tab_home)
@@ -77,18 +82,9 @@ public class MainActivity extends BasePresenterActivity<MainPresenter, BaseModel
      */
     @Override
     protected MainPresenter getPresenter() {
-        return new MainPresenter();
+        return new MainPresenter(this);
     }
 
-    /**
-     * 获取Presenter实例
-     *
-     * @return
-     */
-    @Override
-    protected BaseModel getModel() {
-        return null;
-    }
 
     /**
      * 清除所有标签状态

@@ -6,12 +6,10 @@ import android.os.Bundle;
 
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.activity.BaseToolBarActivity;
-import com.hrsoft.taskgo.base.mvp.view.BasePresenterActivity;
 import com.hrsoft.taskgo.base.mvp.view.BasePresenterFragment;
 import com.hrsoft.taskgo.common.TaskTypeConfig;
-import com.hrsoft.taskgo.mvp.view.task.fragment.information.WaterSchoolSixFragment;
+import com.hrsoft.taskgo.mvp.view.task.fragment.information.WaterSchoolFragment;
 import com.hrsoft.taskgo.utils.FragmentUtil;
-import com.hrsoft.taskgo.utils.ToastUtil;
 
 /**
  * @author fhyPayaso
@@ -42,9 +40,9 @@ public class FillTaskInfoActivity extends BaseToolBarActivity {
     protected void initView() {
 
         switch (taskType) {
-            case TaskTypeConfig.COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL_SIX:
-                if (mFragment == null || !(mFragment instanceof WaterSchoolSixFragment)) {
-                    mFragment = new WaterSchoolSixFragment();
+            case TaskTypeConfig.COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL:
+                if (mFragment == null || !(mFragment instanceof WaterSchoolFragment)) {
+                    mFragment = new WaterSchoolFragment();
                 }
                 break;
             default:

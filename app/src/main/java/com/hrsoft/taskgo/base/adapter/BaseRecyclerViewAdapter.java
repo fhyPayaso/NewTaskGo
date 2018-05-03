@@ -28,8 +28,6 @@ public abstract class BaseRecyclerViewAdapter<Data> extends RecyclerView.Adapter
     protected Context mContext;
     protected LayoutInflater mInflater;
     protected int mItemLayoutId;
-
-
     private OnItemClickListener mOnItemClickListener;
 
 
@@ -41,7 +39,18 @@ public abstract class BaseRecyclerViewAdapter<Data> extends RecyclerView.Adapter
     }
 
     @Override
-    public void onBindViewHolder(BaseViewHolder holder, int position) {
+    public void onBindViewHolder(BaseViewHolder holder, final int position) {
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (mOnItemClickListener != null) {
+                    mOnItemClickListener.onItemClick(v, mDataList.get(position), position);
+                }
+
+            }
+        });
         bindView(holder, mDataList.get(position));
     }
 
@@ -58,20 +67,8 @@ public abstract class BaseRecyclerViewAdapter<Data> extends RecyclerView.Adapter
     @Override
     @SuppressWarnings("unchecked")
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View view = mInflater.inflate(mItemLayoutId, parent, false);
-        BaseViewHolder viewHolder = new BaseViewHolder(mContext, view);
-        final int position = viewHolder.getAdapterPosition();
-        //在创建viewHolder时候就设置点击事件
-        if (mOnItemClickListener != null) {
-            viewHolder.getItemView().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mOnItemClickListener.onItemClick(v, mDataList.get(position), position);
-                }
-            });
-        }
-        return viewHolder;
+        return new BaseViewHolder(mContext, view);
     }
 
 
@@ -80,6 +77,23 @@ public abstract class BaseRecyclerViewAdapter<Data> extends RecyclerView.Adapter
         return mDataList.size();
     }
 
+    /**
+     * 设置数据
+     *
+     * @param data 数据
+     */
+    public void setDataList(Collection<Data> data) {
+        this.mDataList.clear();
+        this.mDataList.addAll(data);
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 获取当前列表的数据
+     */
+    public List<Data> getDataList() {
+        return this.mDataList;
+    }
 
     /**
      * 添加数据
@@ -87,7 +101,7 @@ public abstract class BaseRecyclerViewAdapter<Data> extends RecyclerView.Adapter
      * @param data
      */
     public void addItem(Data data) {
-        mDataList.add(data);
+        this.mDataList.add(data);
         notifyDataSetChanged();
     }
 
@@ -96,26 +110,35 @@ public abstract class BaseRecyclerViewAdapter<Data> extends RecyclerView.Adapter
      * @param collection
      */
     public void addItems(Collection<Data> collection) {
-        mDataList.addAll(collection);
+        this.mDataList.addAll(collection);
         notifyDataSetChanged();
     }
 
 
     /**
      * 移除数据
+     *
+     * @param data 移除的数据
      */
     public void removeItem(Data data) {
+        this.mDataList.remove(data);
+        notifyDataSetChanged();
+    }
 
-        int position = mDataList.indexOf(data);
-        mDataList.remove(data);
+
+    /**
+     * 移除数据（带动画）
+     *
+     * @param position pos
+     */
+    public void removeItem(int position) {
+        this.mDataList.remove(position);
         //该方法不会使position及其之后位置的itemView重新onBindViewHolder
         notifyItemRemoved(position);
         //所以需要从position到列表末尾进行数据刷新
-        if (position != mDataList.size()) {
-            notifyItemRangeChanged(position, mDataList.size() - position);
-        }
-    }
+        notifyItemRangeChanged(position, mDataList.size() - position);
 
+    }
 
     /**
      * 清除全部数据
@@ -123,6 +146,24 @@ public abstract class BaseRecyclerViewAdapter<Data> extends RecyclerView.Adapter
     public void removeAllItem() {
         mDataList.clear();
         notifyDataSetChanged();
+    }
+
+    /**
+     * 获取position 处数据
+     */
+    public Data getItem(int position) {
+        return mDataList.get(position);
+    }
+
+    /**
+     * 刷新页面
+     */
+    public void refresh() {
+        notifyDataSetChanged();
+    }
+
+    public void refresh(int position) {
+        notifyItemChanged(position);
     }
 
     public interface OnItemClickListener<Data> {

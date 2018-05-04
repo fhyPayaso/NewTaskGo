@@ -12,9 +12,8 @@ import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.adapter.RecyclerScrollListener;
 import com.hrsoft.taskgo.base.mvp.view.BaseToolBarPresenterActivity;
 import com.hrsoft.taskgo.common.TaskTypeConfig;
-import com.hrsoft.taskgo.mvp.model.task.TaskHelper;
 import com.hrsoft.taskgo.mvp.model.task.bean.BaseTaskModel;
-import com.hrsoft.taskgo.mvp.presenter.task.TaskListContract;
+import com.hrsoft.taskgo.mvp.contract.TaskListContract;
 import com.hrsoft.taskgo.mvp.presenter.task.TaskListPresenter;
 import com.hrsoft.taskgo.mvp.view.task.adapter.TaskListRecyclerAdapter;
 import com.hrsoft.taskgo.mvp.view.task.adapter.TaskListRecyclerAdapter.OnItemViewClickListener;
@@ -24,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

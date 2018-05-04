@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.hrsoft.taskgo.R;
-import com.hrsoft.taskgo.mvp.presenter.task.TaskListContract;
 
 import java.util.Collection;
 import java.util.List;

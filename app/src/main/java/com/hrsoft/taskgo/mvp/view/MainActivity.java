@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.hrsoft.taskgo.App;
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.mvp.view.BasePresenterActivity;
-import com.hrsoft.taskgo.mvp.presenter.MainContract;
+import com.hrsoft.taskgo.mvp.contract.MainContract;
 import com.hrsoft.taskgo.mvp.presenter.MainPresenter;
 import com.hrsoft.taskgo.mvp.view.message.MessageFragment;
 import com.hrsoft.taskgo.mvp.view.mine.MineFragment;

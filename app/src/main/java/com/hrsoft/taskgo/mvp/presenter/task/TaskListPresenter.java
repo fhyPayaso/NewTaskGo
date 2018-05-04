@@ -3,6 +3,7 @@ package com.hrsoft.taskgo.mvp.presenter.task;
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 import com.hrsoft.taskgo.common.TaskTypeConfig;
+import com.hrsoft.taskgo.mvp.contract.TaskListContract;
 import com.hrsoft.taskgo.mvp.model.task.TaskHelper;
 import com.hrsoft.taskgo.mvp.model.task.bean.BaseTaskModel;
 import com.hrsoft.taskgo.mvp.model.task.response.TasListRespModel;

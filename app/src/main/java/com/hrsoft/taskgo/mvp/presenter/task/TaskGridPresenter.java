@@ -3,6 +3,7 @@ package com.hrsoft.taskgo.mvp.presenter.task;
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 import com.hrsoft.taskgo.common.TaskTypeConfig;
+import com.hrsoft.taskgo.mvp.contract.TaskGridContract;
 import com.hrsoft.taskgo.mvp.model.task.bean.TaskGridModel;
 import com.hrsoft.taskgo.mvp.model.task.bean.TaskTypeModel;
 
@@ -59,6 +60,7 @@ public class TaskGridPresenter extends BasePresenter<TaskGridContract.View> impl
         List<TaskTypeModel> welfareList = new ArrayList<>();
         welfareList.add(new TaskTypeModel(R.drawable.tab_home_normal, "E管家", TaskTypeConfig
                 .COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL));
+
         gridModelList.add(new TaskGridModel("公益服务", welfareList));
 
 

@@ -3,6 +3,7 @@ package com.hrsoft.taskgo.mvp.presenter;
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.activity.BaseActivity;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
+import com.hrsoft.taskgo.mvp.contract.MainContract;
 import com.hrsoft.taskgo.mvp.view.message.MessageFragment;
 import com.hrsoft.taskgo.mvp.view.mine.MineFragment;
 import com.hrsoft.taskgo.mvp.view.task.fragment.HomeFragment;

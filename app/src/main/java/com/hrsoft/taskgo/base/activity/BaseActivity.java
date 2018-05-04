@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.hrsoft.taskgo.App;
 import com.hrsoft.taskgo.R;
@@ -39,6 +40,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //禁止应用横屏
         allowScreenHorizontal(false);
+
+        //浅颜色ToolBar设置深色状态栏文字颜色
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
 
     protected void initActivity(Bundle savedInstanceState) {

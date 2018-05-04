@@ -1,4 +1,4 @@
-package com.hrsoft.taskgo.mvp.presenter;
+package com.hrsoft.taskgo.mvp.contract;
 
 import com.hrsoft.taskgo.base.activity.BaseActivity;
 import com.hrsoft.taskgo.base.mvp.IBaseContract;

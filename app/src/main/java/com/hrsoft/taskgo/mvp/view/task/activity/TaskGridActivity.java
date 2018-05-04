@@ -6,11 +6,11 @@ import android.os.Bundle;
 import android.widget.LinearLayout;
 
 import com.hrsoft.taskgo.R;
-import com.hrsoft.taskgo.base.mvp.model.BaseModel;
 import com.hrsoft.taskgo.base.mvp.view.BasePresenterActivity;
+import com.hrsoft.taskgo.base.mvp.view.BaseToolBarPresenterActivity;
 import com.hrsoft.taskgo.common.TaskTypeConfig;
 import com.hrsoft.taskgo.mvp.model.task.bean.TaskGridModel;
-import com.hrsoft.taskgo.mvp.presenter.task.TaskGridContract;
+import com.hrsoft.taskgo.mvp.contract.TaskGridContract;
 import com.hrsoft.taskgo.mvp.presenter.task.TaskGridPresenter;
 import com.hrsoft.taskgo.mvp.view.task.fragment.TaskGridFragment;
 import com.hrsoft.taskgo.utils.FragmentUtil;
@@ -25,7 +25,8 @@ import butterknife.BindView;
  * email fanhongyu@hrsoft.net.
  */
 
-public class TaskGridActivity extends BasePresenterActivity<TaskGridContract.Presenter> implements TaskGridContract.View {
+public class TaskGridActivity extends BaseToolBarPresenterActivity<TaskGridContract.Presenter> implements
+        TaskGridContract.View {
 
 
     @BindView(R.id.ll_task_type_root_view)
@@ -50,7 +51,7 @@ public class TaskGridActivity extends BasePresenterActivity<TaskGridContract.Pre
 
     @Override
     protected void initView() {
-
+        setActivityTitle("大学生团队");
     }
 
 
@@ -58,7 +59,6 @@ public class TaskGridActivity extends BasePresenterActivity<TaskGridContract.Pre
     protected TaskGridPresenter getPresenter() {
         return new TaskGridPresenter(this);
     }
-
 
 
     @Override

@@ -35,7 +35,7 @@ import butterknife.OnClick;
 
 public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContract.Presenter> implements
         TaskListContract.View, OnItemViewClickListener, SwipeRefreshLayout
-        .OnRefreshListener {
+        .OnRefreshListener, RecyclerScrollListener.LoadMoreListener {
 
 
     @BindView(R.id.recycler_task_list)
@@ -76,19 +76,19 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
 
         mRecyclerAdapter = new TaskListRecyclerAdapter(mTaskModelList, this, R.layout.item_recycler_task);
         //设置上拉加载更多
-        //mRecyclerAdapter.setWithFooter(true);
+        mRecyclerAdapter.setWithFooter(true);
         //内部控件点击事件
         mRecyclerAdapter.setOnItemViewClickListener(this);
         //设置adapter
         mRecyclerTaskList.setAdapter(mRecyclerAdapter);
         mRecyclerTaskList.setLayoutManager(new LinearLayoutManager(this));
 
-//        //设置滑动事件监听
-//        mScrollListener = new RecyclerScrollListener(mRecyclerTaskList, mRecyclerAdapter);
-//        //动态显示悬浮按钮
-//        mScrollListener.setFloatingButton(mBtnReleaseTask);
-//        //添加加载更多事件监听
-//        mScrollListener.setLoadMoreListener(this);
+        //设置滑动事件监听
+        mScrollListener = new RecyclerScrollListener(mRecyclerTaskList, mRecyclerAdapter);
+        //动态显示悬浮按钮
+        mScrollListener.setFloatingButton(mBtnReleaseTask);
+        //添加加载更多事件监听
+        mScrollListener.setLoadMoreListener(this);
 
         //添加下拉刷新事件监听
         mRefreshLayout.setOnRefreshListener(this);
@@ -109,6 +109,9 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
     @Override
     public void onLoadTaskListSuccess(List<BaseTaskModel> taskModelList) {
         mRefreshLayout.setRefreshing(false);
+        if (mScrollListener.isLoading()) {
+            mScrollListener.setLoadMoreFinish();
+        }
         mRecyclerAdapter.addItems(taskModelList);
     }
 
@@ -120,7 +123,9 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
     @Override
     public void onLoadTaskListError(String error) {
         mRefreshLayout.setRefreshing(false);
-        mScrollListener.setLoadMoreFinish();
+        if (mScrollListener.isLoading()) {
+            mScrollListener.setLoadMoreFinish();
+        }
         ToastUtil.showToast(error);
     }
 
@@ -182,6 +187,10 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
         Intent intent = new Intent(context, TaskListActivity.class);
         intent.putExtra(TaskTypeConfig.KEY_TASK_TYPE, taskType);
         context.startActivity(intent);
-        //token  10f6a71c7287c0612c81dda9d288957d
+    }
+
+    @Override
+    public void onLoadMore() {
+        mPresenter.loadTaskList(mTaskType);
     }
 }

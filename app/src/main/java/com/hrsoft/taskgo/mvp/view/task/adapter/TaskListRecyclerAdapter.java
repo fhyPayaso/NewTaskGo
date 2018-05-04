@@ -17,7 +17,7 @@ import java.util.List;
  * @since 2018/4/29 on 下午11:17
  * fhyPayaso@qq.com
  */
-public class TaskListRecyclerAdapter extends BaseRecyclerViewAdapter<BaseTaskModel> {
+public class TaskListRecyclerAdapter extends FooterRecyclerViewAdapter<BaseTaskModel> {
 
 
     private OnItemViewClickListener mOnItemViewClickListener;

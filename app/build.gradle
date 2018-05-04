@@ -76,7 +76,7 @@ dependencies {
     /**
      * 微信sdk
      */
-    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    //compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
 
 
 

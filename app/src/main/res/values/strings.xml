@@ -8,4 +8,11 @@
     <string name="task_type_name_water_school_four">校四送水</string>
 
 
+    <string name="txt_address_number">宿舍号：</string>
+    <string name="txt_address_build">宿舍楼：</string>
+    <string name="txt_water_task_type">取水形式:</string>
+    <string name="txt_water_task_type_send">送水上门</string>
+    <string name="txt_water_task_type_self">自取</string>
+
+
 </resources>

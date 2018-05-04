@@ -12,6 +12,11 @@ public class BaseTaskModel {
 
 
     /**
+     * 任务id
+     */
+    private int taskId;
+
+    /**
      * 头像url
      */
     private String avatarUrl;
@@ -152,5 +157,13 @@ public class BaseTaskModel {
 
     public void setThirdValue(String thirdValue) {
         this.thirdValue = thirdValue;
+    }
+
+    public int getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
     }
 }

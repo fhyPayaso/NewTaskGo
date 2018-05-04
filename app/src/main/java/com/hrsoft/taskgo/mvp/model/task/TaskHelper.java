@@ -6,6 +6,15 @@ import com.hrsoft.taskgo.base.mvp.IDataCallback;
 import com.hrsoft.taskgo.base.mvp.model.BaseModel;
 import com.hrsoft.taskgo.mvp.model.account.helper.AccountHelper;
 import com.hrsoft.taskgo.mvp.model.task.bean.BaseTaskModel;
+import com.hrsoft.taskgo.mvp.model.task.request.ReleaseTaskReqModel;
+import com.hrsoft.taskgo.mvp.model.task.request.WaterAttributesReqModel;
+import com.hrsoft.taskgo.mvp.model.task.response.TasListRespModel;
+import com.hrsoft.taskgo.mvp.model.task.response.WaterAttributesRespModel;
+import com.hrsoft.taskgo.mvp.model.task.response.WxRepModel;
+import com.hrsoft.taskgo.network.BaseObserver;
+import com.hrsoft.taskgo.network.NetworkFactory;
+import com.hrsoft.taskgo.network.response.ApiException;
+import com.hrsoft.taskgo.network.response.ApiResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,37 +40,83 @@ public class TaskHelper extends BaseModel {
     }
 
 
-    public void loadSchoolSixWaterTaskList(final IDataCallback.Callback<List<BaseTaskModel>> callback) {
+    /**
+     * 加载水任务列表网络请求
+     *
+     * @param callback
+     */
+    public void loadSchoolWaterTaskList(final IDataCallback.Callback<List<TasListRespModel<WaterAttributesRespModel>>> callback) {
 
-        final List<BaseTaskModel> baseTaskModels = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
+        NetworkFactory
+                .getService()
+                .loadWaterTaskList()
+                .compose(BaseObserver.<ApiResponse<List<TasListRespModel<WaterAttributesRespModel>>>>setThread())
+                .subscribe(new BaseObserver<List<TasListRespModel<WaterAttributesRespModel>>>() {
+                    @Override
+                    public void onSuccess(ApiResponse<List<TasListRespModel<WaterAttributesRespModel>>> response) {
+                        callback.onDataLoaded(response.getData());
+                    }
 
-            BaseTaskModel model = new BaseTaskModel();
+                    @Override
+                    public void onError(ApiException exception) {
+                        callback.onFailedLoaded(exception.getMsg());
+                    }
+                });
+    }
 
 
-            model.setUserName("fhyPayaso");
-            model.setAvatarUrl("http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png");
-
-            model.setTaskType("校六送水");
-            model.setMoney(10.0);
-            model.setCardNumber(i);
-
-            model.setFirstTitle("宿舍号 : ");
-            model.setFirstValue("607" + i);
-            model.setSecondTitle("送水类型 : ");
-            model.setSecondValue("自取");
+    /**
+     * 发布水任务
+     *
+     * @param reqModel
+     * @param callback
+     */
+    public void releaseWaterTask(final ReleaseTaskReqModel<WaterAttributesReqModel> reqModel, final IDataCallback.Callback<WxRepModel> callback) {
 
 
-            baseTaskModels.add(model);
-        }
+        NetworkFactory
+                .getService()
+                .releaseWaterTask(reqModel)
+                .compose(BaseObserver.<ApiResponse<WxRepModel>>setThread())
+                .subscribe(new BaseObserver<WxRepModel>() {
+                    @Override
+                    public void onSuccess(ApiResponse<WxRepModel> response) {
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
+                        callback.onDataLoaded(response.getData());
+                    }
 
-                callback.onDataLoaded(baseTaskModels);
-            }
-        }, 2000);
+                    @Override
+                    public void onError(ApiException exception) {
+                        callback.onFailedLoaded(exception.getMsg());
+                    }
+                });
+    }
+
+
+    /**
+     * 接受任务网络请求
+     *
+     * @param callback
+     */
+    @SuppressWarnings("unchecked")
+    public void acceptTask(List<Integer> taskArray, final IDataCallback.Callback callback) {
+
+
+        NetworkFactory
+                .getService()
+                .acceptWaterTask(taskArray)
+                .compose(BaseObserver.<ApiResponse>setThread())
+                .subscribe(new BaseObserver() {
+                    @Override
+                    public void onSuccess(ApiResponse response) {
+                        callback.onDataLoaded(response.getData());
+                    }
+
+                    @Override
+                    public void onError(ApiException exception) {
+                        callback.onFailedLoaded(exception.getMsg());
+                    }
+                });
     }
 
 

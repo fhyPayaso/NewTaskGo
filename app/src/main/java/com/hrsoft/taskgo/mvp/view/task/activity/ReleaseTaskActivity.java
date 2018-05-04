@@ -1,15 +1,21 @@
 package com.hrsoft.taskgo.mvp.view.task.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 
-import com.hrsoft.taskgo.App;
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.activity.BaseToolBarActivity;
+import com.hrsoft.taskgo.mvp.model.task.request.WaterAttributesReqModel;
+import com.hrsoft.taskgo.mvp.model.task.bean.CardsModel;
+import com.hrsoft.taskgo.mvp.model.task.request.ReleaseTaskReqModel;
+import com.hrsoft.taskgo.mvp.model.task.response.WxRepModel;
+import com.hrsoft.taskgo.network.BaseObserver;
+import com.hrsoft.taskgo.network.NetworkFactory;
+import com.hrsoft.taskgo.network.response.ApiException;
+import com.hrsoft.taskgo.network.response.ApiResponse;
 import com.hrsoft.taskgo.utils.ToastUtil;
-import com.tencent.mm.opensdk.modelpay.PayReq;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +35,7 @@ public class ReleaseTaskActivity extends BaseToolBarActivity {
 
     public static final String APP_ID = "wx73e42ddc37ff92ff";
 
-    private IWXAPI mIWXAPIpi;
+    //private IWXAPI mIWXAPIpi;
 
 
     @Override
@@ -40,8 +46,8 @@ public class ReleaseTaskActivity extends BaseToolBarActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
 
-        mIWXAPIpi = WXAPIFactory.createWXAPI(this, APP_ID, true);
-        mIWXAPIpi.registerApp(APP_ID);
+//        mIWXAPIpi = WXAPIFactory.createWXAPI(this, APP_ID, true);
+//        mIWXAPIpi.registerApp(APP_ID);
     }
 
     @Override
@@ -61,27 +67,58 @@ public class ReleaseTaskActivity extends BaseToolBarActivity {
 
         ToastUtil.showToast("开始下单");
 
-        if (mIWXAPIpi != null) {
 
-            PayReq payReq = new PayReq();
+        CardsModel cardsModel = new CardsModel(1);
+        WaterAttributesReqModel waterAttributesReqModel = new WaterAttributesReqModel("6", "6088", "0");
+        ReleaseTaskReqModel model = new ReleaseTaskReqModel(waterAttributesReqModel, cardsModel);
+
+        NetworkFactory
+                .getService()
+                .releaseWaterTask(model)
+                .compose(BaseObserver.<ApiResponse<WxRepModel>>setThread())
+                .subscribe(new BaseObserver<WxRepModel>() {
+                    @Override
+                    public void onSuccess(ApiResponse<WxRepModel> response) {
+
+                        Log.i(TAG, "onSuccess: " + response.getData().getAppid());
+                        wxPay(response.getData());
+                    }
+
+                    @Override
+                    public void onError(ApiException exception) {
+                        ToastUtil.showToast(exception.getMsg());
+                    }
+                });
 
 
-            //应用id
-            payReq.appId = APP_ID;
-            //商户号
-            payReq.partnerId = "1900000109";
-            //预支付交易会话ID
-            payReq.prepayId = "1101000000140415649af9fc314aa427";
-            //扩展字段
-            payReq.packageValue = "Sign=WXPay";
-            //随机字符串
-            payReq.nonceStr = "1101000000140429eb40476f8896f4c9";
-            //时间戳
-            payReq.timeStamp = "1398746574";
-            //签名
-            payReq.sign = "3b4d4ef42bb681b700439226e5d3e80a";
-
-            mIWXAPIpi.sendReq(payReq);
-        }
     }
+
+
+    private void wxPay(WxRepModel model) {
+
+
+//        if (mIWXAPIpi != null) {
+//
+//            PayReq payReq = new PayReq();
+//
+//
+//            //应用id
+//            payReq.appId = model.getAppid();
+//            //商户号
+//            payReq.partnerId = model.getPartnerid();
+//            //预支付交易会话ID
+//            payReq.prepayId = model.getPrepayid();
+//            //扩展字段
+//            payReq.packageValue = model.getPackageName();
+//            //随机字符串
+//            payReq.nonceStr = model.getNoncestr();
+//            //时间戳
+//            payReq.timeStamp = model.getTimestamp();
+//            //签名
+//            payReq.sign = model.getSign();
+//
+//            mIWXAPIpi.sendReq(payReq);
+    }
+
+
 }

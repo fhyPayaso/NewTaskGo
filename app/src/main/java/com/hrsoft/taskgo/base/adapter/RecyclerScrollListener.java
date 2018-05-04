@@ -4,6 +4,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.hrsoft.taskgo.utils.ToastUtil;
+
 /**
  * @author fhyPayaso
  * @since 2018/4/30 on 下午1:20
@@ -16,6 +18,11 @@ public class RecyclerScrollListener extends RecyclerView.OnScrollListener {
     private RecyclerView.LayoutManager mLayoutManager;
     private FooterRecyclerViewAdapter mFooterRecyclerViewAdapter;
     private LoadMoreListener mListener;
+
+    /**
+     * 分页数量
+     */
+    private int mItemNumPerPage = 10;
 
     /**
      * 是否正在加载中
@@ -33,7 +40,6 @@ public class RecyclerScrollListener extends RecyclerView.OnScrollListener {
         recyclerView.addOnScrollListener(this);
     }
 
-
     @Override
     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
         super.onScrollStateChanged(recyclerView, newState);
@@ -44,11 +50,12 @@ public class RecyclerScrollListener extends RecyclerView.OnScrollListener {
             int lastCompletePosition = linearLayoutManager.findLastCompletelyVisibleItemPosition();
             int totalItemCount = linearLayoutManager.getItemCount();
 
-            if (lastCompletePosition == (totalItemCount - 1)) {
+            //达到需要分页的数目并且滚动到最后
+            if (totalItemCount >= mItemNumPerPage && lastCompletePosition == (totalItemCount - 1)) {
                 mLoading = true;
                 mFooterRecyclerViewAdapter.showFooterVisibility(true);
                 if (mListener != null) {
-                    mListener.onLoad();
+                    mListener.onLoadMore();
                 }
             }
         }
@@ -76,10 +83,24 @@ public class RecyclerScrollListener extends RecyclerView.OnScrollListener {
         }
     }
 
+
+    /**
+     * 设置分页数量
+     *
+     * @param itemNumPerPage 默认为20
+     */
+    public void setItemNumPerPage(int itemNumPerPage) {
+        mItemNumPerPage = itemNumPerPage;
+    }
+
+    /**
+     * 设置需要监听的悬浮按钮
+     *
+     * @param floatingButton
+     */
     public void setFloatingButton(FloatingActionButton floatingButton) {
         mFloatingButton = floatingButton;
     }
-
 
     /**
      * 设置LoadMore Item为加载完成状态, 上拉加载更多完成时调用
@@ -89,12 +110,20 @@ public class RecyclerScrollListener extends RecyclerView.OnScrollListener {
         mFooterRecyclerViewAdapter.showFooterVisibility(false);
     }
 
+    /**
+     * 判断是否正在加载
+     *
+     * @return
+     */
+    public boolean isLoading() {
+        return mLoading;
+    }
 
     public void setLoadMoreListener(LoadMoreListener loadMoreListener) {
         mListener = loadMoreListener;
     }
 
     public interface LoadMoreListener {
-        void onLoad();
+        void onLoadMore();
     }
 }

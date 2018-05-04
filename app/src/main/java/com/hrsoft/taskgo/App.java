@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
+import com.hrsoft.taskgo.utils.CacheUtil;
 import com.hrsoft.taskgo.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class App extends Application {
 
     private static List<Activity> sActivityList = new ArrayList<>();
 
+    private static CacheUtil cacheUtil;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -36,6 +39,17 @@ public class App extends Application {
     public static App getInstance() {
         return sInstance;
 
+    }
+
+
+    /**
+     * 缓存初始化
+     */
+    public CacheUtil getCacheUtil() {
+        if (cacheUtil == null) {
+            cacheUtil = CacheUtil.get(sInstance.getFilesDir());
+        }
+        return cacheUtil;
     }
 
     private ActivityLifecycleCallbacks getActivityLifecycleCallbacks() {

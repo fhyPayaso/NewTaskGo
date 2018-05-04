@@ -31,9 +31,8 @@ public abstract class FooterRecyclerViewAdapter<Data> extends RecyclerView.Adapt
     protected int mItemLayoutId;
     private boolean mWithFooter = false;
     private FooterViewHolder mFooterViewHolder;
-
-
     private OnItemClickListener mOnItemClickListener;
+
 
     public FooterRecyclerViewAdapter(List<Data> dataList, Context context, @LayoutRes int itemLayoutId) {
         mDataList = dataList;
@@ -58,6 +57,7 @@ public abstract class FooterRecyclerViewAdapter<Data> extends RecyclerView.Adapt
             mFooterViewHolder = new FooterViewHolder(footerView);
             return mFooterViewHolder;
         }
+
 
         final View view = mInflater.inflate(mItemLayoutId, parent, false);
         BaseViewHolder viewHolder = new BaseViewHolder(mContext, view);
@@ -153,11 +153,21 @@ public abstract class FooterRecyclerViewAdapter<Data> extends RecyclerView.Adapt
 
     /**
      * 移除数据
+     *
+     * @param data 移除的数据
      */
     public void removeItem(Data data) {
+        this.mDataList.remove(data);
+        notifyDataSetChanged();
+    }
 
-        int position = mDataList.indexOf(data);
-        mDataList.remove(data);
+
+    /**
+     * 移除数据
+     */
+    public void removeItem(int position) {
+
+        mDataList.remove(position);
         //该方法不会使position及其之后位置的itemView重新onBindViewHolder
         notifyItemRemoved(position);
         //所以需要从position到列表末尾进行数据刷新

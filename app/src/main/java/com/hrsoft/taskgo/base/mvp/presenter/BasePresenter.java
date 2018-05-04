@@ -16,13 +16,11 @@ import java.util.List;
 public abstract class BasePresenter<V extends IBaseContract.IBaseView> implements IBaseContract.IBasePresenter {
 
     protected V mView;
-    protected List<BaseModel> mBaseModelList;
-    protected List<INotifyListener> mListenerList;
+    protected List<IBaseContract.IBaseModel> mBaseModelList;
 
     public BasePresenter(V view) {
         mView = view;
         mBaseModelList = new ArrayList<>();
-        mListenerList = new ArrayList<>();
     }
 
 
@@ -50,20 +48,21 @@ public abstract class BasePresenter<V extends IBaseContract.IBaseView> implement
      * 解绑与m层相关的回调
      */
     protected void unBindModel() {
-        for (BaseModel baseModel : mBaseModelList) {
-            baseModel.removeNotifyListener(mListenerList);
+        for (IBaseContract.IBaseModel baseModel : mBaseModelList) {
+            baseModel.removeNotifyListener(this);
         }
     }
 
 
-    protected void addNotifyListener(INotifyListener listener, BaseModel baseModel) {
-
-        if (listener != null && baseModel != null) {
-            if (!mBaseModelList.contains(baseModel)) {
-                mBaseModelList.add(baseModel);
-            }
-            mListenerList.add(listener);
-            baseModel.addNotifyListener(listener);
+    /**
+     * 一个presenter可能注册多个model
+     *
+     * @param model
+     */
+    @Override
+    public void registerModel(IBaseContract.IBaseModel model) {
+        if (!mBaseModelList.contains(model)) {
+            mBaseModelList.add(model);
         }
     }
 }

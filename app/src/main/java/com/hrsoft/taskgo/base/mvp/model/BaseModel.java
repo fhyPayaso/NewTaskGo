@@ -1,17 +1,16 @@
 package com.hrsoft.taskgo.base.mvp.model;
 
-import android.os.Looper;
-import android.os.Message;
-
 import com.hrsoft.taskgo.base.mvp.IBaseContract;
 import com.hrsoft.taskgo.base.mvp.INotifyListener;
-import com.hrsoft.taskgo.base.mvp.WeakHandler;
-import com.hrsoft.taskgo.mvp.model.account.helper.AccountHelper;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
+ * Model层基类
+ *
  * @author FanHongyu.
  * @since 18/4/23 18:39.
  * email fanhongyu@hrsoft.net.
@@ -19,49 +18,43 @@ import java.util.List;
 public abstract class BaseModel implements IBaseContract.IBaseModel {
 
 
-    protected WeakHandler mHandler;
-    protected List<INotifyListener> mNotifyListeners;
-
-
-
-    @Override
-    public void addNotifyListener(INotifyListener notifyListener) {
-        if (notifyListener == null) {
-            throw new NullPointerException("INotifyListener could not be null");
-        }
-        if (mNotifyListeners == null) {
-            mNotifyListeners = new LinkedList<>();
-        }
-        mNotifyListeners.add(notifyListener);
-    }
-
+    /**
+     * 维护每一个Presenter所对应的回调
+     */
+    protected Map<IBaseContract.IBasePresenter, List<INotifyListener>> mListenerMap;
 
     @Override
-    public boolean removeNotifyListener(INotifyListener listener) {
-        if (listener != null) {
-            return mNotifyListeners.remove(listener);
-        }
-        return false;
-    }
+    public void addNotifyListener(IBaseContract.IBasePresenter presenter, INotifyListener callback) {
 
+        if (presenter == null) {
+            return;
+        } else {
+            presenter.registerModel(this);
+        }
+
+        if (mListenerMap == null) {
+            mListenerMap = new HashMap<>();
+        }
+        List<INotifyListener> notifyListenerList = mListenerMap.get(presenter);
+        if (notifyListenerList == null) {
+            notifyListenerList = new ArrayList<>();
+        }
+        notifyListenerList.add(callback);
+        mListenerMap.put(presenter, notifyListenerList);
+    }
 
     @Override
-    public void removeNotifyListener(List<INotifyListener> listenerList) {
-
-        if (listenerList != null) {
-            for (INotifyListener listener : listenerList) {
-                removeNotifyListener(listener);
-            }
+    public void removeNotifyListener(IBaseContract.IBasePresenter presenter) {
+        if (mListenerMap != null && mListenerMap.get(presenter) != null) {
+            mListenerMap.get(presenter).clear();
+            mListenerMap.remove(presenter);
         }
     }
-
 
     @Override
     public void removeAllNotifyListener() {
-        if (mNotifyListeners != null) {
-            mNotifyListeners.clear();
+        if (mListenerMap != null) {
+            mListenerMap.clear();
         }
     }
-
-
 }

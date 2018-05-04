@@ -2,8 +2,11 @@ package com.hrsoft.taskgo.mvp.model.task;
 
 import android.os.Handler;
 
+import com.hrsoft.taskgo.base.mvp.IBaseContract;
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
+import com.hrsoft.taskgo.base.mvp.INotifyListener;
 import com.hrsoft.taskgo.base.mvp.model.BaseModel;
+import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 import com.hrsoft.taskgo.mvp.model.account.helper.AccountHelper;
 import com.hrsoft.taskgo.mvp.model.task.bean.BaseTaskModel;
 import com.hrsoft.taskgo.mvp.model.task.request.ReleaseTaskReqModel;
@@ -11,6 +14,7 @@ import com.hrsoft.taskgo.mvp.model.task.request.WaterAttributesReqModel;
 import com.hrsoft.taskgo.mvp.model.task.response.TasListRespModel;
 import com.hrsoft.taskgo.mvp.model.task.response.WaterAttributesRespModel;
 import com.hrsoft.taskgo.mvp.model.task.response.WxRepModel;
+import com.hrsoft.taskgo.mvp.presenter.task.TaskListPresenter;
 import com.hrsoft.taskgo.network.BaseObserver;
 import com.hrsoft.taskgo.network.NetworkFactory;
 import com.hrsoft.taskgo.network.response.ApiException;
@@ -31,6 +35,7 @@ public class TaskHelper extends BaseModel {
     private TaskHelper() {
     }
 
+
     public static class TaskHelperHolder {
         private static final TaskHelper INSTANCE = new TaskHelper();
     }
@@ -45,7 +50,11 @@ public class TaskHelper extends BaseModel {
      *
      * @param callback
      */
-    public void loadSchoolWaterTaskList(final IDataCallback.Callback<List<TasListRespModel<WaterAttributesRespModel>>> callback) {
+    public void loadSchoolWaterTaskList(IBaseContract.IBasePresenter presenter, final IDataCallback
+            .Callback<List<TasListRespModel<WaterAttributesRespModel>>> callback) {
+
+        addNotifyListener(presenter,callback);
+
 
         NetworkFactory
                 .getService()
@@ -71,7 +80,8 @@ public class TaskHelper extends BaseModel {
      * @param reqModel
      * @param callback
      */
-    public void releaseWaterTask(final ReleaseTaskReqModel<WaterAttributesReqModel> reqModel, final IDataCallback.Callback<WxRepModel> callback) {
+    public void releaseWaterTask(final ReleaseTaskReqModel<WaterAttributesReqModel> reqModel, final IDataCallback
+            .Callback<WxRepModel> callback) {
 
 
         NetworkFactory
@@ -118,6 +128,4 @@ public class TaskHelper extends BaseModel {
                     }
                 });
     }
-
-
 }

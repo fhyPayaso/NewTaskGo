@@ -30,16 +30,19 @@ public class AccountHelper extends BaseModel {
 
     public void login(final LoginReqModel reqModel, final IDataCallback.Callback<String> callback) {
 
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
 
-                if ("15076035390".equals(reqModel.getUsername()) && "123456".equals(reqModel.getPassword())) {
-                    callback.onDataLoaded("token");
-                } else {
-                    callback.onFailedLoaded("密码错误");
-                }
-            }
-        }, 1000);
+
+
+//        mHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                if ("15076035390".equals(reqModel.getUsername()) && "123456".equals(reqModel.getPassword())) {
+//                    callback.onDataLoaded("token");
+//                } else {
+//                    callback.onFailedLoaded("密码错误");
+//                }
+//            }
+//        }, 1000);
     }
 }

@@ -50,10 +50,6 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
                 mView.onAcceptTaskSuccess(position);
             }
         };
-
-
-        addNotifyListener(callback, TaskHelper.getInstance());
-
         // TODO: 2018/5/4 接受多个任务优化 
         List<Integer> list = new ArrayList<>();
         list.add(model.getTaskId());
@@ -68,6 +64,8 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
 
 
         IDataCallback.Callback loadListCallBack = new IDataCallback.Callback<List<TasListRespModel<WaterAttributesRespModel>>>() {
+
+
             @Override
             public void onDataLoaded(List<TasListRespModel<WaterAttributesRespModel>> tasListRespModels) {
 
@@ -77,7 +75,8 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
                 for (TasListRespModel<WaterAttributesRespModel> respModel : tasListRespModels) {
                     BaseTaskModel model = new BaseTaskModel();
                     model.setUserName("fhyPayaso");
-                    model.setAvatarUrl("http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png");
+                    model.setAvatarUrl("http://img.zcool" +
+                            ".cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png");
                     model.setTaskType("校内送水");
                     model.setCardNumber(respModel.getCardsModel().getGoodPeople());
                     model.setMoney(Double.valueOf(respModel.getAttributes().getMoney()));
@@ -97,19 +96,8 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
             }
         };
 
-        addNotifyListener(loadListCallBack, TaskHelper.getInstance());
-        TaskHelper.getInstance().loadSchoolWaterTaskList(loadListCallBack);
+        TaskHelper.getInstance().loadSchoolWaterTaskList(this,loadListCallBack);
     }
-
-
-
-
-
-
-
-
-
-
 
 
 }

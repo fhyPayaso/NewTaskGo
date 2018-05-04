@@ -18,19 +18,18 @@ public interface IBaseContract {
     interface IBasePresenter {
 
         void unBindView();
+
+        void registerModel(IBaseModel model);
     }
 
 
     interface IBaseModel {
 
 
-        void addNotifyListener(INotifyListener notifyListener);
+        void addNotifyListener(IBaseContract.IBasePresenter presenter, INotifyListener listener);
 
-        void removeNotifyListener(List<INotifyListener> listenerList);
-
-        boolean removeNotifyListener(INotifyListener listener);
+        void removeNotifyListener(IBaseContract.IBasePresenter presenter);
 
         void removeAllNotifyListener();
-
     }
 }

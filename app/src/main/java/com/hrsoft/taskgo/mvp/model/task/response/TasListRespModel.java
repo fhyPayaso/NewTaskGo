@@ -1,7 +1,7 @@
 package com.hrsoft.taskgo.mvp.model.task.response;
 
 import com.google.gson.annotations.SerializedName;
-import com.hrsoft.taskgo.mvp.model.task.bean.CardsModel;
+import com.hrsoft.taskgo.mvp.model.task.bean.CardPackageModel;
 
 /**
  * 任务列表相应信息
@@ -35,7 +35,7 @@ public class TasListRespModel<T> {
      * 卡片信息
      */
     @SerializedName("cards")
-    private CardsModel mCardsModel;
+    private CardPackageModel mCardsModel;
 
 
     /**
@@ -58,6 +58,34 @@ public class TasListRespModel<T> {
     @SerializedName("create_at")
     private String createAt;
 
+    /**
+     * 任务发布者
+     */
+    @SerializedName("name")
+    private String userName;
+
+    /**
+     * 任务头像url
+     */
+    @SerializedName("avatar")
+    private String avatarImgUrl;
+
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getAvatarImgUrl() {
+        return avatarImgUrl;
+    }
+
+    public void setAvatarImgUrl(String avatarImgUrl) {
+        this.avatarImgUrl = avatarImgUrl;
+    }
 
     public Integer getId() {
         return id;
@@ -83,11 +111,11 @@ public class TasListRespModel<T> {
         this.type = type;
     }
 
-    public CardsModel getCardsModel() {
+    public CardPackageModel getCardsModel() {
         return mCardsModel;
     }
 
-    public void setCardsModel(CardsModel cardsModel) {
+    public void setCardsModel(CardPackageModel cardsModel) {
         this.mCardsModel = cardsModel;
     }
 

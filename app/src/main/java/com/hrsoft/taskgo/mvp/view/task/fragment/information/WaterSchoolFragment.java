@@ -11,7 +11,9 @@ import android.widget.TextView;
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 import com.hrsoft.taskgo.base.mvp.view.BasePresenterFragment;
+import com.hrsoft.taskgo.common.TaskTypeConfig;
 import com.hrsoft.taskgo.mvp.contract.FillTaskInfContract;
+import com.hrsoft.taskgo.mvp.model.task.request.WaterAttributesReqModel;
 import com.hrsoft.taskgo.mvp.presenter.task.FillTaskInfoPresenter;
 import com.hrsoft.taskgo.mvp.view.task.activity.ReleaseTaskActivity;
 import com.hrsoft.taskgo.utils.ToastUtil;
@@ -107,7 +109,14 @@ public class WaterSchoolFragment extends BasePresenterFragment<FillTaskInfContra
 
     @Override
     public void onCheckDataTrue() {
-        startActivity(new Intent(getContext(), ReleaseTaskActivity.class));
+        WaterAttributesReqModel reqModel = new WaterAttributesReqModel("6", editAddressNumber.getText().toString(),
+                String.valueOf(mWaterTaskType));
+
+
+        Intent intent = new Intent(getContext(), ReleaseTaskActivity.class);
+        intent.putExtra(TaskTypeConfig.KEY_TASK_TYPE, TaskTypeConfig.COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL);
+        intent.putExtra(TaskTypeConfig.COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL, reqModel);
+        startActivity(intent);
     }
 
     @Override

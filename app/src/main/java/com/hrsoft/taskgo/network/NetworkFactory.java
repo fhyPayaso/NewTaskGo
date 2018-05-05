@@ -103,7 +103,7 @@ public final class NetworkFactory {
             public Response intercept(Chain chain) throws IOException {
 
                 String token = App.getInstance().getCacheUtil().getString(Config.TOKEN);
-                token = "10f6a71c7287c0612c81dda9d288957d";
+                token = "7d7af6ec5ad322785c5e5fe4f5a9c23a";
                 //请求时加入token
                 Request request = chain.request().newBuilder()
                         //防止空指针

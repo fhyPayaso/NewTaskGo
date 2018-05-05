@@ -10,5 +10,5 @@ import java.io.Serializable;
 
 public abstract class BaseBean implements Serializable {
 
-    protected abstract void checkValue();
+    public abstract boolean checkValue();
 }

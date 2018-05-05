@@ -39,4 +39,10 @@ public class Config {
     public static final int[] NET_CORRECT_CODE = {1000, 2000};
 
 
+    /**
+     * 微信平台应用标识
+     */
+    public static final String APP_ID = "wx73e42ddc37ff92ff";
+
+
 }

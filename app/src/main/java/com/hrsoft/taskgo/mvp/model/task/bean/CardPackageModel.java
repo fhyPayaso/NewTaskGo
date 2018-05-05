@@ -7,13 +7,13 @@ import com.google.gson.annotations.SerializedName;
  * @since 2018/5/4 on 上午12:53
  * fhyPayaso@qq.com
  */
-public class CardsModel {
+public class CardPackageModel {
 
     @SerializedName("1")
     private int goodPeople;
 
-    public CardsModel(int goodPeople) {
-        this.goodPeople = goodPeople;
+    public CardPackageModel() {
+
     }
 
     public int getGoodPeople() {

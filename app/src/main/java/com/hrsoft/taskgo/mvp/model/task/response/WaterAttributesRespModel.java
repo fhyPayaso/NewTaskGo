@@ -98,7 +98,8 @@ public class WaterAttributesRespModel extends BaseBean {
     }
 
     @Override
-    protected void checkValue() {
+    public boolean checkValue() {
 
+        return true;
     }
 }

@@ -80,7 +80,7 @@ public class TaskHelper extends BaseModel {
      * @param reqModel
      * @param callback
      */
-    public void releaseWaterTask(final ReleaseTaskReqModel<WaterAttributesReqModel> reqModel, final IDataCallback
+    public void releaseWaterTask(IBaseContract.IBasePresenter presenter,final ReleaseTaskReqModel<WaterAttributesReqModel> reqModel, final IDataCallback
             .Callback<WxRepModel> callback) {
 
 

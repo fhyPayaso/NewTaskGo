@@ -2,7 +2,7 @@ package com.hrsoft.taskgo.mvp.model.task.request;
 
 import com.google.gson.annotations.SerializedName;
 import com.hrsoft.taskgo.base.mvp.model.BaseBean;
-import com.hrsoft.taskgo.mvp.model.task.bean.CardsModel;
+import com.hrsoft.taskgo.mvp.model.task.bean.CardPackageModel;
 
 /**
  * 发布任务请求体
@@ -23,10 +23,10 @@ public class ReleaseTaskReqModel<T> extends BaseBean {
      * 卡片信息
      */
     @SerializedName("cards")
-    private CardsModel mCardsModel;
+    private CardPackageModel mCardsModel;
 
 
-    public ReleaseTaskReqModel(T attributes, CardsModel cardsModel) {
+    public ReleaseTaskReqModel(T attributes, CardPackageModel cardsModel) {
         this.attributes = attributes;
         mCardsModel = cardsModel;
     }
@@ -40,16 +40,17 @@ public class ReleaseTaskReqModel<T> extends BaseBean {
         this.attributes = attributes;
     }
 
-    public CardsModel getCardsModel() {
+    public CardPackageModel getCardsModel() {
         return mCardsModel;
     }
 
-    public void setCardsModel(CardsModel cardsModel) {
+    public void setCardsModel(CardPackageModel cardsModel) {
         mCardsModel = cardsModel;
     }
 
     @Override
-    protected void checkValue() {
+    public boolean checkValue() {
 
+        return true;
     }
 }

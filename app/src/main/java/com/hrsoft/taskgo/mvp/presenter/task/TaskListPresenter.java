@@ -64,7 +64,8 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
     private void loadSchoolWaterTaskList() {
 
 
-        IDataCallback.Callback loadListCallBack = new IDataCallback.Callback<List<TasListRespModel<WaterAttributesRespModel>>>() {
+        IDataCallback.Callback loadListCallBack = new IDataCallback
+                .Callback<List<TasListRespModel<WaterAttributesRespModel>>>() {
 
 
             @Override
@@ -75,9 +76,8 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
 
                 for (TasListRespModel<WaterAttributesRespModel> respModel : tasListRespModels) {
                     BaseTaskModel model = new BaseTaskModel();
-                    model.setUserName("fhyPayaso");
-                    model.setAvatarUrl("http://img.zcool" +
-                            ".cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png");
+                    model.setUserName(respModel.getUserName() == null ? "" : respModel.getUserName());
+                    model.setAvatarUrl(respModel.getAvatarImgUrl());
                     model.setTaskType("校内送水");
                     model.setCardNumber(respModel.getCardsModel().getGoodPeople());
                     model.setMoney(Double.valueOf(respModel.getAttributes().getMoney()));
@@ -97,7 +97,7 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
             }
         };
 
-        TaskHelper.getInstance().loadSchoolWaterTaskList(this,loadListCallBack);
+        TaskHelper.getInstance().loadSchoolWaterTaskList(this, loadListCallBack);
     }
 
 

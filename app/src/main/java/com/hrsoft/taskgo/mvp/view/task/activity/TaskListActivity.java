@@ -17,6 +17,7 @@ import com.hrsoft.taskgo.mvp.contract.TaskListContract;
 import com.hrsoft.taskgo.mvp.presenter.task.TaskListPresenter;
 import com.hrsoft.taskgo.mvp.view.task.adapter.TaskListRecyclerAdapter;
 import com.hrsoft.taskgo.mvp.view.task.adapter.TaskListRecyclerAdapter.OnItemViewClickListener;
+import com.hrsoft.taskgo.utils.DialogUtil;
 import com.hrsoft.taskgo.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -32,8 +33,8 @@ import butterknife.OnClick;
  */
 
 public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContract.Presenter> implements
-        TaskListContract.View, OnItemViewClickListener, SwipeRefreshLayout
-        .OnRefreshListener, RecyclerScrollListener.LoadMoreListener {
+        TaskListContract.View, OnItemViewClickListener, SwipeRefreshLayout.OnRefreshListener, RecyclerScrollListener
+        .LoadMoreListener {
 
 
     @BindView(R.id.recycler_task_list)
@@ -110,7 +111,7 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
         if (mScrollListener.isLoading()) {
             mScrollListener.setLoadMoreFinish();
         }
-        mRecyclerAdapter.addItems(taskModelList);
+        mRecyclerAdapter.reSetDataList(taskModelList);
     }
 
     /**
@@ -168,8 +169,17 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
      * 接受按钮点击事件回调
      */
     @Override
-    public void onBtnClick(int position) {
-        mPresenter.acceptTask(mTaskModelList.get(position), position);
+    public void onBtnClick(final int position) {
+
+
+        DialogUtil.QuickDialog dialog = new DialogUtil.QuickDialog(this)
+                .setClickListener(new DialogUtil.QuickDialog.DialogPositiveButtonListener() {
+                    @Override
+                    public void onPositiveButtonClick() {
+                        mPresenter.acceptTask(mTaskModelList.get(position), position);
+                    }
+                })
+                .showDialog("是否确认接受该任务");
     }
 
     /**

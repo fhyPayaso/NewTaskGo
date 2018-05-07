@@ -53,7 +53,7 @@ public class TaskHelper extends BaseModel {
     public void loadSchoolWaterTaskList(IBaseContract.IBasePresenter presenter, final IDataCallback
             .Callback<List<TasListRespModel<WaterAttributesRespModel>>> callback) {
 
-        addNotifyListener(presenter,callback);
+        addNotifyListener(presenter, callback);
 
 
         NetworkFactory
@@ -80,10 +80,11 @@ public class TaskHelper extends BaseModel {
      * @param reqModel
      * @param callback
      */
-    public void releaseWaterTask(IBaseContract.IBasePresenter presenter,final ReleaseTaskReqModel<WaterAttributesReqModel> reqModel, final IDataCallback
+    public void releaseWaterTask(IBaseContract.IBasePresenter presenter, final
+    ReleaseTaskReqModel<WaterAttributesReqModel> reqModel, final IDataCallback
             .Callback<WxRepModel> callback) {
 
-
+        addNotifyListener(presenter, callback);
         NetworkFactory
                 .getService()
                 .releaseWaterTask(reqModel)
@@ -91,7 +92,6 @@ public class TaskHelper extends BaseModel {
                 .subscribe(new BaseObserver<WxRepModel>() {
                     @Override
                     public void onSuccess(ApiResponse<WxRepModel> response) {
-
                         callback.onDataLoaded(response.getData());
                     }
 
@@ -109,9 +109,10 @@ public class TaskHelper extends BaseModel {
      * @param callback
      */
     @SuppressWarnings("unchecked")
-    public void acceptTask(List<Integer> taskArray, final IDataCallback.Callback callback) {
+    public void acceptTask(IBaseContract.IBasePresenter presenter, List<Integer> taskArray, final IDataCallback.Callback
+            callback) {
 
-
+        addNotifyListener(presenter, callback);
         NetworkFactory
                 .getService()
                 .acceptWaterTask(taskArray)

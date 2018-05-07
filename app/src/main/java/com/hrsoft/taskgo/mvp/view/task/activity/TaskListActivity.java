@@ -7,13 +7,15 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.adapter.RecyclerScrollListener;
 import com.hrsoft.taskgo.base.mvp.view.BaseToolBarPresenterActivity;
 import com.hrsoft.taskgo.common.TaskTypeConfig;
-import com.hrsoft.taskgo.mvp.model.task.bean.BaseTaskModel;
 import com.hrsoft.taskgo.mvp.contract.TaskListContract;
+import com.hrsoft.taskgo.mvp.model.task.bean.BaseTaskModel;
 import com.hrsoft.taskgo.mvp.presenter.task.TaskListPresenter;
 import com.hrsoft.taskgo.mvp.view.task.adapter.TaskListRecyclerAdapter;
 import com.hrsoft.taskgo.mvp.view.task.adapter.TaskListRecyclerAdapter.OnItemViewClickListener;
@@ -24,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -43,6 +46,10 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
     FloatingActionButton mBtnReleaseTask;
     @BindView(R.id.sl_refresh_task)
     SwipeRefreshLayout mRefreshLayout;
+    @BindView(R.id.txt_task_number)
+    TextView mTxtTaskNumber;
+    @BindView(R.id.btn_accept_all_task)
+    TextView mBtnAcceptAllTask;
 
 
     private String mTaskType;
@@ -66,12 +73,22 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
 
     @Override
     protected void initView() {
+        mTxtTaskNumber.setText("0");
         initRecyclerView();
 
+        switch (mTaskType) {
+            case TaskTypeConfig.COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL:
+                mBtnAcceptAllTask.setVisibility(View.VISIBLE);
+                break;
+            default:
+                mBtnAcceptAllTask.setVisibility(View.GONE);
+                break;
+        }
     }
 
 
     private void initRecyclerView() {
+
 
         mRecyclerAdapter = new TaskListRecyclerAdapter(mTaskModelList, this, R.layout.item_recycler_task);
         //设置上拉加载更多
@@ -112,6 +129,10 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
             mScrollListener.setLoadMoreFinish();
         }
         mRecyclerAdapter.reSetDataList(taskModelList);
+        mTxtTaskNumber.setText(String.valueOf(mTaskModelList.size()));
+        if (taskModelList.size() == 0) {
+            ToastUtil.showToast("当前没有可接受的任务");
+        }
     }
 
     /**
@@ -134,6 +155,11 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
     @Override
     public void onAcceptTaskSuccess(int position) {
         mRecyclerAdapter.removeItem(position);
+    }
+
+    @Override
+    public void onAcceptAllTaskSuccess() {
+        mRecyclerAdapter.removeAllItem();
     }
 
     /**
@@ -171,7 +197,6 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
     @Override
     public void onBtnClick(final int position) {
 
-
         DialogUtil.QuickDialog dialog = new DialogUtil.QuickDialog(this)
                 .setClickListener(new DialogUtil.QuickDialog.DialogPositiveButtonListener() {
                     @Override
@@ -200,5 +225,26 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
     @Override
     public void onLoadMore() {
         mPresenter.loadTaskList(mTaskType);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    @OnClick(R.id.btn_accept_all_task)
+    public void onBtnAcceptAllClicked() {
+
+
+        DialogUtil.QuickDialog dialog = new DialogUtil.QuickDialog(this)
+                .setClickListener(new DialogUtil.QuickDialog.DialogPositiveButtonListener() {
+                    @Override
+                    public void onPositiveButtonClick() {
+                        mPresenter.acceptAllTask(mTaskModelList);
+                    }
+                })
+                .showDialog("是否确认接受全部任务");
     }
 }

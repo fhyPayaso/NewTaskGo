@@ -6,9 +6,11 @@ import android.widget.TextView;
 
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.fragment.BaseFragment;
+import com.hrsoft.taskgo.common.TaskTypeConfig;
 import com.hrsoft.taskgo.mvp.model.task.bean.TaskTypeModel;
 import com.hrsoft.taskgo.mvp.view.task.activity.TaskListActivity;
 import com.hrsoft.taskgo.mvp.view.task.adapter.TaskGridAdapter;
+import com.hrsoft.taskgo.utils.ToastUtil;
 import com.hrsoft.taskgo.widget.NoScrollGridView;
 
 import java.util.List;
@@ -49,10 +51,26 @@ public class TaskGridFragment extends BaseFragment {
         gvTaskType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TaskListActivity.startActivity(getContext(), mTypeModelList.get(position).getTaskTypeFlag());
-                getActivity().finish();
+                showTaskList(mTypeModelList.get(position).getTaskTypeFlag());
             }
         });
+    }
+
+
+    /**
+     * 进入任务列表
+     *
+     * @param taskType
+     */
+    private void showTaskList(String taskType) {
+        switch (taskType) {
+            case TaskTypeConfig.COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL:
+                TaskListActivity.startActivity(getContext(), taskType);
+                break;
+            default:
+                ToastUtil.showToast("敬请期待");
+                break;
+        }
     }
 
 

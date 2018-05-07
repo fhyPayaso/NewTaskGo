@@ -51,10 +51,31 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
                 mView.onAcceptTaskSuccess(position);
             }
         };
-        // TODO: 2018/5/4 接受多个任务优化 
         List<Integer> list = new ArrayList<>();
         list.add(model.getTaskId());
-        TaskHelper.getInstance().acceptTask(list, callback);
+        TaskHelper.getInstance().acceptTask(this, list, callback);
+    }
+
+    @Override
+    public void acceptAllTask(List<BaseTaskModel> modelList) {
+
+        IDataCallback.Callback callback = new IDataCallback.Callback() {
+            @Override
+            public void onFailedLoaded(String error) {
+                mView.onAcceptTaskError(error);
+            }
+
+            @Override
+            public void onDataLoaded(Object o) {
+                mView.onAcceptAllTaskSuccess();
+            }
+        };
+        List<Integer> list = new ArrayList<>();
+
+        for (BaseTaskModel model : modelList) {
+            list.add(model.getTaskId());
+        }
+        TaskHelper.getInstance().acceptTask(this, list, callback);
     }
 
 
@@ -81,10 +102,13 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
                     model.setTaskType("校内送水");
                     model.setCardNumber(respModel.getCardsModel().getGoodPeople());
                     model.setMoney(Double.valueOf(respModel.getAttributes().getMoney()));
-                    model.setFirstTitle("宿舍号 : ");
-                    model.setFirstValue(respModel.getAttributes().getAddress());
-                    model.setSecondTitle("送水类型 : ");
-                    model.setSecondValue(respModel.getAttributes().getSendType().equals("0") ? "送水上门" : "自取");
+
+                    model.setFirstTitle("宿舍楼 : ");
+                    model.setFirstValue(String.valueOf(respModel.getAttributes().getApartment()));
+                    model.setSecondTitle("宿舍号 : ");
+                    model.setSecondValue(respModel.getAttributes().getAddress());
+                    model.setThirdTitle("送水类型 : ");
+                    model.setThirdValue(respModel.getAttributes().getSendType().equals("0") ? "送水上门" : "自取");
                     model.setTaskId(respModel.getId());
                     baseTaskModels.add(model);
                 }

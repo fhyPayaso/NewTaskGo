@@ -13,8 +13,10 @@ import android.support.v7.app.AlertDialog;
 public final class DialogUtil {
 
 
+    /**
+     * 快速dialog
+     */
     public static class QuickDialog {
-
 
         private Context mContext;
 
@@ -51,6 +53,33 @@ public final class DialogUtil {
             void onPositiveButtonClick();
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

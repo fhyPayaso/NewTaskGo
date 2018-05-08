@@ -21,7 +21,7 @@ public interface TaskListContract {
          *
          * @param taskType 任务类型
          */
-        void loadTaskList(String taskType);
+        void loadTaskList(String taskType,int page);
 
 
         /**

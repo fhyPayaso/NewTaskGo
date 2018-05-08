@@ -1,9 +1,11 @@
 package com.hrsoft.taskgo.mvp.view.task.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.hrsoft.taskgo.App;
@@ -89,6 +91,13 @@ public class ReleaseTaskActivity extends BaseToolBarPresenterActivity<ReleaseTas
      */
     @OnClick(R.id.txt_set_task_money)
     public void onTxtSetTaskMoneyClicked() {
+
+
+
+
+
+
+
 
         ToastUtil.showToast("点击设置金额");
     }

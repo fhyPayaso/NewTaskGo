@@ -67,6 +67,15 @@ public class WaterSchoolFragment extends BasePresenterFragment<FillTaskInfContra
 
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        btnReleaseTask.setClickable(true);
+    }
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
@@ -111,12 +120,11 @@ public class WaterSchoolFragment extends BasePresenterFragment<FillTaskInfContra
     public void onCheckDataTrue() {
         WaterAttributesReqModel reqModel = new WaterAttributesReqModel("6", editAddressNumber.getText().toString(),
                 String.valueOf(mWaterTaskType));
-
-
         Intent intent = new Intent(getContext(), ReleaseTaskActivity.class);
         intent.putExtra(TaskTypeConfig.KEY_TASK_TYPE, TaskTypeConfig.COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL);
         intent.putExtra(TaskTypeConfig.COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL, reqModel);
         startActivity(intent);
+        btnReleaseTask.setClickable(false);
     }
 
     @Override

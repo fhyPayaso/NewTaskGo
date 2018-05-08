@@ -26,10 +26,10 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
     }
 
     @Override
-    public void loadTaskList(String taskType) {
+    public void loadTaskList(String taskType, int page) {
         switch (taskType) {
             case TaskTypeConfig.COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL:
-                loadSchoolWaterTaskList();
+                loadSchoolWaterTaskList(page);
                 break;
             default:
                 break;
@@ -82,7 +82,7 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
     /**
      * 加载校六送水任务列表
      */
-    private void loadSchoolWaterTaskList() {
+    private void loadSchoolWaterTaskList(final int page) {
 
 
         IDataCallback.Callback loadListCallBack = new IDataCallback
@@ -92,27 +92,33 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
             @Override
             public void onDataLoaded(List<TasListRespModel<WaterAttributesRespModel>> tasListRespModels) {
 
+                if (tasListRespModels == null || tasListRespModels.size() == 0) {
+                    if (page == 1) {
+                        mView.onLoadTaskListError("当前没有可接受的任务");
+                    } else {
+                        mView.onLoadTaskListError("暂无更多");
+                    }
+                } else {
+                    List<BaseTaskModel> baseTaskModels = new ArrayList<>();
+                    for (TasListRespModel<WaterAttributesRespModel> respModel : tasListRespModels) {
+                        BaseTaskModel model = new BaseTaskModel();
+                        model.setUserName(respModel.getUserName() == null ? "" : respModel.getUserName());
+                        model.setAvatarUrl(respModel.getAvatarImgUrl());
+                        model.setTaskType("校内送水");
+                        model.setCardNumber(respModel.getCardsModel().getGoodPeople());
+                        model.setMoney(Double.valueOf(respModel.getAttributes().getMoney()));
 
-                List<BaseTaskModel> baseTaskModels = new ArrayList<>();
-
-                for (TasListRespModel<WaterAttributesRespModel> respModel : tasListRespModels) {
-                    BaseTaskModel model = new BaseTaskModel();
-                    model.setUserName(respModel.getUserName() == null ? "" : respModel.getUserName());
-                    model.setAvatarUrl(respModel.getAvatarImgUrl());
-                    model.setTaskType("校内送水");
-                    model.setCardNumber(respModel.getCardsModel().getGoodPeople());
-                    model.setMoney(Double.valueOf(respModel.getAttributes().getMoney()));
-
-                    model.setFirstTitle("宿舍楼 : ");
-                    model.setFirstValue(String.valueOf(respModel.getAttributes().getApartment()));
-                    model.setSecondTitle("宿舍号 : ");
-                    model.setSecondValue(respModel.getAttributes().getAddress());
-                    model.setThirdTitle("送水类型 : ");
-                    model.setThirdValue(respModel.getAttributes().getSendType().equals("0") ? "送水上门" : "自取");
-                    model.setTaskId(respModel.getId());
-                    baseTaskModels.add(model);
+                        model.setFirstTitle("宿舍楼 : ");
+                        model.setFirstValue(String.valueOf(respModel.getAttributes().getApartment()));
+                        model.setSecondTitle("宿舍号 : ");
+                        model.setSecondValue(respModel.getAttributes().getAddress());
+                        model.setThirdTitle("送水类型 : ");
+                        model.setThirdValue(respModel.getAttributes().getSendType().equals("0") ? "送水上门" : "自取");
+                        model.setTaskId(respModel.getId());
+                        baseTaskModels.add(model);
+                    }
+                    mView.onLoadTaskListSuccess(baseTaskModels);
                 }
-                mView.onLoadTaskListSuccess(baseTaskModels);
             }
 
             @Override
@@ -121,7 +127,7 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
             }
         };
 
-        TaskHelper.getInstance().loadSchoolWaterTaskList(this, loadListCallBack);
+        TaskHelper.getInstance().loadSchoolWaterTaskList(this, page, loadListCallBack);
     }
 
 

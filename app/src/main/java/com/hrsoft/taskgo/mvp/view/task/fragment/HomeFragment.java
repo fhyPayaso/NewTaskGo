@@ -1,6 +1,9 @@
 package com.hrsoft.taskgo.mvp.view.task.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,9 +99,15 @@ public class HomeFragment extends BaseFragment {
     @OnClick({R.id.card_student_company, R.id.card_diy_task, R.id.card_money_task, R.id.card_help_task, R.id
             .card_promotion_task, R.id.card_recruitment_task})
     public void onViewClicked(View view) {
+
+
+        ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), view,
+                getString(R.string.key_home_animation));
+        Intent intent = new Intent(getContext(), TaskGridActivity.class);
         switch (view.getId()) {
             case R.id.card_student_company:
-                TaskGridActivity.startActivity(getContext(), TaskTypeConfig.COLLEGE);
+                intent.putExtra(TaskTypeConfig.KEY_MODULE_TYPE, TaskTypeConfig.COLLEGE);
+                ActivityCompat.startActivity(getContext(), intent, compat.toBundle());
                 break;
             case R.id.card_diy_task:
                 //break;

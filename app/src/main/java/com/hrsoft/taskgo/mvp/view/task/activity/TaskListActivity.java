@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -56,6 +57,7 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
     private TaskListRecyclerAdapter mRecyclerAdapter;
     private RecyclerScrollListener mScrollListener;
     private List<BaseTaskModel> mTaskModelList = new ArrayList<>();
+    private Integer mCurrentPage = 1;
 
 
     @Override
@@ -68,7 +70,6 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
 
         setActivityTitle("任务列表");
         mTaskType = getIntent().getStringExtra(TaskTypeConfig.KEY_TASK_TYPE);
-
     }
 
     @Override
@@ -109,7 +110,8 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
         //添加下拉刷新事件监听
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setRefreshing(true);
-        mPresenter.loadTaskList(mTaskType);
+        //初始化加载数据
+        mPresenter.loadTaskList(mTaskType, mCurrentPage);
     }
 
     @Override
@@ -128,11 +130,13 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
         if (mScrollListener.isLoading()) {
             mScrollListener.setLoadMoreFinish();
         }
-        mRecyclerAdapter.reSetDataList(taskModelList);
-        mTxtTaskNumber.setText(String.valueOf(mTaskModelList.size()));
-        if (taskModelList.size() == 0) {
-            ToastUtil.showToast("当前没有可接受的任务");
+        if (mCurrentPage == 1) {
+            mRecyclerAdapter.reSetDataList(taskModelList);
+        } else {
+            mRecyclerAdapter.addItems(taskModelList);
         }
+        mCurrentPage++;
+        mTxtTaskNumber.setText(String.valueOf(mTaskModelList.size()));
     }
 
     /**
@@ -178,9 +182,16 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
      */
     @OnClick(R.id.btn_release_task)
     public void onViewClicked() {
+        mBtnReleaseTask.setClickable(false);
         FillTaskInfoActivity.startActivity(this, mTaskType);
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mBtnReleaseTask.setClickable(true);
+    }
 
     /**
      * 头像点击事件回调
@@ -212,7 +223,8 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
      */
     @Override
     public void onRefresh() {
-        mPresenter.loadTaskList(mTaskType);
+        mCurrentPage = 1;
+        mPresenter.loadTaskList(mTaskType, mCurrentPage);
     }
 
 
@@ -224,7 +236,7 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
 
     @Override
     public void onLoadMore() {
-        mPresenter.loadTaskList(mTaskType);
+        mPresenter.loadTaskList(mTaskType, mCurrentPage + 1);
     }
 
     @Override
@@ -236,8 +248,6 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
 
     @OnClick(R.id.btn_accept_all_task)
     public void onBtnAcceptAllClicked() {
-
-
         DialogUtil.QuickDialog dialog = new DialogUtil.QuickDialog(this)
                 .setClickListener(new DialogUtil.QuickDialog.DialogPositiveButtonListener() {
                     @Override

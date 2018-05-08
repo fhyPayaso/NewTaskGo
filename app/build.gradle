@@ -2,6 +2,14 @@ apply plugin: 'com.android.application'
 
 
 android {
+    signingConfigs {
+        release {
+            keyAlias 'NewTaskGo'
+            keyPassword '123456'
+            storeFile file('/Users/abtion/workspace/AndroidStudioProjects/jks/NewTaskGo')
+            storePassword '123456'
+        }
+    }
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.hrsoft.taskgo"
@@ -16,17 +24,19 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            signingConfig signingConfigs.release
+        }
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-
     /**
      * 官方依赖
      */
@@ -34,23 +44,19 @@ dependencies {
     compile 'com.android.support:cardview-v7:26.1.0'
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support:design:26.1.0'
-
     /**
      * ButterKnife 依赖注入库
      */
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-
     /**
      * Glide 图片加载库
      */
     compile 'com.github.bumptech.glide:glide:4.3.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
-
     /**
      * 网络请求库
      */
-
     //OkHttp
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
     //Retrofit
@@ -61,29 +67,24 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     //Retrofit到RxJava进行转换的库
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-
     /**
      * RxJava
      */
-    compile "io.reactivex.rxjava2:rxjava:2.1.1"
+    compile 'io.reactivex.rxjava2:rxjava:2.1.1'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-
     /**
      * 圆形图片库
      */
     compile 'de.hdodenhof:circleimageview:2.1.0'
-
     /**
      * 微信sdk
      */
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
-
     /**
      * 内存检测
      */
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
-
 }
 repositories {
     mavenCentral()

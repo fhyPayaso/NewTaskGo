@@ -12,6 +12,7 @@ import com.hrsoft.taskgo.mvp.model.task.bean.BaseTaskModel;
 import com.hrsoft.taskgo.mvp.model.task.request.ReleaseTaskReqModel;
 import com.hrsoft.taskgo.mvp.model.task.request.WaterAttributesReqModel;
 import com.hrsoft.taskgo.mvp.model.task.response.TasListRespModel;
+import com.hrsoft.taskgo.mvp.model.task.response.TaskListPrePageRespModel;
 import com.hrsoft.taskgo.mvp.model.task.response.WaterAttributesRespModel;
 import com.hrsoft.taskgo.mvp.model.task.response.WxRepModel;
 import com.hrsoft.taskgo.mvp.presenter.task.TaskListPresenter;
@@ -50,7 +51,7 @@ public class TaskHelper extends BaseModel {
      *
      * @param callback
      */
-    public void loadSchoolWaterTaskList(IBaseContract.IBasePresenter presenter, final IDataCallback
+    public void loadSchoolWaterTaskList(IBaseContract.IBasePresenter presenter,int page ,final IDataCallback
             .Callback<List<TasListRespModel<WaterAttributesRespModel>>> callback) {
 
         addNotifyListener(presenter, callback);
@@ -58,14 +59,13 @@ public class TaskHelper extends BaseModel {
 
         NetworkFactory
                 .getService()
-                .loadWaterTaskList()
-                .compose(BaseObserver.<ApiResponse<List<TasListRespModel<WaterAttributesRespModel>>>>setThread())
-                .subscribe(new BaseObserver<List<TasListRespModel<WaterAttributesRespModel>>>() {
+                .loadWaterTaskList(page)
+                .compose(BaseObserver.<ApiResponse<TaskListPrePageRespModel<WaterAttributesRespModel>>>setThread())
+                .subscribe(new BaseObserver<TaskListPrePageRespModel<WaterAttributesRespModel>>() {
                     @Override
-                    public void onSuccess(ApiResponse<List<TasListRespModel<WaterAttributesRespModel>>> response) {
-                        callback.onDataLoaded(response.getData());
+                    public void onSuccess(ApiResponse<TaskListPrePageRespModel<WaterAttributesRespModel>> response) {
+                        callback.onDataLoaded(response.getData().getData());
                     }
-
                     @Override
                     public void onError(ApiException exception) {
                         callback.onFailedLoaded(exception.getMsg());

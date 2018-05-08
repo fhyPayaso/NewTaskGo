@@ -12,7 +12,6 @@ import com.hrsoft.taskgo.mvp.model.task.bean.CardPackageModel;
  */
 public class TasListRespModel<T> {
 
-
     /**
      * 任务id
      */

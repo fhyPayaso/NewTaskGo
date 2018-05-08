@@ -9,11 +9,12 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <!--控件选中后的颜色-->
         <item name="colorAccent">@color/colorAccent</item>
+        <!--支持过渡动画-->
+        <item name="android:windowContentTransitions">true</item>
 
     </style>
 
 
-    <style name="AppTheme" parent="@style/BaseAppTheme"/>
 
 
     <style name="toolbar_style" parent="@style/ThemeOverlay.AppCompat.ActionBar">

@@ -32,8 +32,6 @@ public class FillTaskInfoActivity extends BaseToolBarActivity {
 
         setActivityTitle("填写任务信息");
         taskType = getIntent().getStringExtra(TaskTypeConfig.KEY_TASK_TYPE);
-
-
     }
 
     @Override

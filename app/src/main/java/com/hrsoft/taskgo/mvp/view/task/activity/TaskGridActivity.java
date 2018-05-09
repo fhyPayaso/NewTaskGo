@@ -49,6 +49,11 @@ public class TaskGridActivity extends BaseToolBarPresenterActivity<TaskGridContr
      */
     private String mModelType;
 
+    /**
+     * 当前模块标题
+     */
+    private String mToolBarTitle;
+
 
     @Override
     protected int getLayoutId() {
@@ -70,38 +75,47 @@ public class TaskGridActivity extends BaseToolBarPresenterActivity<TaskGridContr
     @Override
     protected void initView() {
 
+        changeAppBarChange();
+    }
+
+
+    private void changeAppBarChange() {
 
         switch (mModelType) {
             case TaskTypeConfig.MODEL_COLLEGE:
                 imgGirdTitle.setImageResource(R.drawable.bg_card_college);
+                mToolBarTitle = "大学生创业团队";
                 break;
             case TaskTypeConfig.MODEL_DIY:
                 imgGirdTitle.setImageResource(R.drawable.bg_card_diy_task);
+                mToolBarTitle = "自定义任务";
                 break;
             case TaskTypeConfig.MODEL_MONEY:
                 imgGirdTitle.setImageResource(R.drawable.bg_card_money_task);
+                mToolBarTitle = "赏金任务";
                 break;
             case TaskTypeConfig.MODEL_HELP:
                 imgGirdTitle.setImageResource(R.drawable.bg_card_help_task);
+                mToolBarTitle = "校园互助";
                 break;
             case TaskTypeConfig.MODEL_PROMOTION:
                 imgGirdTitle.setImageResource(R.drawable.bg_card_promotion);
+                mToolBarTitle = "校园推广";
                 break;
             case TaskTypeConfig.MODEL_OFFER:
                 imgGirdTitle.setImageResource(R.drawable.bg_card_offer);
+                mToolBarTitle = "校园招聘";
                 break;
             default:
                 break;
         }
-
-
         appBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if (verticalOffset == 0) {
                     txtHomeToolbarTitle.setText("");
                 } else {
-                    txtHomeToolbarTitle.setText("大学生团队");
+                    txtHomeToolbarTitle.setText(mToolBarTitle);
                 }
             }
         });

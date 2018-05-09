@@ -25,9 +25,6 @@ import retrofit2.http.Query;
 public interface ApiService {
 
 
-    @POST("sss")
-    Observable<ApiResponse> login(@Body LoginReqModel reqModel);
-
 
     /**
      * 发布水任务

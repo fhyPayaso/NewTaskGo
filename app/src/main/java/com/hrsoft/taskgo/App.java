@@ -39,8 +39,8 @@ public class App extends Application {
         super.onCreate();
         sInstance = this;
         registerActivityLifecycleCallbacks(getActivityLifecycleCallbacks());
-        
-        
+
+
         if(Config.DEBUG) {
             LeakCanary.install(this);
         }

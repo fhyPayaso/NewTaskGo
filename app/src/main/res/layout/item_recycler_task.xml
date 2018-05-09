@@ -188,7 +188,6 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingTop="3dp"
-                android:text="接受"
                 android:textColor="@color/txt_blue"
                 android:textSize="13sp"/>
 

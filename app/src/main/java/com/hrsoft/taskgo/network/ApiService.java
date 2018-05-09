@@ -15,6 +15,7 @@ import io.reactivex.Observer;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -46,9 +47,7 @@ public interface ApiService {
      * @return
      */
     @GET("waters")
-    Observable<ApiResponse<TaskListPrePageRespModel<WaterAttributesRespModel>>> loadWaterTaskList(@Query("page") int
-                                                                                                          page);
-
+    Observable<ApiResponse<TaskListPrePageRespModel<WaterAttributesRespModel>>> loadWaterTaskList(@Query("page") int page);
 
     /**
      * 接取水任务
@@ -58,6 +57,36 @@ public interface ApiService {
      */
     @POST("tasks/accept/waters")
     Observable<ApiResponse> acceptWaterTask(@Body List<Integer> taskArray);
+
+
+    /**
+     * 查询水任务支付状态
+     *
+     * @param waterTaskId
+     * @return
+     */
+    @GET("water/status")
+    Observable<ApiResponse<String>> checkWaterTaskPayStatus(@Path("waterid") int waterTaskId);
+
+
+    /**
+     * 我发布的任务
+     *
+     * @param status 任务状态
+     * @return
+     */
+    @GET("me/tasks/master/{status}")
+    Observable<ApiResponse<TaskListPrePageRespModel<String>>> loadMyReleaseTaskList(@Path("status") int status, @Query("page") int page);
+
+
+    /**
+     * 我接受的任务
+     *
+     * @param status 任务状态
+     * @return
+     */
+    @GET("me/tasks/accept/{status}")
+    Observable<ApiResponse<TaskListPrePageRespModel<String>>> loadMyAcceptTaskList(@Path("status") int status, @Query("page") int page);
 
 
 }

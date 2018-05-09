@@ -20,11 +20,16 @@ import java.util.List;
 public class TaskListRecyclerAdapter extends FooterRecyclerViewAdapter<BaseTaskModel> {
 
 
+    public static final int BTN_ACCEPT = 0;
+
     private OnItemViewClickListener mOnItemViewClickListener;
 
+    private int mTaskType;
 
-    public TaskListRecyclerAdapter(List<BaseTaskModel> baseTaskModels, Context context, int itemLayoutId) {
+
+    public TaskListRecyclerAdapter(List<BaseTaskModel> baseTaskModels, Context context, int itemLayoutId, int taskType) {
         super(baseTaskModels, context, itemLayoutId);
+        this.mTaskType = taskType;
     }
 
     @Override
@@ -32,8 +37,6 @@ public class TaskListRecyclerAdapter extends FooterRecyclerViewAdapter<BaseTaskM
 
 
         final int position = viewHolder.getAdapterPosition();
-
-
         viewHolder.setImgUrl(R.id.img_avatar, item.getAvatarUrl())
                 .setText(R.id.txt_username, item.getUserName())
                 .setText(R.id.txt_task_type, item.getTaskType())
@@ -45,6 +48,15 @@ public class TaskListRecyclerAdapter extends FooterRecyclerViewAdapter<BaseTaskM
                 .setText(R.id.txt_value_second, item.getSecondValue())
                 .setText(R.id.txt_title_third, item.getThirdTitle())
                 .setText(R.id.txt_value_third, item.getThirdValue());
+
+
+        switch (mTaskType) {
+            case BTN_ACCEPT:
+                viewHolder.setText(R.id.txt_task_btn,"接受");
+                break;
+            default:
+                break;
+        }
 
 
         viewHolder.getViewById(R.id.img_avatar).setOnClickListener(new View.OnClickListener() {

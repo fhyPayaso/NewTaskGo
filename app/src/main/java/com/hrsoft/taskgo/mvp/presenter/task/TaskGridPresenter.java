@@ -28,8 +28,20 @@ public class TaskGridPresenter extends BasePresenter<TaskGridContract.View> impl
     public void getGridList(String moduleType) {
 
         switch (moduleType) {
-            case TaskTypeConfig.COLLEGE:
-                getCollegeLists();
+            case TaskTypeConfig.MODEL_COLLEGE:
+                getCollegeModelLists();
+                break;
+            case TaskTypeConfig.MODEL_MONEY:
+                getMoneyModelLists();
+                break;
+            case TaskTypeConfig.MODEL_HELP:
+                getHelpModelLists();
+                break;
+            case TaskTypeConfig.MODEL_PROMOTION:
+                getPromotionModelLists();
+                break;
+            case TaskTypeConfig.MODEL_OFFER:
+                getOfferModelLists();
                 break;
             default:
                 break;
@@ -37,10 +49,9 @@ public class TaskGridPresenter extends BasePresenter<TaskGridContract.View> impl
     }
 
     /**
-     * 获取
+     * 获取大学生创业icon列表
      */
-    @Override
-    public void getCollegeLists() {
+    public void getCollegeModelLists() {
 
         List<TaskGridModel> gridModelList = new ArrayList<>();
         //自主创业模块
@@ -60,4 +71,60 @@ public class TaskGridPresenter extends BasePresenter<TaskGridContract.View> impl
         gridModelList.add(new TaskGridModel("公益服务", welfareList));
         mView.onLoadGridListSuccess(gridModelList);
     }
+
+
+    /**
+     * 获取赏金任务icon列表
+     */
+    public void getMoneyModelLists() {
+
+
+        List<TaskGridModel> gridModelList = new ArrayList<>();
+        //自主创业模块
+        List<TaskTypeModel> businessList = new ArrayList<>();
+        businessList.add(new TaskTypeModel(R.drawable.ic_school_water, "校内送水", TaskTypeConfig
+                .COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL));
+        businessList.add(new TaskTypeModel(R.drawable.ic_snacks, "零食店铺", TaskTypeConfig
+                .COLLEGE_ENTREPRENEURSHIP_SNACKS));
+        businessList.add(new TaskTypeModel(R.drawable.ic_express_delivery, "带领快递", TaskTypeConfig
+                .COLLEGE_ENTREPRENEURSHIP_EXPRESS));
+        gridModelList.add(new TaskGridModel("自主创业", businessList));
+
+        //公益服务模块
+        List<TaskTypeModel> welfareList = new ArrayList<>();
+        welfareList.add(new TaskTypeModel(R.drawable.ic_e_computer, "E管家", TaskTypeConfig
+                .COLLEGE_PUBLIC_GOOD_E_HELPER));
+        gridModelList.add(new TaskGridModel("公益服务", welfareList));
+        mView.onLoadGridListSuccess(gridModelList);
+
+
+
+
+
+    }
+
+
+    /**
+     * 获取校园互助icon列表
+     */
+    public void getHelpModelLists() {
+
+    }
+
+
+    /**
+     * 获取赏金任务icon列表
+     */
+    public void getPromotionModelLists() {
+
+    }
+
+    /**
+     * 获取校园招聘icon列表
+     */
+    public void getOfferModelLists() {
+
+    }
+
+
 }

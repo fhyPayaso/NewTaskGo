@@ -106,22 +106,32 @@ public class HomeFragment extends BaseFragment {
         Intent intent = new Intent(getContext(), TaskGridActivity.class);
         switch (view.getId()) {
             case R.id.card_student_company:
-                intent.putExtra(TaskTypeConfig.KEY_MODULE_TYPE, TaskTypeConfig.COLLEGE);
+                intent.putExtra(TaskTypeConfig.KEY_MODULE_TYPE, TaskTypeConfig.MODEL_COLLEGE);
                 ActivityCompat.startActivity(getContext(), intent, compat.toBundle());
                 break;
             case R.id.card_diy_task:
-                //break;
-            case R.id.card_money_task:
-                //break;
-            case R.id.card_help_task:
-                //break;
-            case R.id.card_promotion_task:
-                //break;
-            case R.id.card_recruitment_task:
-                //break;
-            default:
+                intent.putExtra(TaskTypeConfig.KEY_MODULE_TYPE, TaskTypeConfig.MODEL_DIY);
                 ToastUtil.showToast("敬请期待");
                 break;
+            case R.id.card_money_task:
+                intent.putExtra(TaskTypeConfig.KEY_MODULE_TYPE, TaskTypeConfig.MODEL_MONEY);
+                ActivityCompat.startActivity(getContext(), intent, compat.toBundle());
+                break;
+            case R.id.card_help_task:
+                intent.putExtra(TaskTypeConfig.KEY_MODULE_TYPE, TaskTypeConfig.MODEL_HELP);
+                ActivityCompat.startActivity(getContext(), intent, compat.toBundle());
+                break;
+            case R.id.card_promotion_task:
+                intent.putExtra(TaskTypeConfig.KEY_MODULE_TYPE, TaskTypeConfig.MODEL_PROMOTION);
+                ActivityCompat.startActivity(getContext(), intent, compat.toBundle());
+                break;
+            case R.id.card_recruitment_task:
+                intent.putExtra(TaskTypeConfig.KEY_MODULE_TYPE, TaskTypeConfig.MODEL_OFFER);
+                ActivityCompat.startActivity(getContext(), intent, compat.toBundle());
+                break;
+            default:
+                break;
         }
+
     }
 }

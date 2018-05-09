@@ -31,7 +31,6 @@
                 android:layout_height="200dp"
                 android:fitsSystemWindows="true"
                 android:scaleType="fitXY"
-                android:src="@drawable/bg_test1"
                 android:transitionName="@string/key_home_animation"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.7"
@@ -47,7 +46,7 @@
                 app:layout_collapseMode="pin">
 
                 <TextView
-                    android:id="@+id/txt__home_toolbar_title"
+                    android:id="@+id/txt_home_toolbar_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="15dp"

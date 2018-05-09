@@ -23,11 +23,6 @@ public interface TaskGridContract {
          */
         void getGridList(String moduleType);
 
-
-        /**
-         * 生成大学生自主创业模块
-         */
-        void getCollegeLists();
     }
 
 

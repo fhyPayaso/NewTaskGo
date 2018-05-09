@@ -20,6 +20,7 @@ import com.hrsoft.taskgo.mvp.model.task.request.WaterAttributesReqModel;
 import com.hrsoft.taskgo.mvp.model.task.response.WxRepModel;
 import com.hrsoft.taskgo.mvp.presenter.task.ReleaseTaskPresenter;
 import com.hrsoft.taskgo.mvp.view.task.adapter.ChoosePagerAdapter;
+import com.hrsoft.taskgo.utils.DialogUtil;
 import com.hrsoft.taskgo.utils.ToastUtil;
 import com.hrsoft.taskgo.widget.AlphaTransformer;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -92,9 +93,8 @@ public class ReleaseTaskActivity extends BaseToolBarPresenterActivity<ReleaseTas
     @OnClick(R.id.txt_set_task_money)
     public void onTxtSetTaskMoneyClicked() {
 
-
-
-
+        DialogUtil.CustomAlertDialog customAlertDialog = new DialogUtil().new CustomAlertDialog();
+        customAlertDialog.initDialog(this,R.layout.dialog_with_edittext);
 
 
 

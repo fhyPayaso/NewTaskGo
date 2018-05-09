@@ -44,7 +44,7 @@
 
                         <ImageView
                             style="@style/img_home_task_model"
-                            android:src="@drawable/bg_test1"/>
+                            android:src="@drawable/bg_card_college"/>
 
                         <TextView
                             style="@style/txt_home_task_model"
@@ -66,7 +66,7 @@
 
                         <ImageView
                             style="@style/img_home_task_model"
-                            android:src="@drawable/bg_test2"/>
+                            android:src="@drawable/bg_card_diy_task"/>
 
                         <TextView
                             style="@style/txt_home_task_model"
@@ -96,7 +96,7 @@
 
                         <ImageView
                             style="@style/img_home_task_model"
-                            android:src="@drawable/bg_test3"/>
+                            android:src="@drawable/bg_card_money_task"/>
 
                         <TextView
                             style="@style/txt_home_task_model"
@@ -118,7 +118,7 @@
 
                         <ImageView
                             style="@style/img_home_task_model"
-                            android:src="@drawable/bg_test4"/>
+                            android:src="@drawable/bg_card_help_task"/>
 
                         <TextView
                             style="@style/txt_home_task_model"
@@ -145,7 +145,7 @@
 
                         <ImageView
                             style="@style/img_home_task_model"
-                            android:src="@drawable/home_banner2"/>
+                            android:src="@drawable/bg_card_promotion"/>
 
                         <TextView
                             style="@style/txt_home_task_model"
@@ -166,7 +166,7 @@
 
                         <ImageView
                             style="@style/img_home_task_model"
-                            android:src="@drawable/home_banner1"/>
+                            android:src="@drawable/bg_card_offer"/>
 
                         <TextView
                             style="@style/txt_home_task_model"

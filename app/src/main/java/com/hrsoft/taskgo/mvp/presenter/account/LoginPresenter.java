@@ -50,7 +50,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
                 }
             };
 
-            addNotifyListener(loginCallBack,AccountHelper.getInstance());
+
             AccountHelper.getInstance().login(reqModel, loginCallBack);
         }
     }

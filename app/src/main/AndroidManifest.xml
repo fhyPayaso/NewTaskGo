@@ -34,7 +34,8 @@
         <activity android:name=".mvp.view.task.activity.TaskGridActivity" />
 
 
-        <activity android:name=".mvp.view.task.activity.TaskListActivity" />
+        <activity android:name=".mvp.view.task.activity.TaskListActivity"
+            android:launchMode="singleTask"/>
 
 
         <activity android:name=".mvp.view.task.activity.ReleaseTaskActivity"/>

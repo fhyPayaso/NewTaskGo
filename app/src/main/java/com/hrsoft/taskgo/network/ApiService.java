@@ -2,6 +2,7 @@ package com.hrsoft.taskgo.network;
 
 import com.hrsoft.taskgo.mvp.model.task.request.ReleaseTaskReqModel;
 import com.hrsoft.taskgo.mvp.model.task.response.TasListRespModel;
+import com.hrsoft.taskgo.mvp.model.task.response.TaskListPrePageRespModel;
 import com.hrsoft.taskgo.mvp.model.task.response.WaterAttributesRespModel;
 import com.hrsoft.taskgo.mvp.model.task.response.WxRepModel;
 import com.hrsoft.taskgo.network.response.ApiResponse;
@@ -14,6 +15,7 @@ import io.reactivex.Observer;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * @author fhyPayaso
@@ -38,12 +40,14 @@ public interface ApiService {
 
 
     /**
-     * 拉取水任务列表
+     * 分页拉取水任务列表
      *
+     * @param page 页码
      * @return
      */
     @GET("waters")
-    Observable<ApiResponse<List<TasListRespModel<WaterAttributesRespModel>>>> loadWaterTaskList();
+    Observable<ApiResponse<TaskListPrePageRespModel<WaterAttributesRespModel>>> loadWaterTaskList(@Query("page") int
+                                                                                                          page);
 
 
     /**

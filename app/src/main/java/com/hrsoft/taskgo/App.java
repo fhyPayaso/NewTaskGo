@@ -3,12 +3,17 @@ package com.hrsoft.taskgo;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.hrsoft.taskgo.common.Config;
 import com.hrsoft.taskgo.utils.CacheUtil;
 import com.hrsoft.taskgo.utils.ToastUtil;
+import com.squareup.leakcanary.LeakCanary;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * @author FanHongyu.
@@ -34,6 +39,13 @@ public class App extends Application {
         super.onCreate();
         sInstance = this;
         registerActivityLifecycleCallbacks(getActivityLifecycleCallbacks());
+        
+        
+        if(Config.DEBUG) {
+            LeakCanary.install(this);
+        }
+
+        Log.i(TAG, "onCreate: ");
     }
 
     public static App getInstance() {

@@ -7,17 +7,20 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.adapter.RecyclerScrollListener;
 import com.hrsoft.taskgo.base.mvp.view.BaseToolBarPresenterActivity;
 import com.hrsoft.taskgo.common.TaskTypeConfig;
-import com.hrsoft.taskgo.mvp.model.task.TaskHelper;
+import com.hrsoft.taskgo.mvp.contract.TaskListContract;
 import com.hrsoft.taskgo.mvp.model.task.bean.BaseTaskModel;
-import com.hrsoft.taskgo.mvp.presenter.task.TaskListContract;
 import com.hrsoft.taskgo.mvp.presenter.task.TaskListPresenter;
 import com.hrsoft.taskgo.mvp.view.task.adapter.TaskListRecyclerAdapter;
 import com.hrsoft.taskgo.mvp.view.task.adapter.TaskListRecyclerAdapter.OnItemViewClickListener;
+import com.hrsoft.taskgo.utils.DialogUtil;
 import com.hrsoft.taskgo.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -34,8 +37,8 @@ import butterknife.OnClick;
  */
 
 public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContract.Presenter> implements
-        TaskListContract.View, OnItemViewClickListener, SwipeRefreshLayout
-        .OnRefreshListener, RecyclerScrollListener.LoadMoreListener {
+        TaskListContract.View, OnItemViewClickListener, SwipeRefreshLayout.OnRefreshListener, RecyclerScrollListener
+        .LoadMoreListener {
 
 
     @BindView(R.id.recycler_task_list)
@@ -44,12 +47,17 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
     FloatingActionButton mBtnReleaseTask;
     @BindView(R.id.sl_refresh_task)
     SwipeRefreshLayout mRefreshLayout;
+    @BindView(R.id.txt_task_number)
+    TextView mTxtTaskNumber;
+    @BindView(R.id.btn_accept_all_task)
+    TextView mBtnAcceptAllTask;
 
 
     private String mTaskType;
     private TaskListRecyclerAdapter mRecyclerAdapter;
     private RecyclerScrollListener mScrollListener;
     private List<BaseTaskModel> mTaskModelList = new ArrayList<>();
+    private Integer mCurrentPage = 1;
 
 
     @Override
@@ -62,17 +70,26 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
 
         setActivityTitle("任务列表");
         mTaskType = getIntent().getStringExtra(TaskTypeConfig.KEY_TASK_TYPE);
-
     }
 
     @Override
     protected void initView() {
+        mTxtTaskNumber.setText("0");
         initRecyclerView();
 
+        switch (mTaskType) {
+            case TaskTypeConfig.COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL:
+                mBtnAcceptAllTask.setVisibility(View.VISIBLE);
+                break;
+            default:
+                mBtnAcceptAllTask.setVisibility(View.GONE);
+                break;
+        }
     }
 
 
     private void initRecyclerView() {
+
 
         mRecyclerAdapter = new TaskListRecyclerAdapter(mTaskModelList, this, R.layout.item_recycler_task);
         //设置上拉加载更多
@@ -93,7 +110,8 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
         //添加下拉刷新事件监听
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setRefreshing(true);
-        mPresenter.loadTaskList(mTaskType);
+        //初始化加载数据
+        mPresenter.loadTaskList(mTaskType, mCurrentPage);
     }
 
     @Override
@@ -112,7 +130,13 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
         if (mScrollListener.isLoading()) {
             mScrollListener.setLoadMoreFinish();
         }
-        mRecyclerAdapter.addItems(taskModelList);
+        if (mCurrentPage == 1) {
+            mRecyclerAdapter.reSetDataList(taskModelList);
+        } else {
+            mRecyclerAdapter.addItems(taskModelList);
+        }
+        mCurrentPage++;
+        mTxtTaskNumber.setText(String.valueOf(mTaskModelList.size()));
     }
 
     /**
@@ -137,6 +161,11 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
         mRecyclerAdapter.removeItem(position);
     }
 
+    @Override
+    public void onAcceptAllTaskSuccess() {
+        mRecyclerAdapter.removeAllItem();
+    }
+
     /**
      * 接受任务失败回调
      *
@@ -153,9 +182,16 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
      */
     @OnClick(R.id.btn_release_task)
     public void onViewClicked() {
+        mBtnReleaseTask.setClickable(false);
         FillTaskInfoActivity.startActivity(this, mTaskType);
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mBtnReleaseTask.setClickable(true);
+    }
 
     /**
      * 头像点击事件回调
@@ -170,8 +206,16 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
      * 接受按钮点击事件回调
      */
     @Override
-    public void onBtnClick(int position) {
-        mPresenter.acceptTask(mTaskModelList.get(position), position);
+    public void onBtnClick(final int position) {
+
+        DialogUtil.QuickDialog dialog = new DialogUtil.QuickDialog(this)
+                .setClickListener(new DialogUtil.QuickDialog.DialogPositiveButtonListener() {
+                    @Override
+                    public void onPositiveButtonClick() {
+                        mPresenter.acceptTask(mTaskModelList.get(position), position);
+                    }
+                })
+                .showDialog("是否确认接受该任务");
     }
 
     /**
@@ -179,7 +223,8 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
      */
     @Override
     public void onRefresh() {
-        mPresenter.loadTaskList(mTaskType);
+        mCurrentPage = 1;
+        mPresenter.loadTaskList(mTaskType, mCurrentPage);
     }
 
 
@@ -191,6 +236,25 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
 
     @Override
     public void onLoadMore() {
-        mPresenter.loadTaskList(mTaskType);
+        mPresenter.loadTaskList(mTaskType, mCurrentPage + 1);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    @OnClick(R.id.btn_accept_all_task)
+    public void onBtnAcceptAllClicked() {
+        DialogUtil.QuickDialog dialog = new DialogUtil.QuickDialog(this)
+                .setClickListener(new DialogUtil.QuickDialog.DialogPositiveButtonListener() {
+                    @Override
+                    public void onPositiveButtonClick() {
+                        mPresenter.acceptAllTask(mTaskModelList);
+                    }
+                })
+                .showDialog("是否确认接受全部任务");
     }
 }

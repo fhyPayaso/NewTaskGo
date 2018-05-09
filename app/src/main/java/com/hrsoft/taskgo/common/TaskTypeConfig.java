@@ -32,11 +32,36 @@ public class TaskTypeConfig {
      */
     public static final String COLLEGE_ENTREPRENEURSHIP = COLLEGE + "_entrepreneurship";
 
+
     /**
-     * 校六送水
+     * 公益服务
+     */
+    public static final String COLLEGE_PUBLIC_GOOD = COLLEGE + "_public_good";
+
+
+    /**
+     * 校内送水
      */
     public static final String COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL = COLLEGE_ENTREPRENEURSHIP +
             "_water_school";
+
+
+    /**
+     * 带领快递
+     */
+    public static final String COLLEGE_ENTREPRENEURSHIP_EXPRESS = COLLEGE_ENTREPRENEURSHIP + "_express";
+
+
+    /**
+     * 零食店铺
+     */
+    public static final String COLLEGE_ENTREPRENEURSHIP_SNACKS = COLLEGE_ENTREPRENEURSHIP + "_snacks";
+
+
+    /**
+     * e管家
+     */
+    public static final String COLLEGE_PUBLIC_GOOD_E_HELPER = COLLEGE_PUBLIC_GOOD + "_e_helper";
 
 
 }

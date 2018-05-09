@@ -1,5 +1,6 @@
 package com.hrsoft.taskgo.network;
 
+import com.hrsoft.taskgo.mvp.model.task.request.AcceptTaskReqModel;
 import com.hrsoft.taskgo.mvp.model.task.request.ReleaseTaskReqModel;
 import com.hrsoft.taskgo.mvp.model.task.response.TasListRespModel;
 import com.hrsoft.taskgo.mvp.model.task.response.TaskListPrePageRespModel;
@@ -50,11 +51,10 @@ public interface ApiService {
     /**
      * 接取水任务
      *
-     * @param taskArray 任务信息列表
      * @return
      */
     @POST("tasks/accept/waters")
-    Observable<ApiResponse> acceptWaterTask(@Body List<Integer> taskArray);
+    Observable<ApiResponse> acceptWaterTask(@Body AcceptTaskReqModel reqModel);
 
 
 }

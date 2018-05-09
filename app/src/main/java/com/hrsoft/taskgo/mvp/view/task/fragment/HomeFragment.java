@@ -132,6 +132,5 @@ public class HomeFragment extends BaseFragment {
             default:
                 break;
         }
-
     }
 }

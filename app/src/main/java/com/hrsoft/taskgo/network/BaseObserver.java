@@ -50,11 +50,13 @@ public abstract class BaseObserver<T> implements Observer<ApiResponse<T>> {
     @Override
     public void onError(Throwable e) {
 
+
+
         if (e instanceof ApiException) {
             onError((ApiException) e);
             NetworkErrorHandler.handler((ApiException) e);
         } else {
-            onError(new ApiException(-1, "json解析错误"));
+            onError(new ApiException(-1, e.getMessage()));
             Log.i(TAG, "onError: " + e.toString());
         }
 

@@ -92,14 +92,13 @@ public class ReleaseTaskActivity extends BaseToolBarPresenterActivity<ReleaseTas
      */
     @OnClick(R.id.txt_set_task_money)
     public void onTxtSetTaskMoneyClicked() {
-
-        DialogUtil.CustomAlertDialog customAlertDialog = new DialogUtil().new CustomAlertDialog();
-        customAlertDialog.initDialog(this,R.layout.dialog_with_edittext);
-
-
-
-
-        ToastUtil.showToast("点击设置金额");
+        switch (mTaskType) {
+            case TaskTypeConfig.COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL:
+                ToastUtil.showToast("送水任务不支持修改金额");
+                break;
+            default:
+                break;
+        }
     }
 
     /**

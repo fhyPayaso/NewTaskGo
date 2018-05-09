@@ -6,6 +6,7 @@ import com.hrsoft.taskgo.common.TaskTypeConfig;
 import com.hrsoft.taskgo.mvp.contract.TaskListContract;
 import com.hrsoft.taskgo.mvp.model.task.TaskHelper;
 import com.hrsoft.taskgo.mvp.model.task.bean.BaseTaskModel;
+import com.hrsoft.taskgo.mvp.model.task.request.AcceptTaskReqModel;
 import com.hrsoft.taskgo.mvp.model.task.response.TasListRespModel;
 import com.hrsoft.taskgo.mvp.model.task.response.WaterAttributesRespModel;
 
@@ -53,7 +54,8 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
         };
         List<Integer> list = new ArrayList<>();
         list.add(model.getTaskId());
-        TaskHelper.getInstance().acceptTask(this, list, callback);
+        AcceptTaskReqModel reqModel = new AcceptTaskReqModel(list);
+        TaskHelper.getInstance().acceptTask(this, reqModel, callback);
     }
 
     @Override
@@ -75,7 +77,7 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
         for (BaseTaskModel model : modelList) {
             list.add(model.getTaskId());
         }
-        TaskHelper.getInstance().acceptTask(this, list, callback);
+        TaskHelper.getInstance().acceptTask(this, new AcceptTaskReqModel(list), callback);
     }
 
 

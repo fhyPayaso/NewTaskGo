@@ -1,6 +1,7 @@
 package com.hrsoft.taskgo.mvp.model.task;
 
 import android.os.Handler;
+import android.util.Log;
 
 import com.hrsoft.taskgo.base.mvp.IBaseContract;
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
@@ -9,6 +10,7 @@ import com.hrsoft.taskgo.base.mvp.model.BaseModel;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 import com.hrsoft.taskgo.mvp.model.account.helper.AccountHelper;
 import com.hrsoft.taskgo.mvp.model.task.bean.BaseTaskModel;
+import com.hrsoft.taskgo.mvp.model.task.request.AcceptTaskReqModel;
 import com.hrsoft.taskgo.mvp.model.task.request.ReleaseTaskReqModel;
 import com.hrsoft.taskgo.mvp.model.task.request.WaterAttributesReqModel;
 import com.hrsoft.taskgo.mvp.model.task.response.TasListRespModel;
@@ -23,6 +25,8 @@ import com.hrsoft.taskgo.network.response.ApiResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.support.constraint.Constraints.TAG;
 
 
 /**
@@ -109,13 +113,13 @@ public class TaskHelper extends BaseModel {
      * @param callback
      */
     @SuppressWarnings("unchecked")
-    public void acceptTask(IBaseContract.IBasePresenter presenter, List<Integer> taskArray, final IDataCallback.Callback
+    public void acceptTask(IBaseContract.IBasePresenter presenter, AcceptTaskReqModel reqModel, final IDataCallback.Callback
             callback) {
 
         addNotifyListener(presenter, callback);
         NetworkFactory
                 .getService()
-                .acceptWaterTask(taskArray)
+                .acceptWaterTask(reqModel)
                 .compose(BaseObserver.<ApiResponse>setThread())
                 .subscribe(new BaseObserver() {
                     @Override

@@ -21,7 +21,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
  * email fanhongyu@hrsoft.net.
  */
 
-public final class NetWorkFactory {
+public final class NetworkFactory {
 
 
     private static OkHttpClient sOkHttpClient;
@@ -101,7 +101,7 @@ public final class NetWorkFactory {
             @Override
             public Response intercept(Chain chain) throws IOException {
 
-                String token = "";
+                String token = "fe8958e57611bfaa335adbdd80950b08";
                 //请求时加入token
                 Request request = chain.request().newBuilder()
                         //防止空指针

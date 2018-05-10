@@ -128,9 +128,6 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
                 mView.onLoadTaskListError(error);
             }
         };
-
         TaskHelper.getInstance().loadSchoolWaterTaskList(this, page, loadListCallBack);
     }
-
-
 }

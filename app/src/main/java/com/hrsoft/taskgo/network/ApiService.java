@@ -26,7 +26,6 @@ import retrofit2.http.Query;
 public interface ApiService {
 
 
-
     /**
      * 发布水任务
      *
@@ -55,6 +54,25 @@ public interface ApiService {
      */
     @POST("tasks/accept/waters")
     Observable<ApiResponse> acceptWaterTask(@Body AcceptTaskReqModel reqModel);
+
+
+    /**
+     * 拉取我接发布的任务列表
+     *
+     * @return
+     */
+    @GET("me/tasks/master/0")
+    Observable<ApiResponse<TaskListPrePageRespModel>> getMyReleaseTask();
+
+
+    /**
+     * 拉取我接受的任务列表
+     *
+     * @param status 任务状态
+     * @return
+     */
+    @GET("me/tasks/master/")
+    Observable<ApiResponse<TaskListPrePageRespModel>> getMyAcceptTask(@Query("status") int status);
 
 
 }

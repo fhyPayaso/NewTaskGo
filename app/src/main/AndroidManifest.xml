@@ -42,6 +42,8 @@
 
         <activity android:name=".mvp.view.task.activity.FillTaskInfoActivity"/>
 
+        <activity android:name=".mvp.view.task.activity.MyTaskActivity"/>
+
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"

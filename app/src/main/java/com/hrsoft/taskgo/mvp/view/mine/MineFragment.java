@@ -8,7 +8,8 @@ import android.widget.Button;
 
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.fragment.BaseFragment;
-import com.hrsoft.taskgo.mvp.view.task.activity.MyTaskActivity;
+import com.hrsoft.taskgo.common.MyTaskConfig;
+import com.hrsoft.taskgo.mvp.view.task.activity.MyTaskListActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,11 +71,18 @@ public class MineFragment extends BaseFragment {
 
     @OnClick(R.id.release)
     public void onReleaseClicked() {
-        MyReleaseTaskActivity.startActivity(getContext());
+        MyTaskListActivity.startActivity(getContext(), MyTaskConfig.MY_RELEASE_TASK);
     }
 
     @OnClick(R.id.accept)
     public void onAcceptClicked() {
-        MyTaskActivity.startActivity(getContext());
+        MyTaskListActivity.startActivity(getContext(), MyTaskConfig.MY_ACCEPT_TASK);
     }
+
+
+
+
+
+
+
 }

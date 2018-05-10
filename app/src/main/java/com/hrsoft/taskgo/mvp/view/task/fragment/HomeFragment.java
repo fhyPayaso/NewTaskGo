@@ -1,6 +1,7 @@
 package com.hrsoft.taskgo.mvp.view.task.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -112,6 +113,9 @@ public class HomeFragment extends BaseFragment {
             case R.id.card_diy_task:
                 intent.putExtra(TaskTypeConfig.KEY_MODULE_TYPE, TaskTypeConfig.MODEL_DIY);
                 ToastUtil.showToast("敬请期待");
+
+                //openBrowserUpdate("http://p5fd263i7.bkt.clouddn.com/app-release.apk");
+
                 break;
             case R.id.card_money_task:
                 intent.putExtra(TaskTypeConfig.KEY_MODULE_TYPE, TaskTypeConfig.MODEL_MONEY);
@@ -132,5 +136,14 @@ public class HomeFragment extends BaseFragment {
             default:
                 break;
         }
+    }
+
+
+    private void openBrowserUpdate(String apkUrl) {
+        Intent intent = new Intent();
+        intent.setAction("android.intent.action.VIEW");
+        Uri apk_url = Uri.parse(apkUrl);
+        intent.setData(apk_url);
+        startActivity(intent);
     }
 }

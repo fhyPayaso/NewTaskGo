@@ -1,5 +1,6 @@
 package com.hrsoft.taskgo.mvp.model.task.response;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import com.hrsoft.taskgo.mvp.model.task.bean.CardPackageModel;
 
@@ -31,10 +32,10 @@ public class TasListRespModel<T> {
 
 
     /**
-     * 卡片信息
+     * 卡片信息(json格式)
      */
     @SerializedName("cards")
-    private CardPackageModel mCardsModel;
+    private String mCardsJson;
 
 
     /**
@@ -110,12 +111,17 @@ public class TasListRespModel<T> {
         this.type = type;
     }
 
-    public CardPackageModel getCardsModel() {
-        return mCardsModel;
+    public CardPackageModel getCardsJson() {
+
+        CardPackageModel model = new CardPackageModel();
+        if (mCardsJson != null) {
+            model = new Gson().fromJson(mCardsJson, CardPackageModel.class);
+        }
+        return model;
     }
 
-    public void setCardsModel(CardPackageModel cardsModel) {
-        this.mCardsModel = cardsModel;
+    public void setCardsJson(String cardsJson) {
+        this.mCardsJson = cardsJson;
     }
 
     public T getAttributes() {

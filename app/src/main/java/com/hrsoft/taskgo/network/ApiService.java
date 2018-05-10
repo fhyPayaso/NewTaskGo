@@ -16,6 +16,7 @@ import io.reactivex.Observer;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -46,7 +47,6 @@ public interface ApiService {
     Observable<ApiResponse<TaskListPrePageRespModel<WaterAttributesRespModel>>> loadWaterTaskList(@Query("page") int
                                                                                                           page);
 
-
     /**
      * 接取水任务
      *
@@ -54,16 +54,6 @@ public interface ApiService {
      */
     @POST("tasks/accept/waters")
     Observable<ApiResponse> acceptWaterTask(@Body AcceptTaskReqModel reqModel);
-
-
-    /**
-     * 拉取我接发布的任务列表
-     *
-     * @return
-     */
-    @GET("me/tasks/master/0")
-    Observable<ApiResponse<TaskListPrePageRespModel>> getMyReleaseTask();
-
 
     /**
      * 拉取我接受的任务列表
@@ -73,6 +63,47 @@ public interface ApiService {
      */
     @GET("me/tasks/master/")
     Observable<ApiResponse<TaskListPrePageRespModel>> getMyAcceptTask(@Query("status") int status);
+
+
+    /**
+     * 查询水任务支付状态
+     *
+     * @param waterTaskId
+     * @return
+     */
+    @GET("water/status/{waterid}")
+    Observable<ApiResponse<String>> checkWaterTaskPayStatus(@Path("waterid") int waterTaskId);
+
+
+    /**
+     * 我发布的任务
+     *
+     * @param status 任务状态
+     * @return
+     */
+    @GET("me/tasks/master/{status}")
+    Observable<ApiResponse<TaskListPrePageRespModel<String>>> loadMyReleaseTaskList(@Path("status") int status,
+                                                                                    @Query("page") int page);
+
+
+    /**
+     * 我接受的任务
+     *
+     * @param status 任务状态
+     * @return
+     */
+    @GET("me/tasks/accept/{status}")
+    Observable<ApiResponse<TaskListPrePageRespModel<String>>> loadMyAcceptTaskList(@Path("status") int status, @Query("page") int page);
+
+
+    /**
+     * 完成任务
+     *
+     * @param waterTaskId 水任务id
+     * @return
+     */
+    @GET("water/finish/{taskId}")
+    Observable<ApiResponse> finishTask(@Path("taskId") int waterTaskId);
 
 
 }

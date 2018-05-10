@@ -111,7 +111,7 @@
             android:background="@drawable/txt_task_type_selector"
             android:text="@string/txt_water_task_type_self"/>
 
-        <TextView
+        <Button
             android:id="@+id/btn_release_task"
             android:layout_width="match_parent"
             android:layout_height="40dp"

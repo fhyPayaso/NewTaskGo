@@ -23,7 +23,6 @@ public class FragmentUtil {
                 .beginTransaction()
                 .add(viewId, fragment, tag)
                 .commit();
-
     }
 
     /**

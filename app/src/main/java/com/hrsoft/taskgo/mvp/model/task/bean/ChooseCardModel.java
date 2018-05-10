@@ -3,6 +3,8 @@ package com.hrsoft.taskgo.mvp.model.task.bean;
 import com.hrsoft.taskgo.base.mvp.model.BaseBean;
 
 /**
+ * 选择卡片时所需要的信息
+ *
  * @author FanHongyu.
  * @since 18/5/5 16:34.
  * email fanhongyu@hrsoft.net.

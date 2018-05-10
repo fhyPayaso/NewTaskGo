@@ -4,11 +4,9 @@ import android.content.Context;
 import android.view.View;
 
 import com.hrsoft.taskgo.R;
-import com.hrsoft.taskgo.base.adapter.BaseRecyclerViewAdapter;
 import com.hrsoft.taskgo.base.adapter.BaseViewHolder;
 import com.hrsoft.taskgo.base.adapter.FooterRecyclerViewAdapter;
 import com.hrsoft.taskgo.mvp.model.task.bean.BaseTaskModel;
-import com.hrsoft.taskgo.utils.ToastUtil;
 
 import java.util.List;
 
@@ -20,11 +18,43 @@ import java.util.List;
 public class TaskListRecyclerAdapter extends FooterRecyclerViewAdapter<BaseTaskModel> {
 
 
+    /**
+     * 接受
+     */
+    public static final int BTN_ACCEPT = 0;
+
+    /**
+     * 完成
+     */
+    public static final int BTN_FINISH = 1;
+
+
+    /**
+     * 撤销任务
+     */
+    public static final int BTN_CANCEL = 2;
+
+
+    /**
+     * 继续支付
+     */
+    public static final int BTN_PAY = 3;
+
+
+    /**
+     * 无按钮
+     */
+    public static final int BTN_EMPTY = 4;
+
     private OnItemViewClickListener mOnItemViewClickListener;
 
+    private int mBtnType;
 
-    public TaskListRecyclerAdapter(List<BaseTaskModel> baseTaskModels, Context context, int itemLayoutId) {
+
+    public TaskListRecyclerAdapter(List<BaseTaskModel> baseTaskModels, Context context, int itemLayoutId, int
+            btnType) {
         super(baseTaskModels, context, itemLayoutId);
+        this.mBtnType = btnType;
     }
 
     @Override
@@ -32,8 +62,6 @@ public class TaskListRecyclerAdapter extends FooterRecyclerViewAdapter<BaseTaskM
 
 
         final int position = viewHolder.getAdapterPosition();
-
-
         viewHolder.setImgUrl(R.id.img_avatar, item.getAvatarUrl())
                 .setText(R.id.txt_username, item.getUserName())
                 .setText(R.id.txt_task_type, item.getTaskType())
@@ -45,6 +73,27 @@ public class TaskListRecyclerAdapter extends FooterRecyclerViewAdapter<BaseTaskM
                 .setText(R.id.txt_value_second, item.getSecondValue())
                 .setText(R.id.txt_title_third, item.getThirdTitle())
                 .setText(R.id.txt_value_third, item.getThirdValue());
+
+
+        switch (mBtnType) {
+            case BTN_ACCEPT:
+                viewHolder.setText(R.id.txt_task_btn, "接受");
+                break;
+            case BTN_CANCEL:
+                viewHolder.setText(R.id.txt_task_btn, "撤销任务");
+                break;
+            case BTN_FINISH:
+                viewHolder.setText(R.id.txt_task_btn, "完成");
+                break;
+            case BTN_PAY:
+                viewHolder.setText(R.id.txt_task_btn, "继续支付");
+                break;
+            case BTN_EMPTY:
+                viewHolder.getViewById(R.id.txt_task_btn).setVisibility(View.GONE);
+                break;
+            default:
+                break;
+        }
 
 
         viewHolder.getViewById(R.id.img_avatar).setOnClickListener(new View.OnClickListener() {

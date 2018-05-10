@@ -107,7 +107,7 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
                         model.setUserName(respModel.getUserName() == null ? "" : respModel.getUserName());
                         model.setAvatarUrl(respModel.getAvatarImgUrl());
                         model.setTaskType("校内送水");
-                        model.setCardNumber(respModel.getCardsModel().getGoodPeople());
+                        model.setCardNumber(respModel.getCardsJson().getGoodPeople());
                         model.setMoney(Double.valueOf(respModel.getAttributes().getMoney()));
 
                         model.setFirstTitle("宿舍楼 : ");

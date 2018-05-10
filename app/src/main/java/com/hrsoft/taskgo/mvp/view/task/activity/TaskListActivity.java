@@ -91,7 +91,8 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
     private void initRecyclerView() {
 
 
-        mRecyclerAdapter = new TaskListRecyclerAdapter(mTaskModelList, this, R.layout.item_recycler_task);
+        mRecyclerAdapter = new TaskListRecyclerAdapter(mTaskModelList, this
+                , R.layout.item_recycler_task, TaskListRecyclerAdapter.BTN_ACCEPT);
         //设置上拉加载更多
         mRecyclerAdapter.setWithFooter(true);
         //内部控件点击事件

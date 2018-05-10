@@ -22,7 +22,7 @@ public class RecyclerScrollListener extends RecyclerView.OnScrollListener {
     /**
      * 分页数量
      */
-    private int mItemNumPerPage = 10;
+    private int mItemNumPerPage = 20;
 
     /**
      * 是否正在加载中

@@ -20,7 +20,7 @@ public class WxRepModel extends BaseBean{
     private String noncestr;
     private String timestamp;
     private String sign;
-    private int taskId = -1;
+    private int taskId;
 
     public int getTaskId() {
         return taskId;

@@ -145,9 +145,16 @@ public class ReleaseTaskActivity extends BaseToolBarPresenterActivity<ReleaseTas
         vpCardPager.setAdapter(mPagerAdapter);
     }
 
+
+    /**
+     * 打开微信客户端
+     *
+     * @param repModel
+     */
     @Override
     public void onLoadWxOrdersInfoSuccess(WxRepModel repModel) {
         sTaskId = repModel.getTaskId();
+        ToastUtil.showToast("" + sTaskId);
         dismissProgressDialog();
         mPresenter.openWxPayPage(App.getInstance(), repModel);
     }

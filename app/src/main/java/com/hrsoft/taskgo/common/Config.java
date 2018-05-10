@@ -38,6 +38,16 @@ public class Config {
      */
     public static final int[] NET_CORRECT_CODE = {1000, 2000};
 
+    /**
+     * 空字段
+     */
+    public static final String EMPTY_FIELD = "";
+
+    /**
+     * 对密码的位数进行设置
+     */
+    public static final int PASSWORD_MIN = 6;
+    public static final int PASSWORD_MAX = 20;
 
     /**
      * 微信平台应用标识

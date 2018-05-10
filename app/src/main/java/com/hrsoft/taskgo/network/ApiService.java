@@ -1,5 +1,8 @@
 package com.hrsoft.taskgo.network;
 
+import com.hrsoft.taskgo.mvp.model.account.request.ForgetPasswordModel;
+import com.hrsoft.taskgo.mvp.model.account.request.RegisterReqModel;
+import com.hrsoft.taskgo.mvp.model.account.request.TokenResponse;
 import com.hrsoft.taskgo.mvp.model.task.request.AcceptTaskReqModel;
 import com.hrsoft.taskgo.mvp.model.task.request.ReleaseTaskReqModel;
 import com.hrsoft.taskgo.mvp.model.task.response.TasListRespModel;
@@ -27,6 +30,32 @@ import retrofit2.http.Query;
 public interface ApiService {
 
 
+    @POST("login")
+    Observable<ApiResponse<TokenResponse>> login(@Body LoginReqModel reqModel);
+
+
+    @POST("register")
+    Observable<ApiResponse<TokenResponse>> register(@Body RegisterReqModel registerReqModel);
+
+
+    @POST("password/forgot")
+    Observable<ApiResponse> forgetPassWord(@Body ForgetPasswordModel forgetPasswordModel);
+
+
+    @GET("captcha/{mobile}")
+    Observable<ApiResponse> sendCaptcha(@Path("mobile") String mobile);
+    /**
+     * 检查token是否过期
+     *
+     * @param
+     * @return
+     */
+    @GET("token")
+    Observable<ApiResponse> updateToke();
+
+//    Observable<ApiResponse> updateToke(@Path("token") String token);
+
+
     /**
      * 发布水任务
      *
@@ -47,10 +76,10 @@ public interface ApiService {
     Observable<ApiResponse<TaskListPrePageRespModel<WaterAttributesRespModel>>> loadWaterTaskList(@Query("page") int
                                                                                                           page);
 
+
     /**
      * 接取水任务
      *
-     * @return
      */
     @POST("tasks/accept/waters")
     Observable<ApiResponse> acceptWaterTask(@Body AcceptTaskReqModel reqModel);

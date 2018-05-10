@@ -13,7 +13,6 @@ public class CheckCaptchaModel  extends BaseBean {
     private String mobile;
     private String captcha;
 
-
     public String getMobile() {
         return mobile;
     }
@@ -35,8 +34,9 @@ public class CheckCaptchaModel  extends BaseBean {
         this.captcha = captcha;
     }
 
-    @Override
-    protected void checkValue() {
 
+    @Override
+    public boolean checkValue() {
+        return false;
     }
 }

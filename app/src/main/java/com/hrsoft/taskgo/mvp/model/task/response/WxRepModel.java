@@ -1,13 +1,14 @@
 package com.hrsoft.taskgo.mvp.model.task.response;
 
 import com.google.gson.annotations.SerializedName;
+import com.hrsoft.taskgo.base.mvp.model.BaseBean;
 
 /**
  * @author fhyPayaso
  * @since 2018/5/4 on 上午12:57
  * fhyPayaso@qq.com
  */
-public class WxRepModel {
+public class WxRepModel extends BaseBean{
 
 
 
@@ -75,5 +76,12 @@ public class WxRepModel {
 
     public void setSign(String sign) {
         this.sign = sign;
+    }
+
+    @Override
+    public boolean checkValue() {
+
+
+        return true;
     }
 }

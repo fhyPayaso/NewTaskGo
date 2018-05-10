@@ -2,15 +2,10 @@ package com.hrsoft.taskgo.base.adapter;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-
-import com.hrsoft.taskgo.R;
-import com.hrsoft.taskgo.mvp.presenter.task.TaskListContract;
 
 import java.util.Collection;
 import java.util.List;

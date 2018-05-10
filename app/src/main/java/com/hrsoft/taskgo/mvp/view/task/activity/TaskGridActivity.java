@@ -3,14 +3,18 @@ package com.hrsoft.taskgo.mvp.view.task.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.v4.app.ActivityCompat;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.hrsoft.taskgo.R;
-import com.hrsoft.taskgo.base.mvp.model.BaseModel;
-import com.hrsoft.taskgo.base.mvp.view.BasePresenterActivity;
+import com.hrsoft.taskgo.base.mvp.view.BaseToolBarPresenterActivity;
 import com.hrsoft.taskgo.common.TaskTypeConfig;
+import com.hrsoft.taskgo.mvp.contract.TaskGridContract;
 import com.hrsoft.taskgo.mvp.model.task.bean.TaskGridModel;
-import com.hrsoft.taskgo.mvp.presenter.task.TaskGridContract;
 import com.hrsoft.taskgo.mvp.presenter.task.TaskGridPresenter;
 import com.hrsoft.taskgo.mvp.view.task.fragment.TaskGridFragment;
 import com.hrsoft.taskgo.utils.FragmentUtil;
@@ -18,6 +22,7 @@ import com.hrsoft.taskgo.utils.FragmentUtil;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @author FanHongyu.
@@ -25,11 +30,29 @@ import butterknife.BindView;
  * email fanhongyu@hrsoft.net.
  */
 
-public class TaskGridActivity extends BasePresenterActivity<TaskGridContract.Presenter> implements TaskGridContract.View {
+public class TaskGridActivity extends BaseToolBarPresenterActivity<TaskGridContract.Presenter> implements
+        TaskGridContract.View {
 
 
     @BindView(R.id.ll_task_type_root_view)
     LinearLayout llRootView;
+    @BindView(R.id.img_gird_title)
+    ImageView imgGirdTitle;
+    @BindView(R.id.txt_home_toolbar_title)
+    TextView txtHomeToolbarTitle;
+    @BindView(R.id.app_bar)
+    AppBarLayout appBar;
+
+
+    /**
+     * 当前模块类型
+     */
+    private String mModelType;
+
+    /**
+     * 当前模块标题
+     */
+    private String mToolBarTitle;
 
 
     @Override
@@ -41,9 +64,10 @@ public class TaskGridActivity extends BasePresenterActivity<TaskGridContract.Pre
     @Override
     protected void initData(Bundle savedInstanceState) {
 
-        String moduleType = getIntent().getStringExtra(TaskTypeConfig.KEY_MODULE_TYPE);
-        if (moduleType != null) {
-            mPresenter.getGridList(moduleType);
+        getToolBar().setVisibility(View.GONE);
+        mModelType = getIntent().getStringExtra(TaskTypeConfig.KEY_MODULE_TYPE);
+        if (mModelType != null) {
+            mPresenter.getGridList(mModelType);
         }
     }
 
@@ -51,6 +75,50 @@ public class TaskGridActivity extends BasePresenterActivity<TaskGridContract.Pre
     @Override
     protected void initView() {
 
+        changeAppBarChange();
+    }
+
+
+    private void changeAppBarChange() {
+
+        switch (mModelType) {
+            case TaskTypeConfig.MODEL_COLLEGE:
+                imgGirdTitle.setImageResource(R.drawable.bg_card_college);
+                mToolBarTitle = "大学生创业团队";
+                break;
+            case TaskTypeConfig.MODEL_DIY:
+                imgGirdTitle.setImageResource(R.drawable.bg_card_diy_task);
+                mToolBarTitle = "自定义任务";
+                break;
+            case TaskTypeConfig.MODEL_MONEY:
+                imgGirdTitle.setImageResource(R.drawable.bg_card_money_task);
+                mToolBarTitle = "赏金任务";
+                break;
+            case TaskTypeConfig.MODEL_HELP:
+                imgGirdTitle.setImageResource(R.drawable.bg_card_help_task);
+                mToolBarTitle = "校园互助";
+                break;
+            case TaskTypeConfig.MODEL_PROMOTION:
+                imgGirdTitle.setImageResource(R.drawable.bg_card_promotion);
+                mToolBarTitle = "校园推广";
+                break;
+            case TaskTypeConfig.MODEL_OFFER:
+                imgGirdTitle.setImageResource(R.drawable.bg_card_offer);
+                mToolBarTitle = "校园招聘";
+                break;
+            default:
+                break;
+        }
+        appBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (verticalOffset == 0) {
+                    txtHomeToolbarTitle.setText("");
+                } else {
+                    txtHomeToolbarTitle.setText(mToolBarTitle);
+                }
+            }
+        });
     }
 
 
@@ -60,11 +128,11 @@ public class TaskGridActivity extends BasePresenterActivity<TaskGridContract.Pre
     }
 
 
-
     @Override
     public void onLoadGridListSuccess(List<TaskGridModel> gridList) {
         for (TaskGridModel taskGridModel : gridList) {
-            TaskGridFragment fragment = TaskGridFragment.getNewInstance(taskGridModel.getTitle(), taskGridModel.getTaskTypeList());
+            TaskGridFragment fragment = TaskGridFragment.getNewInstance(taskGridModel.getTitle(), taskGridModel
+                    .getTaskTypeList());
             FragmentUtil.addFragment(this, R.id.ll_task_type_root_view, fragment, null);
         }
     }
@@ -74,5 +142,19 @@ public class TaskGridActivity extends BasePresenterActivity<TaskGridContract.Pre
         Intent intent = new Intent(context, TaskGridActivity.class);
         intent.putExtra(TaskTypeConfig.KEY_MODULE_TYPE, moduleType);
         context.startActivity(intent);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        ActivityCompat.finishAfterTransition(this);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

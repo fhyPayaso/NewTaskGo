@@ -1,5 +1,7 @@
 package com.hrsoft.taskgo.mvp.model.task.request;
 
+import com.hrsoft.taskgo.base.mvp.model.BaseBean;
+
 /**
  * 送水任务详细信息请求体
  *
@@ -7,7 +9,7 @@ package com.hrsoft.taskgo.mvp.model.task.request;
  * @since 2018/5/4 on 上午12:53
  * fhyPayaso@qq.com
  */
-public class WaterAttributesReqModel {
+public class WaterAttributesReqModel extends BaseBean{
 
     private String apartment;
     private String address;
@@ -42,5 +44,10 @@ public class WaterAttributesReqModel {
 
     public void setSend(String send) {
         this.send = send;
+    }
+
+    @Override
+    public boolean checkValue() {
+        return false;
     }
 }

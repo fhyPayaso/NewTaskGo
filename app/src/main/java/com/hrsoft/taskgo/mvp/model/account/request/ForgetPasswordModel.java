@@ -48,13 +48,8 @@ public class ForgetPasswordModel extends BaseBean {
     }
 
 
-
-
-
-
-
     @Override
-    protected void checkValue() {
-
+    public boolean checkValue() {
+        return false;
     }
 }

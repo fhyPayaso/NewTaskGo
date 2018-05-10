@@ -43,7 +43,8 @@
         <activity android:name=".mvp.view.account.ForgetPasswordActivity"/>
 
 
-        <activity android:name=".mvp.view.task.activity.TaskListActivity" />
+        <activity android:name=".mvp.view.task.activity.TaskListActivity"
+            android:launchMode="singleTask"/>
 
 
         <activity android:name=".mvp.view.task.activity.ReleaseTaskActivity"/>

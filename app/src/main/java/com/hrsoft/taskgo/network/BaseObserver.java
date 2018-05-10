@@ -33,7 +33,6 @@ public abstract class BaseObserver<T> implements Observer<ApiResponse<T>> {
     @Override
     public void onNext(ApiResponse<T> response) {
 
-
         boolean isCodeTrue = false;
         for (int code : Config.NET_CORRECT_CODE) {
             if (code == response.getCode()) {
@@ -51,13 +50,16 @@ public abstract class BaseObserver<T> implements Observer<ApiResponse<T>> {
     @Override
     public void onError(Throwable e) {
 
-        if (e instanceof ApiException) {
 
+
+        if (e instanceof ApiException) {
+            onError((ApiException) e);
             NetworkErrorHandler.handler((ApiException) e);
         } else {
-            ToastUtil.showToast("网络连接失败，请稍后再试");
+            onError(new ApiException(-1, e.getMessage()));
             Log.i(TAG, "onError: " + e.toString());
         }
+
     }
 
 

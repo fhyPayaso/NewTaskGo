@@ -1,4 +1,4 @@
-package com.hrsoft.taskgo.mvp.presenter.task;
+package com.hrsoft.taskgo.mvp.contract;
 
 import com.hrsoft.taskgo.base.mvp.IBaseContract;
 import com.hrsoft.taskgo.mvp.model.task.bean.TaskGridModel;
@@ -23,11 +23,6 @@ public interface TaskGridContract {
          */
         void getGridList(String moduleType);
 
-
-        /**
-         * 生成大学生自主创业模块
-         */
-        void getCollegeLists();
     }
 
 

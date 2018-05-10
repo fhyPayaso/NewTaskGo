@@ -3,8 +3,10 @@ package com.hrsoft.taskgo.mvp.presenter.task;
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 import com.hrsoft.taskgo.common.TaskTypeConfig;
+import com.hrsoft.taskgo.mvp.contract.TaskListContract;
 import com.hrsoft.taskgo.mvp.model.task.TaskHelper;
 import com.hrsoft.taskgo.mvp.model.task.bean.BaseTaskModel;
+import com.hrsoft.taskgo.mvp.model.task.request.AcceptTaskReqModel;
 import com.hrsoft.taskgo.mvp.model.task.response.TasListRespModel;
 import com.hrsoft.taskgo.mvp.model.task.response.WaterAttributesRespModel;
 
@@ -25,10 +27,10 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
     }
 
     @Override
-    public void loadTaskList(String taskType) {
+    public void loadTaskList(String taskType, int page) {
         switch (taskType) {
             case TaskTypeConfig.COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL:
-                loadSchoolWaterTaskList();
+                loadSchoolWaterTaskList(page);
                 break;
             default:
                 break;
@@ -50,43 +52,75 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
                 mView.onAcceptTaskSuccess(position);
             }
         };
-        // TODO: 2018/5/4 接受多个任务优化 
         List<Integer> list = new ArrayList<>();
         list.add(model.getTaskId());
-        TaskHelper.getInstance().acceptTask(list, callback);
+        AcceptTaskReqModel reqModel = new AcceptTaskReqModel(list);
+        TaskHelper.getInstance().acceptTask(this, reqModel, callback);
+    }
+
+    @Override
+    public void acceptAllTask(List<BaseTaskModel> modelList) {
+
+        IDataCallback.Callback callback = new IDataCallback.Callback() {
+            @Override
+            public void onFailedLoaded(String error) {
+                mView.onAcceptTaskError(error);
+            }
+
+            @Override
+            public void onDataLoaded(Object o) {
+                mView.onAcceptAllTaskSuccess();
+            }
+        };
+        List<Integer> list = new ArrayList<>();
+
+        for (BaseTaskModel model : modelList) {
+            list.add(model.getTaskId());
+        }
+        TaskHelper.getInstance().acceptTask(this, new AcceptTaskReqModel(list), callback);
     }
 
 
     /**
      * 加载校六送水任务列表
      */
-    private void loadSchoolWaterTaskList() {
+    private void loadSchoolWaterTaskList(final int page) {
 
 
-        IDataCallback.Callback loadListCallBack = new IDataCallback.Callback<List<TasListRespModel<WaterAttributesRespModel>>>() {
+        IDataCallback.Callback loadListCallBack = new IDataCallback
+                .Callback<List<TasListRespModel<WaterAttributesRespModel>>>() {
 
 
             @Override
             public void onDataLoaded(List<TasListRespModel<WaterAttributesRespModel>> tasListRespModels) {
 
-                List<BaseTaskModel> baseTaskModels = new ArrayList<>();
+                if (tasListRespModels == null || tasListRespModels.size() == 0) {
+                    if (page == 1) {
+                        mView.onLoadTaskListError("当前没有可接受的任务");
+                    } else {
+                        mView.onLoadTaskListError("暂无更多");
+                    }
+                } else {
+                    List<BaseTaskModel> baseTaskModels = new ArrayList<>();
+                    for (TasListRespModel<WaterAttributesRespModel> respModel : tasListRespModels) {
+                        BaseTaskModel model = new BaseTaskModel();
+                        model.setUserName(respModel.getUserName() == null ? "" : respModel.getUserName());
+                        model.setAvatarUrl(respModel.getAvatarImgUrl());
+                        model.setTaskType("校内送水");
+                        model.setCardNumber(respModel.getCardsModel().getGoodPeople());
+                        model.setMoney(Double.valueOf(respModel.getAttributes().getMoney()));
 
-                for (TasListRespModel<WaterAttributesRespModel> respModel : tasListRespModels) {
-                    BaseTaskModel model = new BaseTaskModel();
-                    model.setUserName("fhyPayaso");
-                    model.setAvatarUrl("http://img.zcool" +
-                            ".cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png");
-                    model.setTaskType("校内送水");
-                    model.setCardNumber(respModel.getCardsModel().getGoodPeople());
-                    model.setMoney(Double.valueOf(respModel.getAttributes().getMoney()));
-                    model.setFirstTitle("宿舍号 : ");
-                    model.setFirstValue(respModel.getAttributes().getAddress());
-                    model.setSecondTitle("送水类型 : ");
-                    model.setSecondValue(respModel.getAttributes().getSendType().equals("0") ? "送水上门" : "自取");
-                    model.setTaskId(respModel.getId());
-                    baseTaskModels.add(model);
+                        model.setFirstTitle("宿舍楼 : ");
+                        model.setFirstValue(String.valueOf(respModel.getAttributes().getApartment()));
+                        model.setSecondTitle("宿舍号 : ");
+                        model.setSecondValue(respModel.getAttributes().getAddress());
+                        model.setThirdTitle("送水类型 : ");
+                        model.setThirdValue(respModel.getAttributes().getSendType().equals("0") ? "送水上门" : "自取");
+                        model.setTaskId(respModel.getId());
+                        baseTaskModels.add(model);
+                    }
+                    mView.onLoadTaskListSuccess(baseTaskModels);
                 }
-                mView.onLoadTaskListSuccess(baseTaskModels);
             }
 
             @Override
@@ -95,7 +129,7 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
             }
         };
 
-        TaskHelper.getInstance().loadSchoolWaterTaskList(this,loadListCallBack);
+        TaskHelper.getInstance().loadSchoolWaterTaskList(this, page, loadListCallBack);
     }
 
 

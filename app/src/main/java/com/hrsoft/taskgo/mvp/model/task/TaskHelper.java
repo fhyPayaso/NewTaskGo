@@ -1,6 +1,7 @@
 package com.hrsoft.taskgo.mvp.model.task;
 
 import android.os.Handler;
+import android.util.Log;
 
 import com.hrsoft.taskgo.base.mvp.IBaseContract;
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
@@ -9,9 +10,11 @@ import com.hrsoft.taskgo.base.mvp.model.BaseModel;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 import com.hrsoft.taskgo.mvp.model.account.helper.AccountHelper;
 import com.hrsoft.taskgo.mvp.model.task.bean.BaseTaskModel;
+import com.hrsoft.taskgo.mvp.model.task.request.AcceptTaskReqModel;
 import com.hrsoft.taskgo.mvp.model.task.request.ReleaseTaskReqModel;
 import com.hrsoft.taskgo.mvp.model.task.request.WaterAttributesReqModel;
 import com.hrsoft.taskgo.mvp.model.task.response.TasListRespModel;
+import com.hrsoft.taskgo.mvp.model.task.response.TaskListPrePageRespModel;
 import com.hrsoft.taskgo.mvp.model.task.response.WaterAttributesRespModel;
 import com.hrsoft.taskgo.mvp.model.task.response.WxRepModel;
 import com.hrsoft.taskgo.mvp.presenter.task.TaskListPresenter;
@@ -22,6 +25,8 @@ import com.hrsoft.taskgo.network.response.ApiResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.support.constraint.Constraints.TAG;
 
 
 /**
@@ -50,22 +55,21 @@ public class TaskHelper extends BaseModel {
      *
      * @param callback
      */
-    public void loadSchoolWaterTaskList(IBaseContract.IBasePresenter presenter, final IDataCallback
+    public void loadSchoolWaterTaskList(IBaseContract.IBasePresenter presenter,int page ,final IDataCallback
             .Callback<List<TasListRespModel<WaterAttributesRespModel>>> callback) {
 
-        addNotifyListener(presenter,callback);
+        addNotifyListener(presenter, callback);
 
 
         NetworkFactory
                 .getService()
-                .loadWaterTaskList()
-                .compose(BaseObserver.<ApiResponse<List<TasListRespModel<WaterAttributesRespModel>>>>setThread())
-                .subscribe(new BaseObserver<List<TasListRespModel<WaterAttributesRespModel>>>() {
+                .loadWaterTaskList(page)
+                .compose(BaseObserver.<ApiResponse<TaskListPrePageRespModel<WaterAttributesRespModel>>>setThread())
+                .subscribe(new BaseObserver<TaskListPrePageRespModel<WaterAttributesRespModel>>() {
                     @Override
-                    public void onSuccess(ApiResponse<List<TasListRespModel<WaterAttributesRespModel>>> response) {
-                        callback.onDataLoaded(response.getData());
+                    public void onSuccess(ApiResponse<TaskListPrePageRespModel<WaterAttributesRespModel>> response) {
+                        callback.onDataLoaded(response.getData().getData());
                     }
-
                     @Override
                     public void onError(ApiException exception) {
                         callback.onFailedLoaded(exception.getMsg());
@@ -80,10 +84,11 @@ public class TaskHelper extends BaseModel {
      * @param reqModel
      * @param callback
      */
-    public void releaseWaterTask(final ReleaseTaskReqModel<WaterAttributesReqModel> reqModel, final IDataCallback
+    public void releaseWaterTask(IBaseContract.IBasePresenter presenter, final
+    ReleaseTaskReqModel<WaterAttributesReqModel> reqModel, final IDataCallback
             .Callback<WxRepModel> callback) {
 
-
+        addNotifyListener(presenter, callback);
         NetworkFactory
                 .getService()
                 .releaseWaterTask(reqModel)
@@ -91,7 +96,6 @@ public class TaskHelper extends BaseModel {
                 .subscribe(new BaseObserver<WxRepModel>() {
                     @Override
                     public void onSuccess(ApiResponse<WxRepModel> response) {
-
                         callback.onDataLoaded(response.getData());
                     }
 
@@ -109,12 +113,13 @@ public class TaskHelper extends BaseModel {
      * @param callback
      */
     @SuppressWarnings("unchecked")
-    public void acceptTask(List<Integer> taskArray, final IDataCallback.Callback callback) {
+    public void acceptTask(IBaseContract.IBasePresenter presenter, AcceptTaskReqModel reqModel, final IDataCallback.Callback
+            callback) {
 
-
+        addNotifyListener(presenter, callback);
         NetworkFactory
                 .getService()
-                .acceptWaterTask(taskArray)
+                .acceptWaterTask(reqModel)
                 .compose(BaseObserver.<ApiResponse>setThread())
                 .subscribe(new BaseObserver() {
                     @Override

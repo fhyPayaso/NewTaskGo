@@ -1,46 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:gravity="center"
-              android:orientation="vertical"
-    >
+              android:orientation="vertical">
+
+    <com.hrsoft.taskgo.widget.BannerPager
+        android:id="@+id/vp_banner_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+    </com.hrsoft.taskgo.widget.BannerPager>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="2"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
 
-    <Button
-        android:id="@+id/btn_student_company"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="大学生创新创业"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_student_company"
+                    style="@style/card_home_task_model"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="10dp"
+                    >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            style="@style/img_home_task_model"
+                            android:src="@drawable/bg_card_college"/>
+
+                        <TextView
+                            style="@style/txt_home_task_model"
+                            android:text="大学生创新创业团体">
+                        </TextView>
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_diy_task"
+                    style="@style/card_home_task_model"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="10dp"
+                    >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            style="@style/img_home_task_model"
+                            android:src="@drawable/bg_card_diy_task"/>
+
+                        <TextView
+                            style="@style/txt_home_task_model"
+                            android:text="自定义任务">
+                        </TextView>
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="赏金任务"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
 
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_money_task"
+                    style="@style/card_home_task_model"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="10dp"
+                    >
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="校园互助"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
+                        <ImageView
+                            style="@style/img_home_task_model"
+                            android:src="@drawable/bg_card_money_task"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="校园招聘"/>
+                        <TextView
+                            style="@style/txt_home_task_model"
+                            android:text="赏金任务">
+                        </TextView>
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="校园推广"/>
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_help_task"
+                    style="@style/card_home_task_model"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="10dp"
+                    >
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="自定义任务"/>
+                        <ImageView
+                            style="@style/img_home_task_model"
+                            android:src="@drawable/bg_card_help_task"/>
 
+                        <TextView
+                            style="@style/txt_home_task_model"
+                            android:text="校园互助">
+                        </TextView>
+                    </RelativeLayout>
 
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_promotion_task"
+                    style="@style/card_home_task_model"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            style="@style/img_home_task_model"
+                            android:src="@drawable/bg_card_promotion"/>
+
+                        <TextView
+                            style="@style/txt_home_task_model"
+                            android:text="校园推广">
+                        </TextView>
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_recruitment_task"
+                    style="@style/card_home_task_model"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            style="@style/img_home_task_model"
+                            android:src="@drawable/bg_card_offer"/>
+
+                        <TextView
+                            style="@style/txt_home_task_model"
+                            android:text="校园招聘">
+                        </TextView>
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

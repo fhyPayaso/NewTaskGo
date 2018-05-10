@@ -1,4 +1,4 @@
-package com.hrsoft.taskgo.mvp.presenter.task;
+package com.hrsoft.taskgo.mvp.contract;
 
 import com.hrsoft.taskgo.base.mvp.IBaseContract;
 import com.hrsoft.taskgo.mvp.model.task.bean.BaseTaskModel;
@@ -21,7 +21,7 @@ public interface TaskListContract {
          *
          * @param taskType 任务类型
          */
-        void loadTaskList(String taskType);
+        void loadTaskList(String taskType,int page);
 
 
         /**
@@ -30,6 +30,12 @@ public interface TaskListContract {
          * @param model
          */
         void acceptTask(BaseTaskModel model, int position);
+
+
+        /**
+         * 接受任务
+         */
+        void acceptAllTask(List<BaseTaskModel> modelList);
     }
 
 
@@ -52,6 +58,12 @@ public interface TaskListContract {
          * 接受任务成功
          */
         void onAcceptTaskSuccess(int position);
+
+
+        /**
+         * 接受全部任务成功
+         */
+        void onAcceptAllTaskSuccess();
 
 
         /**

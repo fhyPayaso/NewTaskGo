@@ -66,14 +66,9 @@ public class SplashActivity extends BasePresenterActivity<SplashContract.Present
 
         if (isFirstOpen) {
 
-
-            ToastUtil.showToast("first");
-
             //将isFirstOpen设置为false
             App.getInstance().getCacheUtil().putBoolean(CacheKey.IS_FIRST_OPEN, false);
-
             GuideActivity.startActivity(this);
-
             finish();
 
         } else {

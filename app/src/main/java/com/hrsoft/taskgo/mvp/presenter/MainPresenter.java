@@ -1,9 +1,12 @@
 package com.hrsoft.taskgo.mvp.presenter;
 
+import com.hrsoft.taskgo.App;
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.activity.BaseActivity;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
+import com.hrsoft.taskgo.common.CacheKey;
 import com.hrsoft.taskgo.mvp.contract.MainContract;
+import com.hrsoft.taskgo.mvp.model.app.AppInfoModel;
 import com.hrsoft.taskgo.mvp.view.message.MessageFragment;
 import com.hrsoft.taskgo.mvp.view.mine.MineFragment;
 import com.hrsoft.taskgo.mvp.view.task.fragment.HomeFragment;
@@ -80,5 +83,24 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
             FragmentUtil.showFragment(context, mineFragment);
         }
         return mineFragment;
+    }
+
+    @Override
+    public void checkAppVersion() {
+
+
+        AppInfoModel infoModel = (AppInfoModel) App.getInstance().getCacheUtil().getSerializableObj(CacheKey
+                .APP_INFORMATION);
+
+        if(infoModel == null) {
+
+        }
+
+
+    }
+
+    @Override
+    public void updateApp(AppInfoModel appInfoModel) {
+
     }
 }

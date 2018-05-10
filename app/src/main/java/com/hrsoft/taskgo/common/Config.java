@@ -10,15 +10,15 @@ public class Config {
 
 
     /**
-     * 网络请求BaseURL
+     * 当前app版本号
      */
-    public static final String APP_SERVER_BASE_URL = "http://taskgobe.sealbaby.cn/";
+    public static final String APP_VERSION = "1.0.0";
 
 
     /**
-     * 网络请求连接超时时间，单位：s
+     * 网络请求BaseURL
      */
-    public static final int APP_SERVER_CONNECT_TIME_OUT = 15;
+    public static final String APP_SERVER_BASE_URL = "http://taskgobe.sealbaby.cn/";
 
 
     /**
@@ -28,9 +28,9 @@ public class Config {
 
 
     /**
-     * 请求头
+     * 网络请求连接超时时间，单位：s
      */
-    public static final String TOKEN = "token";
+    public static final int APP_SERVER_CONNECT_TIME_OUT = 15;
 
 
     /**
@@ -53,6 +53,5 @@ public class Config {
      * 微信平台应用标识
      */
     public static final String APP_ID = "wx73e42ddc37ff92ff";
-
 
 }

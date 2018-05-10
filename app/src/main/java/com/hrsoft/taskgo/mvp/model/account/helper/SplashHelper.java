@@ -33,8 +33,6 @@ public class SplashHelper extends BaseModel {
     public void updatetoken(final SplashContract.Presenter presenter, final IDataCallback.Callback<String> callback) {
 
         addNotifyListener(presenter,callback);
-
-
         NetworkFactory
                 .getService()
                 .updateToke()

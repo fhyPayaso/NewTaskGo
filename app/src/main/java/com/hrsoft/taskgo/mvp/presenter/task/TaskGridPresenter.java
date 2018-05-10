@@ -43,7 +43,6 @@ public class TaskGridPresenter extends BasePresenter<TaskGridContract.View> impl
 
         List<TaskGridModel> gridModelList = new ArrayList<>();
 
-
         //自主创业模块
         List<TaskTypeModel> businessList = new ArrayList<>();
         businessList.add(new TaskTypeModel(R.drawable.tab_home_normal, "校六送水", TaskTypeConfig
@@ -54,13 +53,11 @@ public class TaskGridPresenter extends BasePresenter<TaskGridContract.View> impl
                 .COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL));
         gridModelList.add(new TaskGridModel("自主创业", businessList));
 
-
         //公益服务模块
         List<TaskTypeModel> welfareList = new ArrayList<>();
         welfareList.add(new TaskTypeModel(R.drawable.tab_home_normal, "E管家", TaskTypeConfig
                 .COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL));
         gridModelList.add(new TaskGridModel("公益服务", welfareList));
-
 
         mView.onLoadGridListSuccess(gridModelList);
     }

@@ -11,22 +11,23 @@ import com.hrsoft.taskgo.base.mvp.model.BaseBean;
 public class RegisterReqModel extends BaseBean{
 
 
-    private String phoneNumber;
+    private String mobile;
     private String password;
+    private String captcha;
 
-
-    public RegisterReqModel(String phoneNumber, String password) {
-        this.phoneNumber = phoneNumber;
+    public RegisterReqModel(String mobile, String password, String captcha) {
+        this.mobile = mobile;
         this.password = password;
+        this.captcha = captcha;
     }
 
+    public String getMobile() {
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+        return mobile;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getPassword() {
@@ -35,6 +36,14 @@ public class RegisterReqModel extends BaseBean{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getCaptcha() {
+        return captcha;
+    }
+
+    public void setCaptcha(String captcha) {
+        this.captcha = captcha;
     }
 
     @Override

@@ -1,5 +1,8 @@
 package com.hrsoft.taskgo.network;
 
+import com.hrsoft.taskgo.mvp.model.account.request.ForgetPasswordModel;
+import com.hrsoft.taskgo.mvp.model.account.request.RegisterReqModel;
+import com.hrsoft.taskgo.mvp.model.account.request.TokenResponse;
 import com.hrsoft.taskgo.mvp.model.task.request.ReleaseTaskReqModel;
 import com.hrsoft.taskgo.mvp.model.task.response.TasListRespModel;
 import com.hrsoft.taskgo.mvp.model.task.response.WaterAttributesRespModel;
@@ -10,10 +13,10 @@ import com.hrsoft.taskgo.mvp.model.account.request.LoginReqModel;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 /**
  * @author fhyPayaso
@@ -23,8 +26,30 @@ import retrofit2.http.POST;
 public interface ApiService {
 
 
-    @POST("sss")
-    Observable<ApiResponse> login(@Body LoginReqModel reqModel);
+    @POST("login")
+    Observable<ApiResponse<TokenResponse>> login(@Body LoginReqModel reqModel);
+
+
+    @POST("register")
+    Observable<ApiResponse<TokenResponse>> register(@Body RegisterReqModel registerReqModel);
+
+
+    @POST("password/forgot")
+    Observable<ApiResponse> forgetPassWord(@Body ForgetPasswordModel forgetPasswordModel);
+
+
+    @GET("captcha/{mobile}")
+    Observable<ApiResponse> sendCaptcha(@Path("mobile") String mobile);
+    /**
+     * 检查token是否过期
+     *
+     * @param
+     * @return
+     */
+    @GET("token")
+    Observable<ApiResponse> updateToke();
+
+//    Observable<ApiResponse> updateToke(@Path("token") String token);
 
 
     /**

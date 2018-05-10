@@ -56,7 +56,6 @@ public abstract class BasePresenter<V extends IBaseContract.IBaseView> implement
 
     /**
      * 一个presenter可能注册多个model
-     *
      * @param model
      */
     @Override

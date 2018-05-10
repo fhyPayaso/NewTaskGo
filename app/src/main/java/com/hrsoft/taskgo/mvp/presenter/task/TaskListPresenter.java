@@ -69,7 +69,6 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
             @Override
             public void onDataLoaded(List<TasListRespModel<WaterAttributesRespModel>> tasListRespModels) {
 
-
                 List<BaseTaskModel> baseTaskModels = new ArrayList<>();
 
                 for (TasListRespModel<WaterAttributesRespModel> respModel : tasListRespModels) {

@@ -9,11 +9,9 @@ import java.util.List;
  */
 public interface IBaseContract {
 
-
     interface IBaseView {
 
     }
-
 
     interface IBasePresenter {
 
@@ -22,9 +20,7 @@ public interface IBaseContract {
         void registerModel(IBaseModel model);
     }
 
-
     interface IBaseModel {
-
 
         void addNotifyListener(IBaseContract.IBasePresenter presenter, INotifyListener listener);
 

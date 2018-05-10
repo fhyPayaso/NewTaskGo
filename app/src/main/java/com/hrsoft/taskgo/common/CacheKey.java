@@ -9,4 +9,6 @@ package com.hrsoft.taskgo.common;
 public class CacheKey {
     public static final String TOKEN = "token";
     public static final String USER = "user";
+    public static final String IS_FIRST_OPEN = "isFirstOpen";
+
 }

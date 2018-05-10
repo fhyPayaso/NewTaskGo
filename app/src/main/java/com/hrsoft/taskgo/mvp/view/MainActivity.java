@@ -1,5 +1,7 @@
 package com.hrsoft.taskgo.mvp.view;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,6 +11,7 @@ import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.mvp.view.BasePresenterActivity;
 import com.hrsoft.taskgo.mvp.presenter.MainContract;
 import com.hrsoft.taskgo.mvp.presenter.MainPresenter;
+import com.hrsoft.taskgo.mvp.view.account.LoginActivity;
 import com.hrsoft.taskgo.mvp.view.message.MessageFragment;
 import com.hrsoft.taskgo.mvp.view.mine.MineFragment;
 import com.hrsoft.taskgo.mvp.view.task.fragment.HomeFragment;
@@ -42,6 +45,11 @@ public class MainActivity extends BasePresenterActivity<MainContract.Presenter> 
     private HomeFragment mHomeFragment;
     private MessageFragment mMessageFragment;
     private MineFragment mMineFragment;
+
+
+    public static void startActivity(Activity context) {
+        context.startActivity(new Intent(context, LoginActivity.class));
+    }
 
     @Override
     protected int getLayoutId() {

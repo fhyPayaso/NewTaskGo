@@ -13,13 +13,33 @@ import java.util.List;
 public interface MyTaskListContract {
 
 
+    interface Presenter extends IBaseContract.IBasePresenter {
 
-    interface Presenter extends IBaseContract.IBasePresenter{
 
-        void loadTaskList(String taskType,int page);
+        /**
+         * 加载任务列表
+         *
+         * @param taskType
+         * @param page
+         */
+        void loadTaskList(String taskType, int page);
+
+
+        /**
+         * 获取adapter类型
+         *
+         * @param taskStatusType 我的任务状态类型
+         */
+        void getAdapterType(String taskStatusType);
+
+
+        /**
+         * 完成任务
+         *
+         * @param taskId
+         */
+        void finishTask(int taskId,int position);
     }
-
-
 
 
     interface View extends IBaseContract.IBaseView {
@@ -35,6 +55,31 @@ public interface MyTaskListContract {
          * @param error
          */
         void onLoadTaskListError(String error);
+
+
+        /**
+         * 初始化RecyclerView
+         *
+         * @param btnType
+         */
+        void initRecyclerView(int btnType);
+
+
+        /**
+         * 完成任务成功
+         *
+         * @param position
+         */
+        void finishTaskSuccess(int position);
+
+
+        /**
+         * 完成任务失败
+         *
+         * @param error
+         */
+        void finishTaskError(String error);
+
     }
 
 

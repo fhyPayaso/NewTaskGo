@@ -22,9 +22,8 @@ public class AppInfoModel extends BaseBean{
     private String appLoadUrl;
 
 
-    public AppInfoModel(String appVersion, String appLoadUrl) {
+    public AppInfoModel(String appVersion) {
         this.appVersion = appVersion;
-        this.appLoadUrl = appLoadUrl;
     }
 
     public String getAppVersion() {

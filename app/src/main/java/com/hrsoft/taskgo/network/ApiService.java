@@ -3,6 +3,7 @@ package com.hrsoft.taskgo.network;
 import com.hrsoft.taskgo.mvp.model.account.request.ForgetPasswordModel;
 import com.hrsoft.taskgo.mvp.model.account.request.RegisterReqModel;
 import com.hrsoft.taskgo.mvp.model.account.request.TokenResponse;
+import com.hrsoft.taskgo.mvp.model.app.AppInfoModel;
 import com.hrsoft.taskgo.mvp.model.task.request.AcceptTaskReqModel;
 import com.hrsoft.taskgo.mvp.model.task.request.ReleaseTaskReqModel;
 import com.hrsoft.taskgo.mvp.model.task.response.TasListRespModel;
@@ -30,6 +31,15 @@ import retrofit2.http.Query;
 public interface ApiService {
 
 
+    /**
+     * 检查app版本信息
+     *
+     * @return
+     */
+    @GET("")
+    Observable<ApiResponse<AppInfoModel>> checkAppVersion();
+
+
     @POST("login")
     Observable<ApiResponse<TokenResponse>> login(@Body LoginReqModel reqModel);
 
@@ -44,16 +54,14 @@ public interface ApiService {
 
     @GET("captcha/{mobile}")
     Observable<ApiResponse> sendCaptcha(@Path("mobile") String mobile);
+
     /**
      * 检查token是否过期
      *
-     * @param
      * @return
      */
     @GET("token")
     Observable<ApiResponse> updateToke();
-
-//    Observable<ApiResponse> updateToke(@Path("token") String token);
 
 
     /**
@@ -79,7 +87,6 @@ public interface ApiService {
 
     /**
      * 接取水任务
-     *
      */
     @POST("tasks/accept/waters")
     Observable<ApiResponse> acceptWaterTask(@Body AcceptTaskReqModel reqModel);
@@ -122,7 +129,8 @@ public interface ApiService {
      * @return
      */
     @GET("me/tasks/accept/{status}")
-    Observable<ApiResponse<TaskListPrePageRespModel<String>>> loadMyAcceptTaskList(@Path("status") int status, @Query("page") int page);
+    Observable<ApiResponse<TaskListPrePageRespModel<String>>> loadMyAcceptTaskList(@Path("status") int status, @Query
+            ("page") int page);
 
 
     /**

@@ -10,13 +10,13 @@ import android.view.ViewGroup;
 
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.adapter.RecyclerScrollListener;
-import com.hrsoft.taskgo.base.fragment.BaseFragment;
-import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 import com.hrsoft.taskgo.base.mvp.view.BasePresenterFragment;
+import com.hrsoft.taskgo.common.MyTaskConfig;
 import com.hrsoft.taskgo.mvp.contract.MyTaskListContract;
 import com.hrsoft.taskgo.mvp.model.task.bean.BaseTaskModel;
 import com.hrsoft.taskgo.mvp.presenter.task.MyTaskListPresenter;
 import com.hrsoft.taskgo.mvp.view.task.adapter.TaskListRecyclerAdapter;
+import com.hrsoft.taskgo.utils.DialogUtil;
 import com.hrsoft.taskgo.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -32,9 +32,8 @@ import butterknife.Unbinder;
  * fhyPayaso@qq.com
  */
 public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract.Presenter> implements
-        MyTaskListContract.View,
-        TaskListRecyclerAdapter.OnItemViewClickListener, SwipeRefreshLayout.OnRefreshListener, RecyclerScrollListener
-                .LoadMoreListener {
+        MyTaskListContract.View, TaskListRecyclerAdapter.OnItemViewClickListener, SwipeRefreshLayout
+        .OnRefreshListener, RecyclerScrollListener.LoadMoreListener {
 
 
     @BindView(R.id.rec_task_list)
@@ -43,11 +42,11 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
     SwipeRefreshLayout mRefreshLayout;
     Unbinder unbinder;
 
-    private String mTaskType;
+    private String mTaskStatusType;
     private TaskListRecyclerAdapter mRecyclerAdapter;
     private RecyclerScrollListener mScrollListener;
     private List<BaseTaskModel> mTaskModelList = new ArrayList<>();
-    private Integer mCurrentPage = 1;
+    private Integer mCurrentPage = 0;
 
     @Override
     protected int getLayoutId() {
@@ -56,8 +55,7 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
 
     @Override
     protected void initView() {
-
-        initRecyclerView();
+        mPresenter.getAdapterType(mTaskStatusType);
     }
 
     @Override
@@ -66,38 +64,38 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
     }
 
 
-    private void initRecyclerView() {
-
-
-        mRecyclerAdapter = new TaskListRecyclerAdapter(mTaskModelList, getContext()
-                , R.layout.item_recycler_task, TaskListRecyclerAdapter.BTN_ACCEPT);
-        //设置上拉加载更多
-        mRecyclerAdapter.setWithFooter(true);
-        //内部控件点击事件
-        mRecyclerAdapter.setOnItemViewClickListener(this);
-        //设置adapter
-        mRecyclerView.setAdapter(mRecyclerAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        //设置滑动事件监听
-        mScrollListener = new RecyclerScrollListener(mRecyclerView, mRecyclerAdapter);
-        //添加加载更多事件监听
-        mScrollListener.setLoadMoreListener(this);
-        //添加下拉刷新事件监听
-        mRefreshLayout.setOnRefreshListener(this);
-        mRefreshLayout.setRefreshing(true);
-        //初始化加载数据
-        mPresenter.loadTaskList(mTaskType, mCurrentPage);
-    }
-
-
     @Override
     public void onAvatarClick(int position) {
         ToastUtil.showToast("点击了头像" + position);
     }
 
+
     @Override
     public void onBtnClick(int position) {
+        switch (mTaskStatusType) {
+            case MyTaskConfig.MY_ACCEPT_NOT_FINISHED:
+                finishTask(position);
+                break;
+            default:
+                break;
+        }
+    }
 
+
+    /**
+     * 完成任务
+     *
+     * @param position
+     */
+    private void finishTask(final int position) {
+        DialogUtil.QuickDialog dialog = new DialogUtil.QuickDialog(getContext())
+                .setClickListener(new DialogUtil.QuickDialog.DialogPositiveButtonListener() {
+                    @Override
+                    public void onPositiveButtonClick() {
+                        mPresenter.finishTask(mTaskModelList.get(position).getTaskId(), position);
+                    }
+                })
+                .showDialog("是否确认完成任务");
     }
 
 
@@ -116,18 +114,18 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
     }
 
 
-    public String getTaskType() {
-        return mTaskType;
+    public String getTaskStatusType() {
+        return mTaskStatusType;
     }
 
-    public void setTaskType(String taskType) {
-        mTaskType = taskType;
+    public void setTaskStatusType(String taskStatusType) {
+        mTaskStatusType = taskStatusType;
     }
 
 
     public static MyTaskListFragment getNewInstance(String taskType) {
         MyTaskListFragment fragment = new MyTaskListFragment();
-        fragment.setTaskType(taskType);
+        fragment.setTaskStatusType(taskType);
         return fragment;
     }
 
@@ -139,14 +137,15 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
     @Override
     public void onRefresh() {
 
-        mCurrentPage = 1;
-        mPresenter.loadTaskList(mTaskType, mCurrentPage);
+        mCurrentPage = 0;
+        mPresenter.loadTaskList(mTaskStatusType, mCurrentPage + 1);
     }
 
 
     @Override
     public void onLoadMore() {
-        mPresenter.loadTaskList(mTaskType, mCurrentPage + 1);
+
+        mPresenter.loadTaskList(mTaskStatusType, mCurrentPage + 1);
     }
 
     @Override
@@ -155,12 +154,12 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
         if (mScrollListener.isLoading()) {
             mScrollListener.setLoadMoreFinish();
         }
+        mCurrentPage++;
         if (mCurrentPage == 1) {
             mRecyclerAdapter.reSetDataList(taskModelList);
         } else {
             mRecyclerAdapter.addItems(taskModelList);
         }
-        mCurrentPage++;
     }
 
     @Override
@@ -171,4 +170,39 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
         }
         ToastUtil.showToast(error);
     }
+
+    @Override
+    public void initRecyclerView(int btnType) {
+        mRecyclerAdapter = new TaskListRecyclerAdapter(mTaskModelList, getContext()
+                , R.layout.item_recycler_task, btnType);
+        //设置上拉加载更多
+        mRecyclerAdapter.setWithFooter(true);
+        //内部控件点击事件
+        mRecyclerAdapter.setOnItemViewClickListener(this);
+        //设置adapter
+        mRecyclerView.setAdapter(mRecyclerAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        //设置滑动事件监听
+        mScrollListener = new RecyclerScrollListener(mRecyclerView, mRecyclerAdapter);
+        //添加加载更多事件监听
+        mScrollListener.setLoadMoreListener(this);
+        //添加下拉刷新事件监听
+        mRefreshLayout.setOnRefreshListener(this);
+        mRefreshLayout.setRefreshing(true);
+        //初始化加载数据
+        mPresenter.loadTaskList(mTaskStatusType, mCurrentPage + 1);
+    }
+
+    @Override
+    public void finishTaskSuccess(int position) {
+        ToastUtil.showToast("完成成功");
+        mRecyclerAdapter.removeItem(position);
+    }
+
+    @Override
+    public void finishTaskError(String error) {
+        ToastUtil.showToast(error);
+    }
+
+
 }

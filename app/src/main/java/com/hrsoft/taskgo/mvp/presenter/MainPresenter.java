@@ -3,13 +3,17 @@ package com.hrsoft.taskgo.mvp.presenter;
 import com.hrsoft.taskgo.App;
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.activity.BaseActivity;
+import com.hrsoft.taskgo.base.mvp.IDataCallback;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 import com.hrsoft.taskgo.common.CacheKey;
+import com.hrsoft.taskgo.common.Config;
 import com.hrsoft.taskgo.mvp.contract.MainContract;
+import com.hrsoft.taskgo.mvp.model.app.AppHelper;
 import com.hrsoft.taskgo.mvp.model.app.AppInfoModel;
 import com.hrsoft.taskgo.mvp.view.message.MessageFragment;
 import com.hrsoft.taskgo.mvp.view.mine.MineFragment;
 import com.hrsoft.taskgo.mvp.view.task.fragment.HomeFragment;
+import com.hrsoft.taskgo.utils.CacheUtil;
 import com.hrsoft.taskgo.utils.FragmentUtil;
 
 /**
@@ -88,19 +92,28 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
     @Override
     public void checkAppVersion() {
 
+        CacheUtil cacheUtil = App.getInstance().getCacheUtil();
+        final AppInfoModel localAppInfo = (AppInfoModel) cacheUtil.getSerializableObj(CacheKey.APP_INFORMATION);
+        IDataCallback.Callback<AppInfoModel> callback = new IDataCallback.Callback<AppInfoModel>() {
+            @Override
+            public void onFailedLoaded(String error) {
 
-        AppInfoModel infoModel = (AppInfoModel) App.getInstance().getCacheUtil().getSerializableObj(CacheKey
-                .APP_INFORMATION);
+            }
 
-        if(infoModel == null) {
+            @Override
+            public void onDataLoaded(AppInfoModel appInfoModel) {
 
+                //线上版本号和本地不一致
+                if (!localAppInfo.getAppVersion().equals(appInfoModel.getAppVersion())) {
+                    mView.needUpdateApk(appInfoModel);
+                }
+            }
+        };
+
+        if (localAppInfo != null) {
+            AppHelper.getInstance().checkAppVersion(this, callback);
+        } else {
+            cacheUtil.putSerializableObj(CacheKey.APP_INFORMATION, new AppInfoModel(Config.APP_VERSION));
         }
-
-
-    }
-
-    @Override
-    public void updateApp(AppInfoModel appInfoModel) {
-
     }
 }

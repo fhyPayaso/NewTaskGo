@@ -50,4 +50,50 @@ public class MyTaskConfig {
     public static final String MY_ACCEPT_HAS_FINISHED = MY_ACCEPT_TASK + "has_finished";
 
 
+    /*******后端状态码********/
+
+    //支付状态
+
+    /**
+     * 未支付
+     */
+    public static final int PAY_STATUS_NO_PAY = 0;
+
+    /**
+     * 支付成功
+     */
+    public static final int PAY_STATUS_SUCCESS_PAY = 1;
+
+    /**
+     * 支付失败
+     */
+    public static final int PAY_STATUS_PAY_ERROR = -1;
+
+    //完成状态
+
+    /**
+     * 未被接受
+     */
+    public static final int STATUS_NOT_ACCEPT = 0;
+
+    /**
+     * 已被接受
+     */
+    public static final int STATUS_HAS_ACCEPT = 1;
+
+    /**
+     * 申请完成
+     */
+    public static final int STATUS_APPLY_FINISH = 2;
+
+    /**
+     * 已经完成
+     */
+    public static final int STATUS_HAS_FINISH = 3;
+
+    /**
+     * 拒绝完成
+     */
+    public static final int STATUS_REFUSED_FINISH = 4;
+
 }

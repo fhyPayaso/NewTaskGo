@@ -25,7 +25,7 @@ public interface SplashContract  {
 
         void effectiveToken(String s);
 
-        void noneffectiveToken(String s);
+        void noneffectiveToken(String error);
     }
 
 }

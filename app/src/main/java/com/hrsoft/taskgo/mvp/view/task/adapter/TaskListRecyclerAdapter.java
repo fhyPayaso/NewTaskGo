@@ -1,14 +1,19 @@
 package com.hrsoft.taskgo.mvp.view.task.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.adapter.BaseViewHolder;
 import com.hrsoft.taskgo.base.adapter.FooterRecyclerViewAdapter;
+import com.hrsoft.taskgo.common.MyTaskConfig;
 import com.hrsoft.taskgo.mvp.model.task.bean.BaseTaskModel;
 
 import java.util.List;
+
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 /**
  * @author fhyPayaso
@@ -19,32 +24,24 @@ public class TaskListRecyclerAdapter extends FooterRecyclerViewAdapter<BaseTaskM
 
 
     /**
-     * 接受
-     */
-    public static final int BTN_ACCEPT = 0;
-
-    /**
-     * 完成
-     */
-    public static final int BTN_FINISH = 1;
-
-
-    /**
-     * 撤销任务
-     */
-    public static final int BTN_CANCEL = 2;
-
-
-    /**
-     * 继续支付
-     */
-    public static final int BTN_PAY = 3;
-
-
-    /**
      * 无按钮
      */
-    public static final int BTN_EMPTY = 4;
+    public static final int BTN_EMPTY = 0;
+
+    /**
+     * 接受
+     */
+    public static final int BTN_ACCEPT = 1;
+
+    /**
+     * 申请完成
+     */
+    public static final int BTN_APPLY_FINISH = 2;
+
+    /**
+     * 撤销任务或者继续支付
+     */
+    public static final int BTN_CANCEL_OR_PAY = 3;
 
     private OnItemViewClickListener mOnItemViewClickListener;
 
@@ -75,27 +72,25 @@ public class TaskListRecyclerAdapter extends FooterRecyclerViewAdapter<BaseTaskM
                 .setText(R.id.txt_value_third, item.getThirdValue());
 
 
+        TextView textButton = (TextView) viewHolder.getViewById(R.id.txt_task_btn);
         switch (mBtnType) {
             case BTN_ACCEPT:
-                viewHolder.setText(R.id.txt_task_btn, "接受");
+                textButton.setText("接受");
                 break;
-            case BTN_CANCEL:
-                viewHolder.setText(R.id.txt_task_btn, "撤销任务");
+            case BTN_APPLY_FINISH:
+                textButton.setText("完成");
                 break;
-            case BTN_FINISH:
-                viewHolder.setText(R.id.txt_task_btn, "完成");
-                break;
-            case BTN_PAY:
-                viewHolder.setText(R.id.txt_task_btn, "继续支付");
-                break;
-            case BTN_EMPTY:
-                viewHolder.getViewById(R.id.txt_task_btn).setVisibility(View.GONE);
+            case BTN_CANCEL_OR_PAY:
+                if (item.getTaskPayStatus() == MyTaskConfig.PAY_STATUS_SUCCESS_PAY) {
+                    textButton.setText("撤销任务");
+                } else {
+                    textButton.setText("继续支付");
+                }
                 break;
             default:
+                textButton.setVisibility(View.GONE);
                 break;
         }
-
-
         viewHolder.getViewById(R.id.img_avatar).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

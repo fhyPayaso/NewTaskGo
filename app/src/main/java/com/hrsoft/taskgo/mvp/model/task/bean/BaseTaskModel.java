@@ -71,6 +71,33 @@ public class BaseTaskModel {
     private String thirdValue;
 
 
+    /**
+     * 任务状态
+     */
+    private int taskStatus = -2;
+
+    /**
+     * 任务支付状态
+     */
+    private int taskPayStatus = -2;
+
+
+    public int getTaskPayStatus() {
+        return taskPayStatus;
+    }
+
+    public void setTaskPayStatus(int taskPayStatus) {
+        this.taskPayStatus = taskPayStatus;
+    }
+
+    public int getTaskStatus() {
+        return taskStatus;
+    }
+
+    public void setTaskStatus(int taskStatus) {
+        this.taskStatus = taskStatus;
+    }
+
     public String getAvatarUrl() {
         return avatarUrl;
     }

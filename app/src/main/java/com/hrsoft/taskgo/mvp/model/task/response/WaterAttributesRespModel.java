@@ -29,7 +29,7 @@ public class WaterAttributesRespModel extends BaseBean {
     /**
      * 任务状态
      */
-    private String status;
+    private Integer status;
 
     /**
      * 宿舍地址
@@ -65,11 +65,11 @@ public class WaterAttributesRespModel extends BaseBean {
         this.sendType = sendType;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

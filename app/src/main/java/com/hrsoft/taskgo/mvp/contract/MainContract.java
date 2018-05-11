@@ -39,14 +39,6 @@ public interface MainContract {
          */
         void checkAppVersion();
 
-
-        /**
-         * 强制下载app安装包
-         *
-         * @param appInfoModel
-         */
-        void updateApp(AppInfoModel appInfoModel);
-
     }
 
 

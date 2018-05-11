@@ -2,6 +2,7 @@ package com.hrsoft.taskgo.mvp.view.initiate.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -10,6 +11,8 @@ import com.hrsoft.taskgo.App;
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.mvp.view.BasePresenterActivity;
 import com.hrsoft.taskgo.common.CacheKey;
+import com.hrsoft.taskgo.common.Config;
+import com.hrsoft.taskgo.mvp.model.app.AppInfoModel;
 import com.hrsoft.taskgo.mvp.presenter.account.contract.SplashContract;
 import com.hrsoft.taskgo.mvp.presenter.account.presenter.SplashPresenter;
 import com.hrsoft.taskgo.mvp.view.MainActivity;
@@ -61,24 +64,26 @@ public class SplashActivity extends BasePresenterActivity<SplashContract.Present
      */
     private void checkToken() {
 
-        boolean isFirstOpen = true;
-        isFirstOpen = App.getInstance().getCacheUtil().getBoolean(CacheKey.IS_FIRST_OPEN, isFirstOpen);
 
-        if (isFirstOpen) {
+        AppInfoModel infoModel = (AppInfoModel) App.getInstance().getCacheUtil().getSerializableObj(CacheKey
+                .APP_INFORMATION);
 
-            //将isFirstOpen设置为false
-            App.getInstance().getCacheUtil().putBoolean(CacheKey.IS_FIRST_OPEN, false);
+
+        //没有版本信息说明第一次进入app
+        if (infoModel == null) {
+            //生成版本信息
+            App.getInstance()
+                    .getCacheUtil()
+                    .putSerializableObj(CacheKey.APP_INFORMATION, new AppInfoModel(Config.APP_VERSION));
             GuideActivity.startActivity(this);
             finish();
 
         } else {
-
-
             String token = App.getInstance().getCacheUtil().getString(CacheKey.TOKEN);
             Log.i(TAG, "checkToken: " + token);
 
-            if (token == null || token.length() < 6) {
-                noneffectiveToken(token);
+            if (token == null) {
+                noneffectiveToken("无效token");
             } else {
                 mPresenter.checkToken(token);
             }
@@ -93,7 +98,7 @@ public class SplashActivity extends BasePresenterActivity<SplashContract.Present
     }
 
     @Override
-    public void noneffectiveToken(String s) {
+    public void noneffectiveToken(String error) {
         LoginActivity.startActivity(this);
         finish();
     }

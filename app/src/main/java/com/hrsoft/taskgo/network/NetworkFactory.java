@@ -2,6 +2,7 @@ package com.hrsoft.taskgo.network;
 
 
 import com.hrsoft.taskgo.App;
+import com.hrsoft.taskgo.common.CacheKey;
 import com.hrsoft.taskgo.common.Config;
 import com.hrsoft.taskgo.network.converter.ResponseConverterFactory;
 
@@ -101,13 +102,11 @@ public final class NetworkFactory {
         return new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
-
-                String token = App.getInstance().getCacheUtil().getString(Config.TOKEN);
-                //token = "10f6a71c7287c0612c81dda9d288957d";
+                String token = App.getInstance().getCacheUtil().getString(CacheKey.TOKEN);
                 //请求时加入token
                 Request request = chain.request().newBuilder()
                         //防止空指针
-                        .header(Config.TOKEN, token == null ? Config.TOKEN : token)
+                        .header(CacheKey.TOKEN, token == null ? CacheKey.TOKEN : token)
                         .build();
                 return chain.proceed(request);
             }

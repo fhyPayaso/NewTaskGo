@@ -60,19 +60,6 @@ public final class DialogUtil {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * 原生Dialog类，包括builder的初始化方法：singleInit；showNativeDialog方法；
      * 设置两个按钮的方法：setPositiveButton和setNegativeButton

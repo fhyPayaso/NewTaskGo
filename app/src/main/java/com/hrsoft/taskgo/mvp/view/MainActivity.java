@@ -1,7 +1,9 @@
 package com.hrsoft.taskgo.mvp.view;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,11 +12,13 @@ import com.hrsoft.taskgo.App;
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.mvp.view.BasePresenterActivity;
 import com.hrsoft.taskgo.mvp.contract.MainContract;
+import com.hrsoft.taskgo.mvp.model.app.AppInfoModel;
 import com.hrsoft.taskgo.mvp.presenter.MainPresenter;
 import com.hrsoft.taskgo.mvp.view.account.LoginActivity;
 import com.hrsoft.taskgo.mvp.view.message.MessageFragment;
 import com.hrsoft.taskgo.mvp.view.mine.MineFragment;
 import com.hrsoft.taskgo.mvp.view.task.fragment.HomeFragment;
+import com.hrsoft.taskgo.utils.DialogUtil;
 import com.hrsoft.taskgo.utils.FragmentUtil;
 
 import butterknife.BindView;
@@ -47,7 +51,6 @@ public class MainActivity extends BasePresenterActivity<MainContract.Presenter> 
     private MineFragment mMineFragment;
 
 
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -55,7 +58,7 @@ public class MainActivity extends BasePresenterActivity<MainContract.Presenter> 
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-
+        //mPresenter.checkAppVersion();
     }
 
     @Override
@@ -149,9 +152,36 @@ public class MainActivity extends BasePresenterActivity<MainContract.Presenter> 
         mImgTabMine.setSelected(true);
     }
 
+    @Override
+    public void needUpdateApk(final AppInfoModel appInfoModel) {
+
+        DialogUtil.NativeDialog dialog = new DialogUtil().new NativeDialog();
+        dialog.singleInit(this)
+                .setMessage("发现新版本，请前往下载")
+                .setPositiveButton("去下载", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        openBrowserUpdate(appInfoModel.getAppLoadUrl());
+                    }
+                })
+                .showNativeDialog();
+    }
 
     @Override
     public void onBackPressed() {
         App.getInstance().exitAppWithTwiceClick();
+    }
+
+
+    /**
+     * 打开浏览器下载安装包
+     *
+     * @param apkUrl apk下载位置
+     */
+    private void openBrowserUpdate(String apkUrl) {
+        Intent intent = new Intent();
+        intent.setAction("android.intent.action.VIEW");
+        intent.setData(Uri.parse(apkUrl));
+        startActivity(intent);
     }
 }

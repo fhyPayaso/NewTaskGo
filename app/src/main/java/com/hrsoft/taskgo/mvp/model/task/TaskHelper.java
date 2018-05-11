@@ -235,8 +235,6 @@ public class TaskHelper extends BaseModel {
      */
     @SuppressWarnings("unchecked")
     public void finishTask(IBaseContract.IBasePresenter presenter, int taskId, final IDataCallback.Callback callback) {
-
-
         addNotifyListener(presenter, callback);
         NetworkFactory
                 .getService()

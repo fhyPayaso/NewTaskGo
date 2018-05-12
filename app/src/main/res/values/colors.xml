@@ -10,10 +10,19 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
 
+    <color name="bg_verification_btn">#007AFF</color>
+
+    <color name="btn_blue">#99007AFF</color>
+
+
+    <color name="bg_account_btn">#99007AFF</color>
 
     <color name="txt_blue">#007AFF</color>
     <color name="txt_gray">#979797</color>
 
     <color name="bg_gray">#EFEFF4</color>
+
+    <!--message模块-->
+    <color name="bg_delete_red">#FE534F</color>
 
 </resources>

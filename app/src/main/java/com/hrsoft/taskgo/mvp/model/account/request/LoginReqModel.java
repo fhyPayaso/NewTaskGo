@@ -13,21 +13,21 @@ import com.hrsoft.taskgo.base.mvp.model.BaseBean;
 public class LoginReqModel extends BaseBean {
 
 
-    private String username;
+    private String mobile;
     private String password;
 
 
-    public LoginReqModel(String username, String password) {
-        this.username = username;
+    public LoginReqModel(String mobile, String password) {
+        this.mobile = mobile;
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getPassword() {

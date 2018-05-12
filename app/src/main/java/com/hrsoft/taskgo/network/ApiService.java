@@ -1,5 +1,12 @@
 package com.hrsoft.taskgo.network;
 
+import com.hrsoft.taskgo.mvp.model.account.request.ForgetPasswordModel;
+import com.hrsoft.taskgo.mvp.model.account.request.RegisterReqModel;
+import com.hrsoft.taskgo.mvp.model.account.request.TokenResponse;
+import com.hrsoft.taskgo.mvp.model.app.AppInfoModel;
+import com.hrsoft.taskgo.mvp.model.app.AppInfoRespModel;
+import com.hrsoft.taskgo.mvp.model.message.MessageModel;
+import com.hrsoft.taskgo.mvp.model.message.MsgReadDeleteReqModel;
 import com.hrsoft.taskgo.mvp.model.task.request.AcceptTaskReqModel;
 import com.hrsoft.taskgo.mvp.model.task.request.ReleaseTaskReqModel;
 import com.hrsoft.taskgo.mvp.model.task.response.TasListRespModel;
@@ -16,6 +23,7 @@ import io.reactivex.Observer;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -25,6 +33,61 @@ import retrofit2.http.Query;
  */
 public interface ApiService {
 
+
+    /**
+     * 检查app版本信息
+     *
+     * @return
+     */
+    @GET("version/new")
+    Observable<ApiResponse<AppInfoRespModel>> checkAppVersion();
+
+
+    /**
+     * 登录账户
+     *
+     * @param reqModel
+     * @return
+     */
+    @POST("login")
+    Observable<ApiResponse<TokenResponse>> login(@Body LoginReqModel reqModel);
+
+
+    /**
+     * 注册新账户
+     *
+     * @param registerReqModel
+     * @return
+     */
+    @POST("register")
+    Observable<ApiResponse<TokenResponse>> register(@Body RegisterReqModel registerReqModel);
+
+
+    /**
+     * 忘记密码
+     *
+     * @param forgetPasswordModel
+     * @return
+     */
+    @POST("password/forgot")
+    Observable<ApiResponse> updatePassword(@Body ForgetPasswordModel forgetPasswordModel);
+
+    /**
+     * 获取验证码
+     *
+     * @param mobile
+     * @return
+     */
+    @GET("captcha/{mobile}")
+    Observable<ApiResponse> sendCaptcha(@Path("mobile") String mobile);
+
+    /**
+     * 检查token是否过期
+     *
+     * @return
+     */
+    @GET("token")
+    Observable<ApiResponse> updateToke();
 
 
     /**
@@ -50,11 +113,89 @@ public interface ApiService {
 
     /**
      * 接取水任务
-     *
-     * @return
      */
     @POST("tasks/accept/waters")
     Observable<ApiResponse> acceptWaterTask(@Body AcceptTaskReqModel reqModel);
+
+    /**
+     * 拉取我接受的任务列表
+     *
+     * @param status 任务状态
+     * @return
+     */
+    @GET("me/tasks/master/")
+    Observable<ApiResponse<TaskListPrePageRespModel>> getMyAcceptTask(@Query("status") int status);
+
+
+    /**
+     * 查询水任务支付状态
+     *
+     * @param waterTaskId
+     * @return
+     */
+    @GET("water/status/{waterid}")
+    Observable<ApiResponse<String>> checkWaterTaskPayStatus(@Path("waterid") int waterTaskId);
+
+
+    /**
+     * 我发布的任务
+     *
+     * @param status 任务状态
+     * @return
+     */
+    @GET("me/tasks/master/{status}")
+    Observable<ApiResponse<TaskListPrePageRespModel<String>>> loadMyReleaseTaskList(@Path("status") int status,
+                                                                                    @Query("page") int page);
+
+
+    /**
+     * 我接受的任务
+     *
+     * @param status 任务状态
+     * @return
+     */
+    @GET("me/tasks/accept/{status}")
+    Observable<ApiResponse<TaskListPrePageRespModel<String>>> loadMyAcceptTaskList(@Path("status") int status, @Query
+            ("page") int page);
+
+
+    /**
+     * 完成任务
+     *
+     * @param waterTaskId 水任务id
+     * @return
+     */
+    @GET("water/finish/{taskId}")
+    Observable<ApiResponse> finishTask(@Path("taskId") int waterTaskId);
+
+
+    /**
+     * 拉取消息列表
+     *
+     * @return
+     */
+    @GET("messages")
+    Observable<ApiResponse<List<MessageModel>>> loadMessageList();
+
+
+    /**
+     * 标记消息已读
+     *
+     * @param reqModel
+     * @return
+     */
+    @POST("messages/read")
+    Observable<ApiResponse> hasReadMessage(@Body MsgReadDeleteReqModel reqModel);
+
+
+    /**
+     * 删除消息
+     *
+     * @param reqModel
+     * @return
+     */
+    @POST("messages/delete")
+    Observable<ApiResponse> deleteMessage(@Body MsgReadDeleteReqModel reqModel);
 
 
 }

@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.hrsoft.taskgo.R;
-import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 import com.hrsoft.taskgo.base.mvp.view.BasePresenterFragment;
 import com.hrsoft.taskgo.common.TaskTypeConfig;
 import com.hrsoft.taskgo.mvp.contract.FillTaskInfContract;
@@ -41,9 +41,8 @@ public class WaterSchoolFragment extends BasePresenterFragment<FillTaskInfContra
     @BindView(R.id.txt_type_self)
     TextView txtTypeSelf;
     @BindView(R.id.btn_release_task)
-    TextView btnReleaseTask;
+    Button btnReleaseTask;
     Unbinder unbinder;
-
 
     /**
      * 记录送水类型
@@ -73,7 +72,6 @@ public class WaterSchoolFragment extends BasePresenterFragment<FillTaskInfContra
         super.onResume();
         btnReleaseTask.setClickable(true);
     }
-
 
 
     @Override

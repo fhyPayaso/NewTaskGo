@@ -1,5 +1,7 @@
 package com.hrsoft.taskgo.mvp.presenter.task;
 
+import android.os.Handler;
+
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 import com.hrsoft.taskgo.common.TaskTypeConfig;
@@ -27,14 +29,20 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
     }
 
     @Override
-    public void loadTaskList(String taskType, int page) {
-        switch (taskType) {
-            case TaskTypeConfig.COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL:
-                loadSchoolWaterTaskList(page);
-                break;
-            default:
-                break;
-        }
+    public void loadTaskList(final String taskType, final int page) {
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                switch (taskType) {
+                    case TaskTypeConfig.COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL:
+                        loadSchoolWaterTaskList(page);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }, 1000);
     }
 
     @Override
@@ -107,7 +115,7 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
                         model.setUserName(respModel.getUserName() == null ? "" : respModel.getUserName());
                         model.setAvatarUrl(respModel.getAvatarImgUrl());
                         model.setTaskType("校内送水");
-                        model.setCardNumber(respModel.getCardsModel().getGoodPeople());
+                        model.setCardNumber(respModel.getCardsJson().getGoodPeople());
                         model.setMoney(Double.valueOf(respModel.getAttributes().getMoney()));
 
                         model.setFirstTitle("宿舍楼 : ");
@@ -117,6 +125,8 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
                         model.setThirdTitle("送水类型 : ");
                         model.setThirdValue(respModel.getAttributes().getSendType().equals("0") ? "送水上门" : "自取");
                         model.setTaskId(respModel.getId());
+                        model.setTaskStatus(respModel.getAttributes().getStatus());
+                        model.setTaskPayStatus(respModel.getAttributes().getPayStatus());
                         baseTaskModels.add(model);
                     }
                     mView.onLoadTaskListSuccess(baseTaskModels);
@@ -128,9 +138,6 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
                 mView.onLoadTaskListError(error);
             }
         };
-
         TaskHelper.getInstance().loadSchoolWaterTaskList(this, page, loadListCallBack);
     }
-
-
 }

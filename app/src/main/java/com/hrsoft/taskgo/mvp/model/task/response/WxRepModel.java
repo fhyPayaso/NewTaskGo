@@ -20,7 +20,15 @@ public class WxRepModel extends BaseBean{
     private String noncestr;
     private String timestamp;
     private String sign;
+    private int taskId;
 
+    public int getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
+    }
 
     public String getAppid() {
         return appid;
@@ -77,6 +85,9 @@ public class WxRepModel extends BaseBean{
     public void setSign(String sign) {
         this.sign = sign;
     }
+
+
+
 
     @Override
     public boolean checkValue() {

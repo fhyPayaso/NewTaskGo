@@ -23,6 +23,7 @@ public abstract class BaseModel implements IBaseContract.IBaseModel {
      */
     protected Map<IBaseContract.IBasePresenter, List<INotifyListener>> mListenerMap;
 
+
     @Override
     public void addNotifyListener(IBaseContract.IBasePresenter presenter, INotifyListener callback) {
 

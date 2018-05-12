@@ -17,7 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mvp.view.MainActivity">
+        <activity android:name=".mvp.view.initiate.activity.SplashActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,25 +27,42 @@
 
         </activity>
 
-        <activity android:name=".mvp.view.account.LoginActivity">
+        <activity android:name=".mvp.view.MainActivity">
 
         </activity>
 
+        <activity android:name=".mvp.view.account.LoginActivity"/>
+
+        <activity android:name=".mvp.view.initiate.activity.GuideActivity"/>
         <activity android:name=".mvp.view.task.activity.TaskGridActivity" />
 
-
-        <activity android:name=".mvp.view.task.activity.TaskListActivity"
-            android:launchMode="singleTask"/>
+        <activity android:name=".mvp.view.account.RegisterActivity" />
 
 
-        <activity android:name=".mvp.view.task.activity.ReleaseTaskActivity"/>
 
-        <activity android:name=".mvp.view.task.activity.FillTaskInfoActivity"/>
+        <activity android:name=".mvp.view.account.UpdatePasswordActivity"/>
+
+
+        <activity
+            android:name=".mvp.view.task.activity.TaskListActivity"
+            android:launchMode="singleTask" />
+
+
+        <activity android:name=".mvp.view.task.activity.ReleaseTaskActivity" />
+
+        <activity android:name=".mvp.view.task.activity.FillTaskInfoActivity" />
+
+
+        <activity android:name=".mvp.view.task.activity.MyTaskListActivity" />
+
 
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop" />
+
+
+        <service android:name=".mvp.view.message.service.LoopMsgService"/>
 
     </application>
 

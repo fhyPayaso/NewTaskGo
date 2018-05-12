@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.mvp.view.BaseToolBarPresenterActivity;
 import com.hrsoft.taskgo.common.TaskTypeConfig;
@@ -83,27 +84,26 @@ public class TaskGridActivity extends BaseToolBarPresenterActivity<TaskGridContr
 
         switch (mModelType) {
             case TaskTypeConfig.MODEL_COLLEGE:
-                imgGirdTitle.setImageResource(R.drawable.bg_card_college);
+                imgGirdTitle.setImageResource(R.drawable.bg_banner_school);
                 mToolBarTitle = "大学生创业团队";
                 break;
             case TaskTypeConfig.MODEL_DIY:
-                imgGirdTitle.setImageResource(R.drawable.bg_card_diy_task);
                 mToolBarTitle = "自定义任务";
                 break;
             case TaskTypeConfig.MODEL_MONEY:
-                imgGirdTitle.setImageResource(R.drawable.bg_card_money_task);
+                imgGirdTitle.setImageResource(R.drawable.bg_banner_money);
                 mToolBarTitle = "赏金任务";
                 break;
             case TaskTypeConfig.MODEL_HELP:
-                imgGirdTitle.setImageResource(R.drawable.bg_card_help_task);
+                imgGirdTitle.setImageResource(R.drawable.bg_banner_help);
                 mToolBarTitle = "校园互助";
                 break;
             case TaskTypeConfig.MODEL_PROMOTION:
-                imgGirdTitle.setImageResource(R.drawable.bg_card_promotion);
+                imgGirdTitle.setImageResource(R.drawable.bg_banner_promotion);
                 mToolBarTitle = "校园推广";
                 break;
             case TaskTypeConfig.MODEL_OFFER:
-                imgGirdTitle.setImageResource(R.drawable.bg_card_offer);
+                imgGirdTitle.setImageResource(R.drawable.bg_banner_offer);
                 mToolBarTitle = "校园招聘";
                 break;
             default:
@@ -144,12 +144,6 @@ public class TaskGridActivity extends BaseToolBarPresenterActivity<TaskGridContr
         context.startActivity(intent);
     }
 
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        ActivityCompat.finishAfterTransition(this);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

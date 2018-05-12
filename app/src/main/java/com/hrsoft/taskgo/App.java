@@ -32,7 +32,7 @@ public class App extends Application {
 
     private static List<Activity> sActivityList = new ArrayList<>();
 
-    private static CacheUtil cacheUtil;
+    private CacheUtil cacheUtil;
 
     @Override
     public void onCreate() {
@@ -41,7 +41,7 @@ public class App extends Application {
         registerActivityLifecycleCallbacks(getActivityLifecycleCallbacks());
 
 
-        if(Config.DEBUG) {
+        if (Config.DEBUG) {
             LeakCanary.install(this);
         }
 
@@ -50,7 +50,6 @@ public class App extends Application {
 
     public static App getInstance() {
         return sInstance;
-
     }
 
 

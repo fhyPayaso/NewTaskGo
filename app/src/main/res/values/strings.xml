@@ -14,6 +14,9 @@
     <string name="txt_water_task_type_send">送水上门</string>
     <string name="txt_water_task_type_self">自取</string>
 
+    <string name="btn_verification_gain">重新获取</string>
+
+
 
     <string name="key_home_animation">key_home_animation</string>
 

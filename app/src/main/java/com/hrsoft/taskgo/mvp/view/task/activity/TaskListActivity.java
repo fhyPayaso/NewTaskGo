@@ -57,7 +57,7 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
     private TaskListRecyclerAdapter mRecyclerAdapter;
     private RecyclerScrollListener mScrollListener;
     private List<BaseTaskModel> mTaskModelList = new ArrayList<>();
-    private Integer mCurrentPage = 1;
+    private Integer mCurrentPage = 0;
 
 
     @Override
@@ -90,8 +90,8 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
 
     private void initRecyclerView() {
 
-
-        mRecyclerAdapter = new TaskListRecyclerAdapter(mTaskModelList, this, R.layout.item_recycler_task);
+        mRecyclerAdapter = new TaskListRecyclerAdapter(mTaskModelList, this
+                , R.layout.item_recycler_task, TaskListRecyclerAdapter.BTN_ACCEPT);
         //设置上拉加载更多
         mRecyclerAdapter.setWithFooter(true);
         //内部控件点击事件
@@ -109,9 +109,10 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
 
         //添加下拉刷新事件监听
         mRefreshLayout.setOnRefreshListener(this);
+        mRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.txt_blue));
         mRefreshLayout.setRefreshing(true);
         //初始化加载数据
-        mPresenter.loadTaskList(mTaskType, mCurrentPage);
+        mPresenter.loadTaskList(mTaskType, mCurrentPage + 1);
     }
 
     @Override
@@ -130,12 +131,12 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
         if (mScrollListener.isLoading()) {
             mScrollListener.setLoadMoreFinish();
         }
+        mCurrentPage++;
         if (mCurrentPage == 1) {
             mRecyclerAdapter.reSetDataList(taskModelList);
         } else {
             mRecyclerAdapter.addItems(taskModelList);
         }
-        mCurrentPage++;
         mTxtTaskNumber.setText(String.valueOf(mTaskModelList.size()));
     }
 
@@ -223,8 +224,8 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
      */
     @Override
     public void onRefresh() {
-        mCurrentPage = 1;
-        mPresenter.loadTaskList(mTaskType, mCurrentPage);
+        mCurrentPage = 0;
+        mPresenter.loadTaskList(mTaskType, mCurrentPage + 1);
     }
 
 
@@ -248,7 +249,7 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
 
     @OnClick(R.id.btn_accept_all_task)
     public void onBtnAcceptAllClicked() {
-        DialogUtil.QuickDialog dialog = new DialogUtil.QuickDialog(this)
+        new DialogUtil.QuickDialog(this)
                 .setClickListener(new DialogUtil.QuickDialog.DialogPositiveButtonListener() {
                     @Override
                     public void onPositiveButtonClick() {

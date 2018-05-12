@@ -141,7 +141,7 @@ public final class CacheUtil {
      * @param key
      * @param value
      */
-    public void putInt(String key, int value) {
+    public static void putInt(String key, int value) {
         putString(key, String.valueOf(value));
     }
 
@@ -443,6 +443,11 @@ public final class CacheUtil {
     public void clear() {
         mCaCheManager.clear();
     }
+
+    public Integer getInt(Integer lcode) {
+        return lcode;
+    }
+
 
     /**
      * Cache 管理类

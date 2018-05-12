@@ -52,10 +52,26 @@ public class ReleaseTaskActivity extends BaseToolBarPresenterActivity<ReleaseTas
     @BindView(R.id.txt_release_task)
     TextView txtReleaseTask;
 
+
     private List<ChooseCardModel> mCardModelList;
-    private String mTaskType;
+    /**
+     * 回调的TaskId，用于查询支付状态
+     */
+    public static int sTaskId = -1;
+    /**
+     * 要发布的任务类型
+     */
+    public static String mTaskType;
+    /**
+     * 卡片信息
+     */
     private CardPackageModel mCardPickInfo = new CardPackageModel();
     private ChoosePagerAdapter mPagerAdapter;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
     @Override
     protected int getLayoutId() {
@@ -106,7 +122,10 @@ public class ReleaseTaskActivity extends BaseToolBarPresenterActivity<ReleaseTas
      */
     @OnClick(R.id.txt_release_task)
     public void onTxtReleaseTaskClicked() {
+
+        showProgressDialog();
         upDateCardInfo();
+        txtReleaseTask.setClickable(false);
         switch (mTaskType) {
             case TaskTypeConfig.COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL:
                 mPresenter.releaseWaterTask((WaterAttributesReqModel) getIntent().getSerializableExtra(mTaskType),
@@ -126,8 +145,16 @@ public class ReleaseTaskActivity extends BaseToolBarPresenterActivity<ReleaseTas
         vpCardPager.setAdapter(mPagerAdapter);
     }
 
+
+    /**
+     * 打开微信客户端
+     *
+     * @param repModel
+     */
     @Override
     public void onLoadWxOrdersInfoSuccess(WxRepModel repModel) {
+        //sTaskId = repModel.getTaskId();
+
         mPresenter.openWxPayPage(App.getInstance(), repModel);
     }
 
@@ -164,5 +191,11 @@ public class ReleaseTaskActivity extends BaseToolBarPresenterActivity<ReleaseTas
                 break;
 
         }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

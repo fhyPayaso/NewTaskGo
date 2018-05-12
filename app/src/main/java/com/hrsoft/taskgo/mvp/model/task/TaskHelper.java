@@ -55,7 +55,7 @@ public class TaskHelper extends BaseModel {
      *
      * @param callback
      */
-    public void loadSchoolWaterTaskList(IBaseContract.IBasePresenter presenter,int page ,final IDataCallback
+    public void loadSchoolWaterTaskList(IBaseContract.IBasePresenter presenter, int page, final IDataCallback
             .Callback<List<TasListRespModel<WaterAttributesRespModel>>> callback) {
 
         addNotifyListener(presenter, callback);
@@ -70,6 +70,7 @@ public class TaskHelper extends BaseModel {
                     public void onSuccess(ApiResponse<TaskListPrePageRespModel<WaterAttributesRespModel>> response) {
                         callback.onDataLoaded(response.getData().getData());
                     }
+
                     @Override
                     public void onError(ApiException exception) {
                         callback.onFailedLoaded(exception.getMsg());
@@ -85,8 +86,7 @@ public class TaskHelper extends BaseModel {
      * @param callback
      */
     public void releaseWaterTask(IBaseContract.IBasePresenter presenter, final
-    ReleaseTaskReqModel<WaterAttributesReqModel> reqModel, final IDataCallback
-            .Callback<WxRepModel> callback) {
+    ReleaseTaskReqModel<WaterAttributesReqModel> reqModel, final IDataCallback.Callback<WxRepModel> callback) {
 
         addNotifyListener(presenter, callback);
         NetworkFactory
@@ -108,12 +108,42 @@ public class TaskHelper extends BaseModel {
 
 
     /**
+     * 检查水任务是否支付成功
+     *
+     * @param presenter
+     * @param taskId
+     * @param callback
+     */
+    public void checkWaterTaskPayStatus(IBaseContract.IBasePresenter presenter, int taskId, final IDataCallback
+            .Callback<String> callback) {
+
+        addNotifyListener(presenter, callback);
+        NetworkFactory
+                .getService()
+                .checkWaterTaskPayStatus(taskId)
+                .compose(BaseObserver.<ApiResponse<String>>setThread())
+                .subscribe(new BaseObserver<String>() {
+                    @Override
+                    public void onSuccess(ApiResponse<String> response) {
+                        callback.onDataLoaded(response.getData());
+                    }
+
+                    @Override
+                    public void onError(ApiException exception) {
+                        callback.onDataLoaded(exception.getMsg());
+                    }
+                });
+    }
+
+
+    /**
      * 接受任务网络请求
      *
      * @param callback
      */
     @SuppressWarnings("unchecked")
-    public void acceptTask(IBaseContract.IBasePresenter presenter, AcceptTaskReqModel reqModel, final IDataCallback.Callback
+    public void acceptTask(IBaseContract.IBasePresenter presenter, AcceptTaskReqModel reqModel, final IDataCallback
+            .Callback
             callback) {
 
         addNotifyListener(presenter, callback);
@@ -133,4 +163,95 @@ public class TaskHelper extends BaseModel {
                     }
                 });
     }
+
+
+    /**
+     * 加载我发布的任务列表
+     *
+     * @param presenter
+     * @param page
+     * @param status
+     * @param callback
+     */
+    public void loadMyReleaseTaskList(IBaseContract.IBasePresenter presenter, int page, int status, final IDataCallback
+            .Callback<List<TasListRespModel<String>>> callback) {
+
+
+        addNotifyListener(presenter, callback);
+        NetworkFactory
+                .getService()
+                .loadMyReleaseTaskList(status, page)
+                .compose(BaseObserver.<ApiResponse<TaskListPrePageRespModel<String>>>setThread())
+                .subscribe(new BaseObserver<TaskListPrePageRespModel<String>>() {
+                    @Override
+                    public void onSuccess(ApiResponse<TaskListPrePageRespModel<String>> response) {
+                        callback.onDataLoaded(response.getData().getData());
+                    }
+
+                    @Override
+                    public void onError(ApiException exception) {
+                        callback.onFailedLoaded(exception.getMsg());
+                    }
+                });
+    }
+
+
+    /**
+     * 加载我接受的任务列表
+     *
+     * @param presenter
+     * @param page
+     * @param status
+     * @param callback
+     */
+    public void loadMyAcceptTaskList(IBaseContract.IBasePresenter presenter, int page, int status, final IDataCallback
+            .Callback<List<TasListRespModel<String>>> callback) {
+
+
+        addNotifyListener(presenter, callback);
+        NetworkFactory
+                .getService()
+                .loadMyAcceptTaskList(status, page)
+                .compose(BaseObserver.<ApiResponse<TaskListPrePageRespModel<String>>>setThread())
+                .subscribe(new BaseObserver<TaskListPrePageRespModel<String>>() {
+                    @Override
+                    public void onSuccess(ApiResponse<TaskListPrePageRespModel<String>> response) {
+                        callback.onDataLoaded(response.getData().getData());
+                    }
+
+                    @Override
+                    public void onError(ApiException exception) {
+                        callback.onFailedLoaded(exception.getMsg());
+                    }
+                });
+    }
+
+    /**
+     * 完成任务网络请求
+     *
+     * @param presenter
+     * @param taskId
+     * @param callback
+     */
+    @SuppressWarnings("unchecked")
+    public void finishTask(IBaseContract.IBasePresenter presenter, int taskId, final IDataCallback.Callback callback) {
+        addNotifyListener(presenter, callback);
+        NetworkFactory
+                .getService()
+                .finishTask(taskId)
+                .compose(BaseObserver.<ApiResponse>setThread())
+                .subscribe(new BaseObserver() {
+                    @Override
+                    public void onSuccess(ApiResponse response) {
+                        callback.onDataLoaded(response.getMsg());
+                    }
+
+                    @Override
+                    public void onError(ApiException exception) {
+                        callback.onFailedLoaded(exception.getMsg());
+                    }
+                });
+    }
+
+
 }

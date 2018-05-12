@@ -1,25 +1,31 @@
 package com.hrsoft.taskgo.network;
 
 import com.hrsoft.taskgo.mvp.model.account.request.ForgetPasswordModel;
+import com.hrsoft.taskgo.mvp.model.account.request.LoginReqModel;
 import com.hrsoft.taskgo.mvp.model.account.request.RegisterReqModel;
 import com.hrsoft.taskgo.mvp.model.account.request.TokenResponse;
 import com.hrsoft.taskgo.mvp.model.app.AppInfoModel;
 import com.hrsoft.taskgo.mvp.model.app.AppInfoRespModel;
 import com.hrsoft.taskgo.mvp.model.message.MessageModel;
 import com.hrsoft.taskgo.mvp.model.message.MsgReadDeleteReqModel;
+import com.hrsoft.taskgo.mvp.model.mine.FeedBackModel;
+import com.hrsoft.taskgo.mvp.model.mine.request.RealNameModel;
+import com.hrsoft.taskgo.mvp.model.mine.request.UpdateInformationModel;
+import com.hrsoft.taskgo.mvp.model.mine.response.MineCardModel;
+import com.hrsoft.taskgo.mvp.model.mine.response.MineInformationModel;
+import com.hrsoft.taskgo.mvp.model.mine.response.MyFollowFansModel;
+import com.hrsoft.taskgo.mvp.model.mine.response.OtherUserPageModel;
 import com.hrsoft.taskgo.mvp.model.task.request.AcceptTaskReqModel;
 import com.hrsoft.taskgo.mvp.model.task.request.ReleaseTaskReqModel;
-import com.hrsoft.taskgo.mvp.model.task.response.TasListRespModel;
 import com.hrsoft.taskgo.mvp.model.task.response.TaskListPrePageRespModel;
 import com.hrsoft.taskgo.mvp.model.task.response.WaterAttributesRespModel;
 import com.hrsoft.taskgo.mvp.model.task.response.WxRepModel;
 import com.hrsoft.taskgo.network.response.ApiResponse;
-import com.hrsoft.taskgo.mvp.model.account.request.LoginReqModel;
 
 import java.util.List;
+import java.util.function.DoubleUnaryOperator;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -113,6 +119,8 @@ public interface ApiService {
 
     /**
      * 接取水任务
+     *
+     * @return
      */
     @POST("tasks/accept/waters")
     Observable<ApiResponse> acceptWaterTask(@Body AcceptTaskReqModel reqModel);
@@ -198,4 +206,60 @@ public interface ApiService {
     Observable<ApiResponse> deleteMessage(@Body MsgReadDeleteReqModel reqModel);
 
 
+    /**
+     * @return
+     */
+    @GET("userInfo")
+    Observable<ApiResponse<MineInformationModel>> loadMineInformation();
+
+
+    /**
+     * @return
+     */
+    @GET("following")
+    Observable<ApiResponse<List<MyFollowFansModel>>> loadMyFollowList();
+    /**
+     * @return
+     */
+    @GET("follower")
+    Observable<ApiResponse<List<MyFollowFansModel>>> loadMyFansList();
+
+
+    /**
+     * @param userId
+     * @return
+     */
+    @GET("userInfo/{user_id}")
+    Observable<ApiResponse<OtherUserPageModel>> loadOtherUserPage(@Path("user_id") int userId);
+
+
+    /**
+     * @param userId
+     * @return
+     */
+    @GET("follow/{follower_id}")
+    Observable<ApiResponse> concentrateSB(@Path("follower_id") int userId);
+
+    /**
+     * @param userId
+     * @return
+     */
+    @GET("unFollow/{follower_id}")
+    Observable<ApiResponse> unConcentrateSB(@Path("follower_id") int userId);
+
+
+    @POST("userInfo")
+    Observable<ApiResponse> updateInformation(@Body UpdateInformationModel updateInformationModel);
+
+    @POST("userInfo/auth")
+    Observable<ApiResponse> submitRealName(@Body RealNameModel realNameModel);
+
+
+    @POST("advice")
+    Observable<ApiResponse> submitAdvice(@Body FeedBackModel feedBackModel);
+
+
+
+    @GET("mycards")
+    Observable<ApiResponse<List<MineCardModel>>> loadMineCard();
 }

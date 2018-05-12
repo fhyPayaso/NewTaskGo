@@ -54,4 +54,10 @@ public class Config {
      */
     public static final String APP_ID = "wx73e42ddc37ff92ff";
 
+
+    public static final int MY_FOLLOW_LIST=0;
+    public static final int MY_FANS_LIST=1;
+
+
+
 }

@@ -2,7 +2,10 @@ package com.hrsoft.taskgo;
 
 import android.app.Activity;
 import android.app.Application;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import com.hrsoft.taskgo.common.Config;
@@ -34,6 +37,7 @@ public class App extends Application {
 
     private CacheUtil cacheUtil;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     public void onCreate() {
         super.onCreate();
@@ -46,6 +50,13 @@ public class App extends Application {
         }
 
         Log.i(TAG, "onCreate: ");
+
+
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+
+        StrictMode.setVmPolicy(builder.build());
+
+        builder.detectFileUriExposure();
     }
 
     public static App getInstance() {

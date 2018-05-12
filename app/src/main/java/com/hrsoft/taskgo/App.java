@@ -2,7 +2,10 @@ package com.hrsoft.taskgo;
 
 import android.app.Activity;
 import android.app.Application;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.support.annotation.RequiresApi;
 import android.os.StrictMode;
 import android.util.Log;
 
@@ -35,6 +38,7 @@ public class App extends Application {
 
     private CacheUtil cacheUtil;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     public void onCreate() {
         super.onCreate();

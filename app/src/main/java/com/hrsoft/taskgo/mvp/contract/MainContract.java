@@ -4,7 +4,8 @@ import com.hrsoft.taskgo.base.activity.BaseActivity;
 import com.hrsoft.taskgo.base.mvp.IBaseContract;
 import com.hrsoft.taskgo.mvp.model.app.AppInfoModel;
 import com.hrsoft.taskgo.mvp.view.message.fragment.MessageFragment;
-
+import com.hrsoft.taskgo.mvp.view.mine.fragment.MineFragment;
+import com.hrsoft.taskgo.mvp.view.message.fragment.MessageFragment;
 import com.hrsoft.taskgo.mvp.view.mine.fragment.MineFragment;
 import com.hrsoft.taskgo.mvp.view.task.fragment.HomeFragment;
 

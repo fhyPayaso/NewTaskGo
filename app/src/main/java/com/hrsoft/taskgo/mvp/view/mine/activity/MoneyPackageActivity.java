@@ -25,6 +25,9 @@ public class MoneyPackageActivity extends BaseToolBarPresenterActivity {
     @BindView(R.id.txt_money_count)
     TextView mTxtMoneyCount;
 
+
+    public MineInformationModel mineInformationModel = null;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_money_package;
@@ -37,8 +40,11 @@ public class MoneyPackageActivity extends BaseToolBarPresenterActivity {
 
     @Override
     protected void initView() {
+        Intent intent = getIntent();
+        mineInformationModel = new Gson().fromJson(intent.getStringExtra("MineInformationModel"),
+                MineInformationModel.class);
         setActivityTitle(getString(R.string.txt_money_package_title));
-
+        mTxtMoneyCount.setText("￥"+mineInformationModel.getBalance());
 
     }
 

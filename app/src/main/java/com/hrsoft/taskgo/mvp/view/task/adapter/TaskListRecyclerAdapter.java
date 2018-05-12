@@ -80,13 +80,13 @@ public class TaskListRecyclerAdapter extends FooterRecyclerViewAdapter<BaseTaskM
             case BTN_APPLY_FINISH:
                 textButton.setText("完成");
                 break;
-            case BTN_CANCEL_OR_PAY:
-                if (item.getTaskPayStatus() == MyTaskConfig.PAY_STATUS_SUCCESS_PAY) {
-                    textButton.setText("撤销任务");
-                } else {
-                    textButton.setText("继续支付");
-                }
-                break;
+//            case BTN_CANCEL_OR_PAY:
+//                if (item.getTaskPayStatus() == MyTaskConfig.PAY_STATUS_SUCCESS_PAY) {
+//                    textButton.setText("撤销任务");
+//                } else {
+//                    textButton.setText("继续支付");
+//                }
+//                break;
             default:
                 textButton.setVisibility(View.GONE);
                 break;

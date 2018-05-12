@@ -127,6 +127,7 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
                         model.setTaskId(respModel.getId());
                         model.setTaskStatus(respModel.getAttributes().getStatus());
                         model.setTaskPayStatus(respModel.getAttributes().getPayStatus());
+                        model.setUserId(respModel.getUserId());
                         baseTaskModels.add(model);
                     }
                     mView.onLoadTaskListSuccess(baseTaskModels);

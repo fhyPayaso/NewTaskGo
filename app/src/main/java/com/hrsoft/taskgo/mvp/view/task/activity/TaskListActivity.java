@@ -88,6 +88,10 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
     }
 
 
+
+
+
+
     private void initRecyclerView() {
 
         mRecyclerAdapter = new TaskListRecyclerAdapter(mTaskModelList, this
@@ -110,9 +114,8 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
         //添加下拉刷新事件监听
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.txt_blue));
-        mRefreshLayout.setRefreshing(true);
-        //初始化加载数据
-        mPresenter.loadTaskList(mTaskType, mCurrentPage + 1);
+
+
     }
 
     @Override
@@ -192,6 +195,10 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
     protected void onResume() {
         super.onResume();
         mBtnReleaseTask.setClickable(true);
+        //初始化加载数据
+        mRefreshLayout.setRefreshing(true);
+        onRefresh();
+
     }
 
     /**

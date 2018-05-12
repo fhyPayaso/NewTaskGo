@@ -55,7 +55,7 @@ public class MyTaskListPresenter extends BasePresenter<MyTaskListContract.View> 
                         loadMyReleaseTaskList(MyTaskConfig.STATUS_HAS_FINISH, page);
                         break;
                     case MyTaskConfig.MY_ACCEPT_NOT_FINISHED:
-                        loadMyAcceptTaskList(MyTaskConfig.STATUS_NOT_ACCEPT, page);
+                        loadMyAcceptTaskList(MyTaskConfig.STATUS_HAS_ACCEPT, page);
                         break;
                     case MyTaskConfig.MY_ACCEPT_HAS_FINISHED:
                         loadMyAcceptTaskList(MyTaskConfig.STATUS_HAS_FINISH, page);
@@ -98,12 +98,13 @@ public class MyTaskListPresenter extends BasePresenter<MyTaskListContract.View> 
             public void onFailedLoaded(String error) {
                 mView.finishTaskError(error);
             }
+
             @Override
             public void onDataLoaded(Object o) {
                 mView.finishTaskSuccess(position);
             }
         };
-        TaskHelper.getInstance().finishTask(this,taskId,callback);
+        TaskHelper.getInstance().finishTask(this, taskId, callback);
     }
 
     /**
@@ -173,7 +174,10 @@ public class MyTaskListPresenter extends BasePresenter<MyTaskListContract.View> 
             for (TasListRespModel<String> respModel : tasListRespModels) {
                 switch (respModel.getType()) {
                     case RESP_WATER:
-                        baseTaskModels.add(processingWaterTaskData(respModel));
+                        BaseTaskModel model = processingWaterTaskData(respModel);
+                        if (model != null) {
+                            baseTaskModels.add(model);
+                        }
                         break;
                     default:
                         break;
@@ -211,7 +215,13 @@ public class MyTaskListPresenter extends BasePresenter<MyTaskListContract.View> 
         model.setTaskId(respModel.getId());
         model.setTaskStatus(waterRespModel.getStatus());
         model.setTaskPayStatus(waterRespModel.getPayStatus());
+        model.setUserId(respModel.getUserId());
 
-        return model;
+        //先只展示支付成功的任务
+        if (model.getTaskPayStatus() == 1) {
+            return model;
+        } else {
+            return null;
+        }
     }
 }

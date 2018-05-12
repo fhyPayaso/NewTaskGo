@@ -38,9 +38,7 @@ import static android.content.ContentValues.TAG;
  */
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
-
     private IWXAPI api;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,6 +63,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                 ToastUtil.showToast("支付失败");
             }
         }
+        TaskListActivity.startActivity(this, ReleaseTaskActivity.mTaskType);
         finish();
     }
 
@@ -100,11 +99,4 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 //                    });
 //        }
 //    }
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        TaskListActivity.startActivity(this, ReleaseTaskActivity.mTaskType);
-    }
 }

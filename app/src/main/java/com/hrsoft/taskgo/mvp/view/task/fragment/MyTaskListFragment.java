@@ -82,6 +82,14 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mRefreshLayout.setRefreshing(true);
+        //初始化加载数据
+        onRefresh();
+    }
+
     /**
      * 完成任务
      *
@@ -121,7 +129,6 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
     public void setTaskStatusType(String taskStatusType) {
         mTaskStatusType = taskStatusType;
     }
-
 
     public static MyTaskListFragment getNewInstance(String taskType) {
         MyTaskListFragment fragment = new MyTaskListFragment();
@@ -189,9 +196,8 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
         //添加下拉刷新事件监听
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.txt_blue));
-        mRefreshLayout.setRefreshing(true);
-        //初始化加载数据
-        mPresenter.loadTaskList(mTaskStatusType, mCurrentPage + 1);
+
+
     }
 
     @Override

@@ -24,6 +24,13 @@ public class BaseTaskModel {
      * 用户名
      */
     private String userName;
+
+    /**
+     * 用户id
+     */
+    private int userId;
+
+
     /**
      * 任务类型
      */
@@ -192,5 +199,13 @@ public class BaseTaskModel {
 
     public void setTaskId(int taskId) {
         this.taskId = taskId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

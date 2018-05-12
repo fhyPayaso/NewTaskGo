@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.fragment.BaseFragment;
 import com.hrsoft.taskgo.common.TaskTypeConfig;
@@ -66,22 +67,22 @@ public class HomeFragment extends BaseFragment {
 
 
     private void initBanner() {
-        vpBannerPager.addView(getImageView(R.drawable.home_banner1));
-        vpBannerPager.addView(getImageView(R.drawable.home_banner2));
-        vpBannerPager.addView(getImageView(R.drawable.home_banner3));
-        vpBannerPager.addView(getImageView(R.drawable.home_banner4));
+        vpBannerPager.addView(getImageView(R.drawable.bg_banner1));
+        vpBannerPager.addView(getImageView(R.drawable.bg_banner2));
+        vpBannerPager.addView(getImageView(R.drawable.bg_banner3));
+        vpBannerPager.addView(getImageView(R.drawable.bg_banner4));
         vpBannerPager.startFlipping();
     }
 
     /**
      * 获取资源图片
      *
-     * @param res
      * @return
      */
-    private ImageView getImageView(int res) {
+    private ImageView getImageView(int imgUrl) {
         ImageView imageView = new ImageView(getContext());
-        imageView.setBackgroundResource(res);
+        imageView.setImageResource(imgUrl);
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         return imageView;
     }
 

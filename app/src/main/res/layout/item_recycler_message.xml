@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hrsoft.taskgo.widget.SwipeItemLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:layout_marginTop="1dp"
+    android:background="@drawable/selector_bg_recycler_item">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingRight="20dp">
+
+
+        <LinearLayout
+            android:id="@+id/ly_avatar"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_avatar"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginBottom="3dp"/>
+
+            <TextView
+                android:id="@+id/txt_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/txt_gray"
+                android:textSize="10sp"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/txt_message_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/ly_avatar"
+            android:text="12:00ssssss"
+            android:textColor="@color/txt_gray"
+            android:textSize="10sp"
+            />
+
+        <TextView
+            android:id="@+id/txt_message_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/txt_message_time"
+            android:layout_below="@id/txt_message_time"
+            android:layout_marginTop="5dp"
+            android:text="ssssss"
+            android:textSize="14sp"/>
+
+
+        <View
+            android:id="@+id/txt_unread_flag"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_message_unread_flag"/>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/txt_have_read_message"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#FF9F00"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="标记已读"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/txt_delete_message"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/bg_delete_red"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="删除"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+</com.hrsoft.taskgo.widget.SwipeItemLayout>

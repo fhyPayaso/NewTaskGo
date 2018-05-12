@@ -36,7 +36,7 @@ public class Config {
     /**
      * 正确返回码
      */
-    public static final int[] NET_CORRECT_CODE = {1000, 2000};
+    public static final int[] NET_CORRECT_CODE = {1000, 2000, 3000, 4000};
 
     /**
      * 空字段

@@ -153,9 +153,8 @@ public class ReleaseTaskActivity extends BaseToolBarPresenterActivity<ReleaseTas
      */
     @Override
     public void onLoadWxOrdersInfoSuccess(WxRepModel repModel) {
-        sTaskId = repModel.getTaskId();
-        ToastUtil.showToast("" + sTaskId);
-        dismissProgressDialog();
+        //sTaskId = repModel.getTaskId();
+
         mPresenter.openWxPayPage(App.getInstance(), repModel);
     }
 
@@ -198,6 +197,5 @@ public class ReleaseTaskActivity extends BaseToolBarPresenterActivity<ReleaseTas
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        sTaskId = -1;
     }
 }

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.mvp.view.BaseToolBarPresenterActivity;
 import com.hrsoft.taskgo.common.TaskTypeConfig;
@@ -87,7 +88,6 @@ public class TaskGridActivity extends BaseToolBarPresenterActivity<TaskGridContr
                 mToolBarTitle = "大学生创业团队";
                 break;
             case TaskTypeConfig.MODEL_DIY:
-                imgGirdTitle.setImageResource(R.drawable.bg_banner_diy);
                 mToolBarTitle = "自定义任务";
                 break;
             case TaskTypeConfig.MODEL_MONEY:

@@ -188,6 +188,7 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
         mScrollListener.setLoadMoreListener(this);
         //添加下拉刷新事件监听
         mRefreshLayout.setOnRefreshListener(this);
+        mRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.txt_blue));
         mRefreshLayout.setRefreshing(true);
         //初始化加载数据
         mPresenter.loadTaskList(mTaskStatusType, mCurrentPage + 1);

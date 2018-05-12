@@ -1,10 +1,10 @@
 package com.hrsoft.taskgo.mvp.view;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,14 +14,14 @@ import com.hrsoft.taskgo.base.mvp.view.BasePresenterActivity;
 import com.hrsoft.taskgo.mvp.contract.MainContract;
 import com.hrsoft.taskgo.mvp.model.app.AppInfoModel;
 import com.hrsoft.taskgo.mvp.presenter.MainPresenter;
-import com.hrsoft.taskgo.mvp.view.account.LoginActivity;
-import com.hrsoft.taskgo.mvp.view.message.MessageFragment;
+import com.hrsoft.taskgo.mvp.view.message.fragment.MessageFragment;
 import com.hrsoft.taskgo.mvp.view.mine.MineFragment;
 import com.hrsoft.taskgo.mvp.view.task.fragment.HomeFragment;
 import com.hrsoft.taskgo.utils.DialogUtil;
 import com.hrsoft.taskgo.utils.FragmentUtil;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -30,7 +30,8 @@ import butterknife.OnClick;
  * email fanhongyu@hrsoft.net.
  */
 
-public class MainActivity extends BasePresenterActivity<MainContract.Presenter> implements MainContract.View {
+public class MainActivity extends BasePresenterActivity<MainContract.Presenter> implements MainContract.View,
+        MessageFragment.OnMsgNumberListener {
 
 
     @BindView(R.id.img_main_tab_home)
@@ -45,6 +46,8 @@ public class MainActivity extends BasePresenterActivity<MainContract.Presenter> 
     ImageView mImgTabMine;
     @BindView(R.id.txt_main_tab_mine)
     TextView mTxtTabMine;
+    @BindView(R.id.txt_tab_unread_msg_num)
+    TextView mTxtTabUnreadMsgNum;
 
     private HomeFragment mHomeFragment;
     private MessageFragment mMessageFragment;
@@ -58,11 +61,14 @@ public class MainActivity extends BasePresenterActivity<MainContract.Presenter> 
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        //mPresenter.checkAppVersion();
+        mPresenter.checkAppVersion();
     }
 
     @Override
     protected void initView() {
+
+        mTxtTabUnreadMsgNum.setVisibility(View.GONE);
+        onLlBottomTabMessageClicked();
         onLlBottomTabHomeClicked();
     }
 
@@ -74,7 +80,7 @@ public class MainActivity extends BasePresenterActivity<MainContract.Presenter> 
 
     @OnClick(R.id.ll_bottom_tab_message)
     public void onLlBottomTabMessageClicked() {
-        mMessageFragment = mPresenter.showMessageFragment(this, mMessageFragment);
+        mMessageFragment = mPresenter.showMessageFragment(this, mMessageFragment, this);
     }
 
     @OnClick(R.id.ll_bottom_tab_mine)
@@ -183,5 +189,28 @@ public class MainActivity extends BasePresenterActivity<MainContract.Presenter> 
         intent.setAction("android.intent.action.VIEW");
         intent.setData(Uri.parse(apkUrl));
         startActivity(intent);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+
+    /**
+     * 更新
+     *
+     * @param number
+     */
+    @Override
+    public void updateUnreadMsgNum(int number) {
+        if (number == 0) {
+            mTxtTabUnreadMsgNum.setVisibility(View.GONE);
+        } else {
+            mTxtTabUnreadMsgNum.setVisibility(View.VISIBLE);
+            mTxtTabUnreadMsgNum.setText(String.valueOf(number));
+        }
     }
 }

@@ -39,7 +39,7 @@ public class AppHelper extends BaseModel {
      * @param presenter
      * @param callback
      */
-    public void checkAppVersion(IBaseContract.IBasePresenter presenter, final IDataCallback.Callback<AppInfoModel>
+    public void checkAppVersion(IBaseContract.IBasePresenter presenter, final IDataCallback.Callback<AppInfoRespModel>
             callback) {
 
         addNotifyListener(presenter, callback);
@@ -47,10 +47,10 @@ public class AppHelper extends BaseModel {
         NetworkFactory
                 .getService()
                 .checkAppVersion()
-                .compose(BaseObserver.<ApiResponse<AppInfoModel>>setThread())
-                .subscribe(new BaseObserver<AppInfoModel>() {
+                .compose(BaseObserver.<ApiResponse<AppInfoRespModel>>setThread())
+                .subscribe(new BaseObserver<AppInfoRespModel>() {
                     @Override
-                    public void onSuccess(ApiResponse<AppInfoModel> response) {
+                    public void onSuccess(ApiResponse<AppInfoRespModel> response) {
                         callback.onDataLoaded(response.getData());
                     }
 

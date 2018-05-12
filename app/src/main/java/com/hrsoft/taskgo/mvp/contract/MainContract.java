@@ -3,7 +3,7 @@ package com.hrsoft.taskgo.mvp.contract;
 import com.hrsoft.taskgo.base.activity.BaseActivity;
 import com.hrsoft.taskgo.base.mvp.IBaseContract;
 import com.hrsoft.taskgo.mvp.model.app.AppInfoModel;
-import com.hrsoft.taskgo.mvp.view.message.MessageFragment;
+import com.hrsoft.taskgo.mvp.view.message.fragment.MessageFragment;
 import com.hrsoft.taskgo.mvp.view.mine.MineFragment;
 import com.hrsoft.taskgo.mvp.view.task.fragment.HomeFragment;
 
@@ -26,7 +26,8 @@ public interface MainContract {
         /**
          * 展示message页面
          */
-        MessageFragment showMessageFragment(BaseActivity context, MessageFragment messageFragment);
+        MessageFragment showMessageFragment(BaseActivity context, MessageFragment messageFragment, MessageFragment
+                .OnMsgNumberListener listener);
 
         /**
          * 展示mine页面

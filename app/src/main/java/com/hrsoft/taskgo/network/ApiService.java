@@ -4,6 +4,9 @@ import com.hrsoft.taskgo.mvp.model.account.request.ForgetPasswordModel;
 import com.hrsoft.taskgo.mvp.model.account.request.RegisterReqModel;
 import com.hrsoft.taskgo.mvp.model.account.request.TokenResponse;
 import com.hrsoft.taskgo.mvp.model.app.AppInfoModel;
+import com.hrsoft.taskgo.mvp.model.app.AppInfoRespModel;
+import com.hrsoft.taskgo.mvp.model.message.MessageModel;
+import com.hrsoft.taskgo.mvp.model.message.MsgReadDeleteReqModel;
 import com.hrsoft.taskgo.mvp.model.task.request.AcceptTaskReqModel;
 import com.hrsoft.taskgo.mvp.model.task.request.ReleaseTaskReqModel;
 import com.hrsoft.taskgo.mvp.model.task.response.TasListRespModel;
@@ -36,22 +39,45 @@ public interface ApiService {
      *
      * @return
      */
-    @GET("")
-    Observable<ApiResponse<AppInfoModel>> checkAppVersion();
+    @GET("version/new")
+    Observable<ApiResponse<AppInfoRespModel>> checkAppVersion();
 
 
+    /**
+     * 登录账户
+     *
+     * @param reqModel
+     * @return
+     */
     @POST("login")
     Observable<ApiResponse<TokenResponse>> login(@Body LoginReqModel reqModel);
 
 
+    /**
+     * 注册新账户
+     *
+     * @param registerReqModel
+     * @return
+     */
     @POST("register")
     Observable<ApiResponse<TokenResponse>> register(@Body RegisterReqModel registerReqModel);
 
 
+    /**
+     * 忘记密码
+     *
+     * @param forgetPasswordModel
+     * @return
+     */
     @POST("password/forgot")
-    Observable<ApiResponse> forgetPassWord(@Body ForgetPasswordModel forgetPasswordModel);
+    Observable<ApiResponse> updatePassword(@Body ForgetPasswordModel forgetPasswordModel);
 
-
+    /**
+     * 获取验证码
+     *
+     * @param mobile
+     * @return
+     */
     @GET("captcha/{mobile}")
     Observable<ApiResponse> sendCaptcha(@Path("mobile") String mobile);
 
@@ -141,6 +167,35 @@ public interface ApiService {
      */
     @GET("water/finish/{taskId}")
     Observable<ApiResponse> finishTask(@Path("taskId") int waterTaskId);
+
+
+    /**
+     * 拉取消息列表
+     *
+     * @return
+     */
+    @GET("messages")
+    Observable<ApiResponse<List<MessageModel>>> loadMessageList();
+
+
+    /**
+     * 标记消息已读
+     *
+     * @param reqModel
+     * @return
+     */
+    @POST("messages/read")
+    Observable<ApiResponse> hasReadMessage(@Body MsgReadDeleteReqModel reqModel);
+
+
+    /**
+     * 删除消息
+     *
+     * @param reqModel
+     * @return
+     */
+    @POST("messages/delete")
+    Observable<ApiResponse> deleteMessage(@Body MsgReadDeleteReqModel reqModel);
 
 
 }

@@ -22,4 +22,7 @@
 
     <color name="bg_gray">#EFEFF4</color>
 
+    <!--message模块-->
+    <color name="bg_delete_red">#FE534F</color>
+
 </resources>

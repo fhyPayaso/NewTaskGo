@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/NewTaskGo.iml" filepath="$PROJECT_DIR$/NewTaskGo.iml" />
       <module fileurl="file://$PROJECT_DIR$/TaskGo.iml" filepath="$PROJECT_DIR$/TaskGo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TaskGo_Android.iml" filepath="$PROJECT_DIR$/TaskGo_Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -96,4 +96,10 @@
     <string name="txt_hint_advice">请输入不少于10个字的意见或者建议</string>
     <string name="txt_no_advice">请输入您的意见</string>
     <string name="txt_have_real_name">已实名认证</string>
+    <string name="txt_money_package_title">零钱</string>
+    <string name="txt_mine_money">我的零钱</string>
+    <string name="txt_get_real_money">提现</string>
+    <string name="txt_mine_money_package">钱包</string>
+    <string name="txt_bind_bank">绑定银行卡</string>
+    <string name="txt_no_function_get_money">功能暂未开放，敬请期待</string>
 </resources>

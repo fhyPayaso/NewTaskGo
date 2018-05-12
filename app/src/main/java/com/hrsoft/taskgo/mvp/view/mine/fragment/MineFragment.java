@@ -15,6 +15,7 @@ import com.hrsoft.taskgo.mvp.presenter.mine.MineInformationPresenter;
 import com.hrsoft.taskgo.mvp.view.mine.activity.EditDataActivity;
 import com.hrsoft.taskgo.mvp.view.mine.activity.FeedbackActivity;
 import com.hrsoft.taskgo.mvp.view.mine.activity.MineCardActivity;
+import com.hrsoft.taskgo.mvp.view.mine.activity.MoneyPackageActivity;
 import com.hrsoft.taskgo.mvp.view.mine.activity.MyFollowFansActivity;
 import com.hrsoft.taskgo.mvp.view.mine.activity.RealNameActivity;
 import com.hrsoft.taskgo.mvp.view.mine.activity.SettingActivity;
@@ -77,6 +78,14 @@ public class MineFragment extends BasePresenterFragment<MineInformationContract.
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        mPresenter.loadMineInformation();
+
+    }
+
     @OnClick({R.id.rlayout_mine_follow,
             R.id.rlayout_mine_fans,
             R.id.btn_release,
@@ -85,7 +94,8 @@ public class MineFragment extends BasePresenterFragment<MineInformationContract.
             R.id.rlayout_mine_real_name,
             R.id.rlayout_mine_feedback,
             R.id.rlayout_mine_setting,
-            R.id.rlayout_mine_edit})
+            R.id.rlayout_mine_edit,
+            R.id.rlayout_mine_money_package,})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rlayout_mine_follow:
@@ -114,6 +124,9 @@ public class MineFragment extends BasePresenterFragment<MineInformationContract.
                 break;
             case R.id.rlayout_mine_card:
                 MineCardActivity.startMineCardActivity(getContext());
+                break;
+            case R.id.rlayout_mine_money_package:
+                MoneyPackageActivity.startActivity(getContext(),mMineInformationModel);
                 break;
             default:
                 break;

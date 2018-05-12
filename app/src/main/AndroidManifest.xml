@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hrsoft.taskgo">
+          package="com.hrsoft.taskgo">
 
     <!--网络权限-->
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
     <!--sd卡读写权限-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+
+    <!--EM Required -->
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:name=".App"
@@ -20,9 +34,9 @@
         <activity android:name=".mvp.view.initiate.activity.SplashActivity">
 
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
 
         </activity>
@@ -34,10 +48,9 @@
         <activity android:name=".mvp.view.account.LoginActivity"/>
 
         <activity android:name=".mvp.view.initiate.activity.GuideActivity"/>
-        <activity android:name=".mvp.view.task.activity.TaskGridActivity" />
+        <activity android:name=".mvp.view.task.activity.TaskGridActivity"/>
 
-        <activity android:name=".mvp.view.account.RegisterActivity" />
-
+        <activity android:name=".mvp.view.account.RegisterActivity"/>
 
 
         <activity android:name=".mvp.view.account.UpdatePasswordActivity"/>
@@ -45,25 +58,42 @@
 
         <activity
             android:name=".mvp.view.task.activity.TaskListActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"/>
 
 
-        <activity android:name=".mvp.view.task.activity.ReleaseTaskActivity" />
+        <activity android:name=".mvp.view.task.activity.ReleaseTaskActivity"/>
 
-        <activity android:name=".mvp.view.task.activity.FillTaskInfoActivity" />
+        <activity android:name=".mvp.view.task.activity.FillTaskInfoActivity"/>
 
 
-        <activity android:name=".mvp.view.task.activity.MyTaskListActivity" />
+        <activity android:name=".mvp.view.task.activity.MyTaskListActivity"/>
 
 
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"/>
 
 
         <service android:name=".mvp.view.message.service.LoopMsgService"/>
 
+
+        <activity android:name=".mvp.view.mine.activity.MyFollowFansActivity"/>
+        <activity android:name=".mvp.view.mine.activity.OtherUserPageActivity"/>
+        <activity
+            android:name=".mvp.view.mine.activity.EditDataActivity"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".mvp.view.mine.activity.ChangeNameActivity"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".mvp.view.mine.activity.RealNameActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".mvp.view.mine.activity.FeedbackActivity"/>
+        <activity android:name=".mvp.view.mine.activity.SettingActivity"/>
+        <activity android:name=".mvp.view.mine.activity.MineCardActivity"/>
+
+        <activity android:name=".mvp.view.mine.activity.AboutAvtivity"/>
     </application>
 
 </manifest>

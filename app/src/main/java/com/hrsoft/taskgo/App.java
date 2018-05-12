@@ -3,6 +3,7 @@ package com.hrsoft.taskgo;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 
 import com.hrsoft.taskgo.common.Config;
@@ -46,6 +47,10 @@ public class App extends Application {
         }
 
         Log.i(TAG, "onCreate: ");
+
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        builder.detectFileUriExposure();
     }
 
     public static App getInstance() {

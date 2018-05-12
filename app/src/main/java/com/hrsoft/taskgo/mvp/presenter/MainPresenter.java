@@ -12,7 +12,8 @@ import com.hrsoft.taskgo.mvp.model.app.AppHelper;
 import com.hrsoft.taskgo.mvp.model.app.AppInfoModel;
 import com.hrsoft.taskgo.mvp.model.app.AppInfoRespModel;
 import com.hrsoft.taskgo.mvp.view.message.fragment.MessageFragment;
-import com.hrsoft.taskgo.mvp.view.mine.MineFragment;
+
+import com.hrsoft.taskgo.mvp.view.mine.fragment.MineFragment;
 import com.hrsoft.taskgo.mvp.view.task.fragment.HomeFragment;
 import com.hrsoft.taskgo.utils.CacheUtil;
 import com.hrsoft.taskgo.utils.FragmentUtil;

@@ -66,9 +66,13 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
 
     @Override
     public void onAvatarClick(int position) {
-        ToastUtil.showToast("点击了头像" + position);
-    }
 
+        if (mTaskStatusType.equals(MyTaskConfig.MY_ACCEPT_HAS_FINISHED) || mTaskStatusType.equals(MyTaskConfig
+                .MY_ACCEPT_NOT_FINISHED)) {
+
+            ToastUtil.showToast("点击了头像" + position);
+        }
+    }
 
     @Override
     public void onBtnClick(int position) {

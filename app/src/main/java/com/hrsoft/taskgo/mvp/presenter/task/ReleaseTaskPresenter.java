@@ -46,6 +46,16 @@ public class ReleaseTaskPresenter extends BasePresenter<ReleaseTaskContract.View
         chooseCardModel.setHaveNumber(10);
         chooseCardModel.setChooseNumber(0);
         modelList.add(chooseCardModel);
+
+
+
+
+
+
+
+
+
+
         mView.loadUserCardsInfoSuccess(modelList);
     }
 

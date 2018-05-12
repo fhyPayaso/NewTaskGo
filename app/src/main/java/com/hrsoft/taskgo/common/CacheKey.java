@@ -8,7 +8,6 @@ package com.hrsoft.taskgo.common;
 
 public class CacheKey {
     public static final String TOKEN = "token";
-    public static final String USER = "user";
 
     /**
      * 判断是否第一次登录
@@ -19,4 +18,20 @@ public class CacheKey {
      * app信息
      */
     public static final String APP_INFORMATION = "appInformation";
+
+
+    /**
+     * 用户userId
+     */
+    public static final String USER_ID = "userId";
+
+    /**
+     * 用户姓名
+     */
+    public static final String USER_NAME = "userName";
+
+    /**
+     * 用户头像url
+     */
+    public static final String USER_AVATAR = "userAvatar";
 }

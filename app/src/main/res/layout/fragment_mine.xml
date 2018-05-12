@@ -209,6 +209,46 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:id="@+id/rlayout_mine_money_package"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginTop="3dp">
+
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:src="@drawable/ic_mine_money_package" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="50dp"
+                        android:text="@string/txt_mine_money_package"
+                        android:textColor="@color/text_mine_button"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="11dp"
+                        android:src="@drawable/ic_mine_arrow" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#D1D1D6" />
                 <RelativeLayout
                     android:id="@+id/rlayout_mine_card"
                     android:layout_width="match_parent"

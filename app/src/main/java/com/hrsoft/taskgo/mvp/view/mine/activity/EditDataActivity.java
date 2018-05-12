@@ -241,6 +241,9 @@ public class EditDataActivity extends BaseToolBarPresenterActivity<EditDataContr
             mTxtMineEditDataGender.setText("男");
         } else if (mineInformationModel.getSex().equals("女")) {
             mTxtMineEditDataGender.setText("女");
+        }else {
+            mTxtMineEditDataGender.setText("未知");
+
         }
 
 

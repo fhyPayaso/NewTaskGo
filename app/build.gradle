@@ -6,7 +6,7 @@ android {
         release {
             keyAlias 'NewTaskGo'
             keyPassword '123456'
-            storeFile file('/Users/abtion/workspace/AndroidStudioProjects/jks/NewTaskGo')
+            storeFile file('/Users/apple/Downloads/TaskGo_Android/NewTaskGo.')
             storePassword '123456'
         }
     }
@@ -86,7 +86,6 @@ dependencies {
      */
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
-
     /**
      * 图片上传七牛云sdk
      */

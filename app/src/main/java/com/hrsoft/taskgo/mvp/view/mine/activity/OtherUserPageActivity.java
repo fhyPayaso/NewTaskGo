@@ -127,9 +127,9 @@ public class OtherUserPageActivity extends BasePresenterActivity<OtherUserPageCo
         mPresenter.loadOtherUserPage(intent.getIntExtra("userId", 0));
     }
 
-    public static void startActivity(Context context, int position,int type) {
+    public static void startActivity(Context context, int userId) {
         Intent intent = new Intent(context, OtherUserPageActivity.class);
-        intent.putExtra("userId", position);
+        intent.putExtra("userId", userId);
         context.startActivity(intent);
     }
 

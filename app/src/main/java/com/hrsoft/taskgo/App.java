@@ -9,6 +9,7 @@ import android.support.annotation.RequiresApi;
 import android.os.StrictMode;
 import android.util.Log;
 
+import com.hrsoft.taskgo.common.CacheKey;
 import com.hrsoft.taskgo.common.Config;
 import com.hrsoft.taskgo.utils.CacheUtil;
 import com.hrsoft.taskgo.utils.ToastUtil;
@@ -38,13 +39,11 @@ public class App extends Application {
 
     private CacheUtil cacheUtil;
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     public void onCreate() {
         super.onCreate();
         sInstance = this;
         registerActivityLifecycleCallbacks(getActivityLifecycleCallbacks());
-
 
         if (Config.DEBUG) {
             LeakCanary.install(this);
@@ -52,9 +51,11 @@ public class App extends Application {
 
         Log.i(TAG, "onCreate: ");
 
-        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-        StrictMode.setVmPolicy(builder.build());
-        builder.detectFileUriExposure();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.setVmPolicy(builder.build());
+            builder.detectFileUriExposure();
+        }
     }
 
     public static App getInstance() {
@@ -163,6 +164,6 @@ public class App extends Application {
      */
     public void exitAccount() {
         removeAllActivity();
-        // TODO: 18/4/12 进入登录界面,清除缓存
+        getCacheUtil().putString(CacheKey.TOKEN, null);
     }
 }

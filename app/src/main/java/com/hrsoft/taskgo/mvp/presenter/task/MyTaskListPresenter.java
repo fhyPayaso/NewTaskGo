@@ -3,16 +3,19 @@ package com.hrsoft.taskgo.mvp.presenter.task;
 import android.os.Handler;
 
 import com.google.gson.Gson;
+import com.hrsoft.taskgo.App;
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
+import com.hrsoft.taskgo.common.CacheKey;
+import com.hrsoft.taskgo.common.Config;
 import com.hrsoft.taskgo.common.MyTaskConfig;
-import com.hrsoft.taskgo.mvp.contract.MyTaskListContract;
+import com.hrsoft.taskgo.mvp.contract.task.MyTaskListContract;
 import com.hrsoft.taskgo.mvp.model.task.TaskHelper;
 import com.hrsoft.taskgo.mvp.model.task.bean.BaseTaskModel;
 import com.hrsoft.taskgo.mvp.model.task.response.TasListRespModel;
 import com.hrsoft.taskgo.mvp.model.task.response.WaterAttributesRespModel;
 import com.hrsoft.taskgo.mvp.view.task.adapter.TaskListRecyclerAdapter;
-import com.hrsoft.taskgo.utils.ToastUtil;
+import com.hrsoft.taskgo.utils.CacheUtil;
 
 
 import java.util.ArrayList;
@@ -33,6 +36,9 @@ public class MyTaskListPresenter extends BasePresenter<MyTaskListContract.View> 
     public static final String RESP_WATER = "water";
 
 
+    private boolean mNeedCache = false;
+
+
     public MyTaskListPresenter(MyTaskListContract.View view) {
         super(view);
     }
@@ -40,6 +46,7 @@ public class MyTaskListPresenter extends BasePresenter<MyTaskListContract.View> 
 
     @Override
     public void loadTaskList(final String taskStatusType, final int page) {
+
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -125,6 +132,7 @@ public class MyTaskListPresenter extends BasePresenter<MyTaskListContract.View> 
             @Override
             public void onDataLoaded(List<TasListRespModel<String>> tasListRespModels) {
                 processingData(tasListRespModels, page);
+
             }
         };
 
@@ -149,7 +157,9 @@ public class MyTaskListPresenter extends BasePresenter<MyTaskListContract.View> 
 
             @Override
             public void onDataLoaded(List<TasListRespModel<String>> tasListRespModels) {
+                mNeedCache = true;
                 processingData(tasListRespModels, page);
+                mNeedCache = false;
             }
         };
         TaskHelper.getInstance().loadMyReleaseTaskList(this, page, status, callback);
@@ -201,8 +211,18 @@ public class MyTaskListPresenter extends BasePresenter<MyTaskListContract.View> 
         WaterAttributesRespModel waterRespModel = new Gson().fromJson(respModel.getAttributes(),
                 WaterAttributesRespModel.class);
 
-        model.setUserName(respModel.getUserName() == null ? "" : respModel.getUserName());
-        model.setAvatarUrl(respModel.getAvatarImgUrl());
+
+        if (mNeedCache) {
+            CacheUtil cacheUtil = App.getInstance().getCacheUtil();
+            model.setUserId(Integer.valueOf(cacheUtil.getString(CacheKey.USER_ID)));
+            model.setAvatarUrl(cacheUtil.getString(CacheKey.USER_AVATAR));
+            model.setUserName(cacheUtil.getString(CacheKey.USER_NAME));
+        } else {
+            model.setUserId(respModel.getUserId());
+            model.setUserName(respModel.getUserName() == null ? "" : respModel.getUserName());
+            model.setAvatarUrl(respModel.getAvatarImgUrl());
+
+        }
         model.setTaskType("校内送水");
         model.setCardNumber(respModel.getCardsJson().getGoodPeople());
         model.setMoney(Double.valueOf(waterRespModel.getMoney()));
@@ -215,7 +235,7 @@ public class MyTaskListPresenter extends BasePresenter<MyTaskListContract.View> 
         model.setTaskId(respModel.getId());
         model.setTaskStatus(waterRespModel.getStatus());
         model.setTaskPayStatus(waterRespModel.getPayStatus());
-        model.setUserId(respModel.getUserId());
+
 
         //先只展示支付成功的任务
         if (model.getTaskPayStatus() == 1) {

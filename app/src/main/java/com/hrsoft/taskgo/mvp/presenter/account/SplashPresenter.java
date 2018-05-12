@@ -1,12 +1,11 @@
-package com.hrsoft.taskgo.mvp.presenter.account.presenter;
+package com.hrsoft.taskgo.mvp.presenter.account;
 
 import com.hrsoft.taskgo.App;
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 import com.hrsoft.taskgo.common.CacheKey;
 import com.hrsoft.taskgo.mvp.model.account.helper.SplashHelper;
-import com.hrsoft.taskgo.mvp.presenter.account.contract.SplashContract;
-import com.hrsoft.taskgo.utils.CacheUtil;
+import com.hrsoft.taskgo.mvp.contract.account.SplashContract;
 
 /**
  * @author heaijia

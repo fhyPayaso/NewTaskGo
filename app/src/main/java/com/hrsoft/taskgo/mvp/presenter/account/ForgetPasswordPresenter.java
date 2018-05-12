@@ -1,20 +1,16 @@
-package com.hrsoft.taskgo.mvp.presenter.account.presenter;
+package com.hrsoft.taskgo.mvp.presenter.account;
 
+import com.hrsoft.taskgo.App;
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 import com.hrsoft.taskgo.common.CacheKey;
 import com.hrsoft.taskgo.common.Config;
 import com.hrsoft.taskgo.mvp.model.account.helper.ForgetpasswordHelper;
-import com.hrsoft.taskgo.mvp.model.account.helper.RegisterHelper;
 import com.hrsoft.taskgo.mvp.model.account.request.ForgetPasswordModel;
-import com.hrsoft.taskgo.mvp.model.account.request.RegisterReqModel;
-import com.hrsoft.taskgo.mvp.presenter.account.contract.ForgetPasswordContract;
+import com.hrsoft.taskgo.mvp.contract.account.ForgetPasswordContract;
 import com.hrsoft.taskgo.utils.CacheUtil;
 import com.hrsoft.taskgo.utils.RegexpUtils;
 import com.hrsoft.taskgo.utils.ToastUtil;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author heaijia
@@ -41,7 +37,7 @@ public class ForgetPasswordPresenter extends BasePresenter<ForgetPasswordContrac
 
                 @Override
                 public void onDataLoaded(String s) {
-                    CacheUtil.putString(CacheKey.TOKEN, s);
+                    App.getInstance().getCacheUtil().putString(CacheKey.TOKEN,s);
                     mView.onSendInformationSuccess();
                 }
             };

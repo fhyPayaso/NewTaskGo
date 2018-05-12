@@ -1,38 +1,28 @@
 package com.hrsoft.taskgo.mvp.view.task.activity;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.hrsoft.taskgo.App;
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.mvp.view.BaseToolBarPresenterActivity;
-import com.hrsoft.taskgo.common.Config;
 import com.hrsoft.taskgo.common.TaskTypeConfig;
-import com.hrsoft.taskgo.mvp.contract.ReleaseTaskContract;
+import com.hrsoft.taskgo.mvp.contract.task.ReleaseTaskContract;
 import com.hrsoft.taskgo.mvp.model.task.bean.CardPackageModel;
 import com.hrsoft.taskgo.mvp.model.task.bean.ChooseCardModel;
 import com.hrsoft.taskgo.mvp.model.task.request.WaterAttributesReqModel;
 import com.hrsoft.taskgo.mvp.model.task.response.WxRepModel;
 import com.hrsoft.taskgo.mvp.presenter.task.ReleaseTaskPresenter;
 import com.hrsoft.taskgo.mvp.view.task.adapter.ChoosePagerAdapter;
-import com.hrsoft.taskgo.utils.DialogUtil;
 import com.hrsoft.taskgo.utils.ToastUtil;
 import com.hrsoft.taskgo.widget.AlphaTransformer;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.hrsoft.taskgo.common.Config.APP_ID;
 
 /**
  * @author fhyPayaso

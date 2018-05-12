@@ -80,7 +80,7 @@ public final class CacheUtil {
      * @param key
      * @param value
      */
-    public static void putString(String key, String value) {
+    public void putString(String key, String value) {
         File file = mCaCheManager.newFile(key);
         BufferedWriter bufferedWriter = null;
         try {
@@ -141,7 +141,7 @@ public final class CacheUtil {
      * @param key
      * @param value
      */
-    public static void putInt(String key, int value) {
+    public void putInt(String key, int value) {
         putString(key, String.valueOf(value));
     }
 

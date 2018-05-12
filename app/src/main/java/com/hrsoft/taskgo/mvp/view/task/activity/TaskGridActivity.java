@@ -4,17 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
-import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.mvp.view.BaseToolBarPresenterActivity;
 import com.hrsoft.taskgo.common.TaskTypeConfig;
-import com.hrsoft.taskgo.mvp.contract.TaskGridContract;
+import com.hrsoft.taskgo.mvp.contract.task.TaskGridContract;
 import com.hrsoft.taskgo.mvp.model.task.bean.TaskGridModel;
 import com.hrsoft.taskgo.mvp.presenter.task.TaskGridPresenter;
 import com.hrsoft.taskgo.mvp.view.task.fragment.TaskGridFragment;

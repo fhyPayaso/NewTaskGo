@@ -1,8 +1,10 @@
 package com.hrsoft.taskgo.mvp.model.mine.helper;
 
+import com.hrsoft.taskgo.App;
 import com.hrsoft.taskgo.base.mvp.IBaseContract;
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
 import com.hrsoft.taskgo.base.mvp.model.BaseModel;
+import com.hrsoft.taskgo.common.CacheKey;
 import com.hrsoft.taskgo.mvp.contract.mine.MineInformationContract;
 import com.hrsoft.taskgo.mvp.model.mine.FeedBackModel;
 import com.hrsoft.taskgo.mvp.model.mine.request.RealNameModel;
@@ -15,6 +17,7 @@ import com.hrsoft.taskgo.network.BaseObserver;
 import com.hrsoft.taskgo.network.NetworkFactory;
 import com.hrsoft.taskgo.network.response.ApiException;
 import com.hrsoft.taskgo.network.response.ApiResponse;
+import com.hrsoft.taskgo.utils.CacheUtil;
 
 import java.util.List;
 
@@ -27,18 +30,17 @@ public class MineInformationHelper extends BaseModel {
 
     }
 
-    public static class MineInformationHelperHolder{
-
+    private static class MineInformationHelperHolder {
         private static final MineInformationHelper INSTANCE = new MineInformationHelper();
-
     }
 
-    public static MineInformationHelper getInstence(){
+    public static MineInformationHelper getInstence() {
         return MineInformationHelperHolder.INSTANCE;
     }
 
-    public void loadMineInformation(IBaseContract.IBasePresenter presenter, final IDataCallback.Callback<MineInformationModel> iDataCallback){
-        addNotifyListener(presenter,iDataCallback);
+    public void loadMineInformation(IBaseContract.IBasePresenter presenter, final IDataCallback
+            .Callback<MineInformationModel> iDataCallback) {
+        addNotifyListener(presenter, iDataCallback);
 
         NetworkFactory
                 .getService()
@@ -47,6 +49,12 @@ public class MineInformationHelper extends BaseModel {
                 .subscribe(new BaseObserver<MineInformationModel>() {
                     @Override
                     public void onSuccess(ApiResponse<MineInformationModel> response) {
+
+                        //缓存用户信息
+                        CacheUtil cacheUtil = App.getInstance().getCacheUtil();
+                        cacheUtil.putString(CacheKey.USER_ID, response.getData().getId());
+                        cacheUtil.putString(CacheKey.USER_NAME, response.getData().getName());
+                        cacheUtil.putString(CacheKey.USER_AVATAR, response.getData().getAvatar());
                         iDataCallback.onDataLoaded(response.getData());
                     }
 
@@ -57,9 +65,11 @@ public class MineInformationHelper extends BaseModel {
                 });
 
     }
+
     @SuppressWarnings("unchecked")
-    public void updateInformation(IBaseContract.IBasePresenter presenter, final IDataCallback.Callback iDataCallback,UpdateInformationModel updateInformationModel) {
-        addNotifyListener(presenter,iDataCallback);
+    public void updateInformation(IBaseContract.IBasePresenter presenter, final IDataCallback.Callback iDataCallback,
+                                  UpdateInformationModel updateInformationModel) {
+        addNotifyListener(presenter, iDataCallback);
 
         NetworkFactory
                 .getService()
@@ -79,9 +89,11 @@ public class MineInformationHelper extends BaseModel {
 
 
     }
+
     @SuppressWarnings("unchecked")
-    public void submitRealName(IBaseContract.IBasePresenter presenter,final IDataCallback.Callback callback, RealNameModel realNameModel) {
-        addNotifyListener(presenter,callback);
+    public void submitRealName(IBaseContract.IBasePresenter presenter, final IDataCallback.Callback callback,
+                               RealNameModel realNameModel) {
+        addNotifyListener(presenter, callback);
 
         NetworkFactory
                 .getService()
@@ -99,9 +111,11 @@ public class MineInformationHelper extends BaseModel {
                     }
                 });
     }
+
     @SuppressWarnings("unchecked")
-    public void submitAdvice(IBaseContract.IBasePresenter presenter,final IDataCallback.Callback callback, FeedBackModel feedBackModel){
-        addNotifyListener(presenter,callback);
+    public void submitAdvice(IBaseContract.IBasePresenter presenter, final IDataCallback.Callback callback,
+                             FeedBackModel feedBackModel) {
+        addNotifyListener(presenter, callback);
 
         NetworkFactory
                 .getService()
@@ -119,8 +133,10 @@ public class MineInformationHelper extends BaseModel {
                     }
                 });
     }
-    public void loadMineCard(IBaseContract.IBasePresenter presenter,final IDataCallback.Callback<List<MineCardModel>> callback) {
-        addNotifyListener(presenter,callback);
+
+    public void loadMineCard(IBaseContract.IBasePresenter presenter, final IDataCallback
+            .Callback<List<MineCardModel>> callback) {
+        addNotifyListener(presenter, callback);
 
         NetworkFactory
                 .getService()

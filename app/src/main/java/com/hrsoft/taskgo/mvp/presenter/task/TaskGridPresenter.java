@@ -3,7 +3,7 @@ package com.hrsoft.taskgo.mvp.presenter.task;
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 import com.hrsoft.taskgo.common.TaskTypeConfig;
-import com.hrsoft.taskgo.mvp.contract.TaskGridContract;
+import com.hrsoft.taskgo.mvp.contract.task.TaskGridContract;
 import com.hrsoft.taskgo.mvp.model.task.bean.TaskGridModel;
 import com.hrsoft.taskgo.mvp.model.task.bean.TaskTypeModel;
 

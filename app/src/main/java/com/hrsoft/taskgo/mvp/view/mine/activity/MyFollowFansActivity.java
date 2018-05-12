@@ -47,11 +47,11 @@ public class MyFollowFansActivity extends BaseToolBarPresenterActivity<MyFollowC
 
     @Override
     protected void initView() {
-        if(getIntent().getIntExtra("listType",0)== Config.MY_FOLLOW_LIST){
+        if (getIntent().getIntExtra("listType", 0) == Config.MY_FOLLOW_LIST) {
 
             setActivityTitle(getString(R.string.txt_mine_follow_title));
             mPresenter.loadMyFollowList();
-        }else {
+        } else {
             setActivityTitle(getString(R.string.txt_mine_fans_title));
             mPresenter.loadMyFansList();
         }
@@ -61,12 +61,13 @@ public class MyFollowFansActivity extends BaseToolBarPresenterActivity<MyFollowC
 
     private void initRecylerView() {
         MyFollowFansListAdapter myFollowFansListAdapter;
-        if(getIntent().getIntExtra("listType",0)== Config.MY_FOLLOW_LIST){
+        if (getIntent().getIntExtra("listType", 0) == Config.MY_FOLLOW_LIST) {
 
             if (mMyFollowFansModels.size() != 0) {
 
                 checkModelValue(mMyFollowFansModels);
-                myFollowFansListAdapter = new MyFollowFansListAdapter(mMyFollowFansModels, this, R.layout.item_my_follow);
+                myFollowFansListAdapter = new MyFollowFansListAdapter(mMyFollowFansModels, this, R.layout
+                        .item_my_follow);
 
                 myFollowFansListAdapter.setOnItemViewClickListener(this);
                 recMyFollow.setAdapter(myFollowFansListAdapter);
@@ -74,11 +75,12 @@ public class MyFollowFansActivity extends BaseToolBarPresenterActivity<MyFollowC
             } else {
                 mTxtDefaultText.setText(getString(R.string.txt_default_follow));
             }
-        }else {
+        } else {
             if (mMyFollowFansModels.size() != 0) {
 
                 checkModelValue(mMyFollowFansModels);
-                myFollowFansListAdapter = new MyFollowFansListAdapter(mMyFollowFansModels, this, R.layout.item_my_follow);
+                myFollowFansListAdapter = new MyFollowFansListAdapter(mMyFollowFansModels, this, R.layout
+                        .item_my_follow);
 
                 myFollowFansListAdapter.setOnItemViewClickListener(this);
                 recMyFollow.setAdapter(myFollowFansListAdapter);
@@ -109,10 +111,10 @@ public class MyFollowFansActivity extends BaseToolBarPresenterActivity<MyFollowC
      * @return
      */
     private void defaultItemValue(MyFollowFansModel myFollowFansModel) {
-        if (myFollowFansModel.getAvatar()==null) {
+        if (myFollowFansModel.getAvatar() == null) {
             myFollowFansModel.setAvatar(getString(R.string.default_avater));
         }
-        if (myFollowFansModel.getName()==null) {
+        if (myFollowFansModel.getName() == null) {
             myFollowFansModel.setName(getString(R.string.txt_gender_unknown));
         }
         if ("".equals(String.valueOf(myFollowFansModel.getUserId()))) {
@@ -127,8 +129,6 @@ public class MyFollowFansActivity extends BaseToolBarPresenterActivity<MyFollowC
     }
 
 
-
-
     @Override
     protected MyFollowContract.Presenter getPresenter() {
         return new MyFollowListPresenter(this);
@@ -136,18 +136,18 @@ public class MyFollowFansActivity extends BaseToolBarPresenterActivity<MyFollowC
 
     @Override
     public void onItemClick(int position) {
-        if(getIntent().getIntExtra("listType",0)== Config.MY_FOLLOW_LIST){
+        if (getIntent().getIntExtra("listType", 0) == Config.MY_FOLLOW_LIST) {
 
-            OtherUserPageActivity.startActivity(this, mMyFollowFansModels.get(position).getUserId(),getIntent().getIntExtra("listType",0));
-        }else{
-            OtherUserPageActivity.startActivity(this, mMyFollowFansModels.get(position).getFansId(),getIntent().getIntExtra("listType",0));
+            OtherUserPageActivity.startActivity(this, mMyFollowFansModels.get(position).getUserId());
+        } else {
+            OtherUserPageActivity.startActivity(this, mMyFollowFansModels.get(position).getFansId());
 
         }
     }
 
-    public static void startMyFollowActivity(Context context,int type) {
+    public static void startMyFollowActivity(Context context, int type) {
         Intent intent = new Intent(context, MyFollowFansActivity.class);
-        intent.putExtra("listType",type);
+        intent.putExtra("listType", type);
         context.startActivity(intent);
     }
 

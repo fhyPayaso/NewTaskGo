@@ -2,7 +2,7 @@ package com.hrsoft.taskgo.mvp.model.account.helper;
 
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
 import com.hrsoft.taskgo.base.mvp.model.BaseModel;
-import com.hrsoft.taskgo.mvp.presenter.account.contract.SplashContract;
+import com.hrsoft.taskgo.mvp.contract.account.SplashContract;
 import com.hrsoft.taskgo.network.BaseObserver;
 import com.hrsoft.taskgo.network.NetworkFactory;
 import com.hrsoft.taskgo.network.response.ApiException;

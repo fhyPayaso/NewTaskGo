@@ -4,14 +4,15 @@ import android.content.Context;
 
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
-import com.hrsoft.taskgo.mvp.contract.ReleaseTaskContract;
+import com.hrsoft.taskgo.mvp.contract.task.ReleaseTaskContract;
+import com.hrsoft.taskgo.mvp.model.mine.helper.MineInformationHelper;
+import com.hrsoft.taskgo.mvp.model.mine.response.MineCardModel;
 import com.hrsoft.taskgo.mvp.model.task.TaskHelper;
 import com.hrsoft.taskgo.mvp.model.task.bean.CardPackageModel;
 import com.hrsoft.taskgo.mvp.model.task.bean.ChooseCardModel;
 import com.hrsoft.taskgo.mvp.model.task.request.ReleaseTaskReqModel;
 import com.hrsoft.taskgo.mvp.model.task.request.WaterAttributesReqModel;
 import com.hrsoft.taskgo.mvp.model.task.response.WxRepModel;
-import com.hrsoft.taskgo.utils.ToastUtil;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -37,26 +38,34 @@ public class ReleaseTaskPresenter extends BasePresenter<ReleaseTaskContract.View
     @Override
     public void loadUserCardsInfo() {
 
-        List<ChooseCardModel> modelList = new ArrayList<>();
-        ChooseCardModel chooseCardModel = new ChooseCardModel();
-        chooseCardModel.setCardImgUrl("https://timgsa.baidu" +
-                ".com/timg?image&quality=80&size=b9999_10000&sec=1524211166428&di" +
-                "=66aac07e1d134dab3b77d77c76a5632a&imgtype=0&src=http%3A%2F%2Fimg4.duitang" +
-                ".com%2Fuploads%2Fitem%2F201501%2F15%2F20150115234911_S4xLM.jpeg");
-        chooseCardModel.setHaveNumber(10);
-        chooseCardModel.setChooseNumber(0);
-        modelList.add(chooseCardModel);
+        IDataCallback.Callback<List<MineCardModel>> callback = new IDataCallback.Callback<List<MineCardModel>>() {
+            @Override
+            public void onFailedLoaded(String error) {
 
+            }
 
+            @Override
+            public void onDataLoaded(List<MineCardModel> mineCardModels) {
 
+                List<ChooseCardModel> modelList = new ArrayList<>();
+                for (MineCardModel cardModel : mineCardModels) {
 
+                    ChooseCardModel chooseCardModel = new ChooseCardModel();
 
+                    chooseCardModel.setCardImgUrl(cardModel.getPicture());
+                    chooseCardModel.setCardName(cardModel.getUse());
+                    chooseCardModel.setCardInfo(cardModel.getContent());
+                    chooseCardModel.setCardPrice(String.valueOf(cardModel.getPrice()));
+                    chooseCardModel.setHaveNumber(cardModel.getNumber());
+                    chooseCardModel.setChooseNumber(0);
 
+                    modelList.add(chooseCardModel);
+                }
 
-
-
-
-        mView.loadUserCardsInfoSuccess(modelList);
+                mView.loadUserCardsInfoSuccess(modelList);
+            }
+        };
+        MineInformationHelper.getInstence().loadMineCard(this, callback);
     }
 
     @Override

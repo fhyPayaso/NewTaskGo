@@ -1,4 +1,4 @@
-package com.hrsoft.taskgo.mvp.presenter.account.contract;
+package com.hrsoft.taskgo.mvp.contract.account;
 
 import com.hrsoft.taskgo.base.mvp.IBaseContract;
 import com.hrsoft.taskgo.mvp.model.account.request.ForgetPasswordModel;

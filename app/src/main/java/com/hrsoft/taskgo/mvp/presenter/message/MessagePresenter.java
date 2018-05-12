@@ -2,7 +2,7 @@ package com.hrsoft.taskgo.mvp.presenter.message;
 
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
-import com.hrsoft.taskgo.mvp.contract.MessageContract;
+import com.hrsoft.taskgo.mvp.contract.task.MessageContract;
 import com.hrsoft.taskgo.mvp.model.message.MessageHelper;
 import com.hrsoft.taskgo.mvp.model.message.MessageModel;
 import com.hrsoft.taskgo.mvp.model.message.MsgReadDeleteReqModel;

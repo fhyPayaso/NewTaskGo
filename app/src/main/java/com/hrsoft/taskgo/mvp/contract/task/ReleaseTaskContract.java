@@ -1,4 +1,4 @@
-package com.hrsoft.taskgo.mvp.contract;
+package com.hrsoft.taskgo.mvp.contract.task;
 
 import android.content.Context;
 

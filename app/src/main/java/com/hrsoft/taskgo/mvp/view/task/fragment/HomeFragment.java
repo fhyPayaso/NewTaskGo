@@ -70,7 +70,7 @@ public class HomeFragment extends BaseFragment {
         vpBannerPager.addView(getImageView(R.drawable.bg_banner1));
         vpBannerPager.addView(getImageView(R.drawable.bg_banner2));
         vpBannerPager.addView(getImageView(R.drawable.bg_banner3));
-        vpBannerPager.addView(getImageView(R.drawable.bg_banner4));
+        //vpBannerPager.addView(getImageView(R.drawable.bg_banner4));
         vpBannerPager.startFlipping();
     }
 

@@ -1,4 +1,4 @@
-package com.hrsoft.taskgo.mvp.contract;
+package com.hrsoft.taskgo.mvp.contract.task;
 
 import com.hrsoft.taskgo.base.mvp.IBaseContract;
 import com.hrsoft.taskgo.mvp.model.task.bean.BaseTaskModel;

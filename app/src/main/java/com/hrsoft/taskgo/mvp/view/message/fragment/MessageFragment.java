@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.mvp.view.BasePresenterFragment;
-import com.hrsoft.taskgo.mvp.contract.MessageContract;
+import com.hrsoft.taskgo.mvp.contract.task.MessageContract;
 import com.hrsoft.taskgo.mvp.model.message.MessageModel;
 import com.hrsoft.taskgo.mvp.presenter.message.MessagePresenter;
 import com.hrsoft.taskgo.mvp.view.message.adapter.MessageListAdapter;

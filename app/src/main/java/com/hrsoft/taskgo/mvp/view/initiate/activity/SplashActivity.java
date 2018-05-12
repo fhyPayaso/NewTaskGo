@@ -2,7 +2,6 @@ package com.hrsoft.taskgo.mvp.view.initiate.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -13,11 +12,10 @@ import com.hrsoft.taskgo.base.mvp.view.BasePresenterActivity;
 import com.hrsoft.taskgo.common.CacheKey;
 import com.hrsoft.taskgo.common.Config;
 import com.hrsoft.taskgo.mvp.model.app.AppInfoModel;
-import com.hrsoft.taskgo.mvp.presenter.account.contract.SplashContract;
-import com.hrsoft.taskgo.mvp.presenter.account.presenter.SplashPresenter;
+import com.hrsoft.taskgo.mvp.contract.account.SplashContract;
+import com.hrsoft.taskgo.mvp.presenter.account.SplashPresenter;
 import com.hrsoft.taskgo.mvp.view.MainActivity;
 import com.hrsoft.taskgo.mvp.view.account.LoginActivity;
-import com.hrsoft.taskgo.utils.ToastUtil;
 
 /**
  * @author heaijia

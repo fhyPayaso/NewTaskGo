@@ -10,8 +10,8 @@ import android.widget.TextView;
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.mvp.view.BasePresenterActivity;
 import com.hrsoft.taskgo.mvp.model.account.request.LoginReqModel;
-import com.hrsoft.taskgo.mvp.presenter.account.contract.LoginContract;
-import com.hrsoft.taskgo.mvp.presenter.account.presenter.LoginPresenter;
+import com.hrsoft.taskgo.mvp.contract.account.LoginContract;
+import com.hrsoft.taskgo.mvp.presenter.account.LoginPresenter;
 import com.hrsoft.taskgo.mvp.view.MainActivity;
 import com.hrsoft.taskgo.utils.ToastUtil;
 

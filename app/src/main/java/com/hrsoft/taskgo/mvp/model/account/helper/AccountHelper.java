@@ -4,7 +4,7 @@ import com.hrsoft.taskgo.base.mvp.IDataCallback;
 import com.hrsoft.taskgo.base.mvp.model.BaseModel;
 import com.hrsoft.taskgo.mvp.model.account.request.LoginReqModel;
 import com.hrsoft.taskgo.mvp.model.account.request.TokenResponse;
-import com.hrsoft.taskgo.mvp.presenter.account.contract.LoginContract;
+import com.hrsoft.taskgo.mvp.contract.account.LoginContract;
 import com.hrsoft.taskgo.network.BaseObserver;
 import com.hrsoft.taskgo.network.NetworkFactory;
 import com.hrsoft.taskgo.network.response.ApiException;

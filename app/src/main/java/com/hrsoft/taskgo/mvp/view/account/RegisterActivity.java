@@ -11,12 +11,10 @@ import android.widget.LinearLayout;
 
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.mvp.view.BasePresenterActivity;
-import com.hrsoft.taskgo.common.CacheKey;
 import com.hrsoft.taskgo.mvp.model.account.request.RegisterReqModel;
-import com.hrsoft.taskgo.mvp.presenter.account.contract.RegisterContract;
-import com.hrsoft.taskgo.mvp.presenter.account.presenter.RegisterPresenter;
+import com.hrsoft.taskgo.mvp.contract.account.RegisterContract;
+import com.hrsoft.taskgo.mvp.presenter.account.RegisterPresenter;
 import com.hrsoft.taskgo.mvp.view.MainActivity;
-import com.hrsoft.taskgo.utils.CacheUtil;
 import com.hrsoft.taskgo.utils.ToastUtil;
 import com.hrsoft.taskgo.widget.VerificationCountDownTimer;
 

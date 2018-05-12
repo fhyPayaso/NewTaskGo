@@ -1,4 +1,4 @@
-package com.hrsoft.taskgo.mvp.presenter.account.presenter;
+package com.hrsoft.taskgo.mvp.presenter.account;
 
 import com.hrsoft.taskgo.App;
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
@@ -7,7 +7,7 @@ import com.hrsoft.taskgo.common.CacheKey;
 import com.hrsoft.taskgo.common.Config;
 import com.hrsoft.taskgo.mvp.model.account.helper.AccountHelper;
 import com.hrsoft.taskgo.mvp.model.account.request.LoginReqModel;
-import com.hrsoft.taskgo.mvp.presenter.account.contract.LoginContract;
+import com.hrsoft.taskgo.mvp.contract.account.LoginContract;
 import com.hrsoft.taskgo.utils.RegexpUtils;
 
 /**

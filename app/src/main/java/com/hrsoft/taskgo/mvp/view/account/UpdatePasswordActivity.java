@@ -10,8 +10,8 @@ import android.widget.LinearLayout;
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.mvp.view.BasePresenterActivity;
 import com.hrsoft.taskgo.mvp.model.account.request.ForgetPasswordModel;
-import com.hrsoft.taskgo.mvp.presenter.account.contract.ForgetPasswordContract;
-import com.hrsoft.taskgo.mvp.presenter.account.presenter.ForgetPasswordPresenter;
+import com.hrsoft.taskgo.mvp.contract.account.ForgetPasswordContract;
+import com.hrsoft.taskgo.mvp.presenter.account.ForgetPasswordPresenter;
 import com.hrsoft.taskgo.utils.ToastUtil;
 import com.hrsoft.taskgo.widget.VerificationCountDownTimer;
 

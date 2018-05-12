@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.mvp.view.BasePresenterFragment;
 import com.hrsoft.taskgo.common.TaskTypeConfig;
-import com.hrsoft.taskgo.mvp.contract.FillTaskInfContract;
+import com.hrsoft.taskgo.mvp.contract.task.FillTaskInfContract;
 import com.hrsoft.taskgo.mvp.model.task.request.WaterAttributesReqModel;
 import com.hrsoft.taskgo.mvp.presenter.task.FillTaskInfoPresenter;
 import com.hrsoft.taskgo.mvp.view.task.activity.ReleaseTaskActivity;

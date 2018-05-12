@@ -1,7 +1,7 @@
 package com.hrsoft.taskgo.mvp.presenter.task;
 
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
-import com.hrsoft.taskgo.mvp.contract.FillTaskInfContract;
+import com.hrsoft.taskgo.mvp.contract.task.FillTaskInfContract;
 import com.hrsoft.taskgo.utils.RegexpUtils;
 
 /**

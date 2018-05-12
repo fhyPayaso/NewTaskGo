@@ -7,7 +7,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,9 +14,10 @@ import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.adapter.RecyclerScrollListener;
 import com.hrsoft.taskgo.base.mvp.view.BaseToolBarPresenterActivity;
 import com.hrsoft.taskgo.common.TaskTypeConfig;
-import com.hrsoft.taskgo.mvp.contract.TaskListContract;
+import com.hrsoft.taskgo.mvp.contract.task.TaskListContract;
 import com.hrsoft.taskgo.mvp.model.task.bean.BaseTaskModel;
 import com.hrsoft.taskgo.mvp.presenter.task.TaskListPresenter;
+import com.hrsoft.taskgo.mvp.view.mine.activity.OtherUserPageActivity;
 import com.hrsoft.taskgo.mvp.view.task.adapter.TaskListRecyclerAdapter;
 import com.hrsoft.taskgo.mvp.view.task.adapter.TaskListRecyclerAdapter.OnItemViewClickListener;
 import com.hrsoft.taskgo.utils.DialogUtil;
@@ -206,7 +206,7 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
      */
     @Override
     public void onAvatarClick(int position) {
-        ToastUtil.showToast(mTaskModelList.get(position).getUserName());
+        OtherUserPageActivity.startActivity(this,mTaskModelList.get(position).getUserId());
     }
 
 

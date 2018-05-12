@@ -12,9 +12,10 @@ import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.adapter.RecyclerScrollListener;
 import com.hrsoft.taskgo.base.mvp.view.BasePresenterFragment;
 import com.hrsoft.taskgo.common.MyTaskConfig;
-import com.hrsoft.taskgo.mvp.contract.MyTaskListContract;
+import com.hrsoft.taskgo.mvp.contract.task.MyTaskListContract;
 import com.hrsoft.taskgo.mvp.model.task.bean.BaseTaskModel;
 import com.hrsoft.taskgo.mvp.presenter.task.MyTaskListPresenter;
+import com.hrsoft.taskgo.mvp.view.mine.activity.OtherUserPageActivity;
 import com.hrsoft.taskgo.mvp.view.task.adapter.TaskListRecyclerAdapter;
 import com.hrsoft.taskgo.utils.DialogUtil;
 import com.hrsoft.taskgo.utils.ToastUtil;
@@ -69,8 +70,7 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
 
         if (mTaskStatusType.equals(MyTaskConfig.MY_ACCEPT_HAS_FINISHED) || mTaskStatusType.equals(MyTaskConfig
                 .MY_ACCEPT_NOT_FINISHED)) {
-
-            ToastUtil.showToast("点击了头像" + position);
+            OtherUserPageActivity.startActivity(getContext(), mTaskModelList.get(position).getUserId());
         }
     }
 

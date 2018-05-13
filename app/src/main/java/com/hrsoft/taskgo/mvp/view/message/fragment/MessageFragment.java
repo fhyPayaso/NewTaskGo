@@ -144,7 +144,7 @@ public class MessageFragment extends BasePresenterFragment<MessageContract.Prese
     @Override
     public void loadMsgListError(String error) {
         mRefreshLayout.setRefreshing(false);
-        ToastUtil.showToast(error);
+        //ToastUtil.showToast(error);
     }
 
     @Override
@@ -166,7 +166,15 @@ public class MessageFragment extends BasePresenterFragment<MessageContract.Prese
 
     @Override
     public void deleteMsgSuccess(int position) {
-        mRecyclerAdapter.removeItem(position);
+        if (position < mMessageList.size()) {
+            mRecyclerAdapter.removeItem(position);
+            if (mUnreadMsgNum > 0) {
+                mUnreadMsgNum--;
+            }
+            if (mOnMsgNumberListener != null) {
+                mOnMsgNumberListener.updateUnreadMsgNum(mUnreadMsgNum);
+            }
+        }
     }
 
     @Override

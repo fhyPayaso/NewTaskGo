@@ -53,8 +53,9 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
 
     @Override
     public void login(LoginReqModel loginReqModel) {
-        if (isDataTrue(loginReqModel)) {
 
+        if (isDataTrue(loginReqModel)) {
+            mView.showDialog();
             IDataCallback.Callback<String> callback = new IDataCallback.Callback<String>() {
                 @Override
                 public void onFailedLoaded(String error) {
@@ -63,13 +64,11 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
 
                 @Override
                 public void onDataLoaded(String s) {
-
                     App.getInstance().getCacheUtil().putString(CacheKey.TOKEN, s);
-
                     mView.onLoginSuccess(s);
                 }
             } ;
-            AccountHelper.getInstance().requestLogin(this, loginReqModel, callback);
+            AccountHelper.getInstance().login(this, loginReqModel, callback);
         }
     }
 

@@ -103,10 +103,13 @@ public final class NetworkFactory {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 String token = App.getInstance().getCacheUtil().getString(CacheKey.TOKEN);
+                if (token == null) {
+                    token = "token";
+                }
                 //请求时加入token
                 Request request = chain.request().newBuilder()
                         //防止空指针
-                        .header(CacheKey.TOKEN, token == null ? CacheKey.TOKEN : token)
+                        .header(CacheKey.TOKEN, token)
                         .build();
                 return chain.proceed(request);
             }

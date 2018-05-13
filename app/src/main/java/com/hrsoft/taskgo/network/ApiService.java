@@ -1,9 +1,8 @@
 package com.hrsoft.taskgo.network;
 
-import com.hrsoft.taskgo.mvp.model.account.request.ForgetPasswordModel;
+import com.hrsoft.taskgo.mvp.model.account.request.UpdatePasswordReqModel;
 import com.hrsoft.taskgo.mvp.model.account.request.RegisterReqModel;
-import com.hrsoft.taskgo.mvp.model.account.request.TokenResponse;
-import com.hrsoft.taskgo.mvp.model.app.AppInfoModel;
+import com.hrsoft.taskgo.mvp.model.account.response.AccountRespModel;
 import com.hrsoft.taskgo.mvp.model.app.AppInfoRespModel;
 import com.hrsoft.taskgo.mvp.model.message.MessageModel;
 import com.hrsoft.taskgo.mvp.model.message.MsgReadDeleteReqModel;
@@ -16,7 +15,6 @@ import com.hrsoft.taskgo.mvp.model.mine.response.MyFollowFansModel;
 import com.hrsoft.taskgo.mvp.model.mine.response.OtherUserPageModel;
 import com.hrsoft.taskgo.mvp.model.task.request.AcceptTaskReqModel;
 import com.hrsoft.taskgo.mvp.model.task.request.ReleaseTaskReqModel;
-import com.hrsoft.taskgo.mvp.model.task.response.TasListRespModel;
 import com.hrsoft.taskgo.mvp.model.task.response.TaskListPrePageRespModel;
 import com.hrsoft.taskgo.mvp.model.task.response.WaterAttributesRespModel;
 import com.hrsoft.taskgo.mvp.model.task.response.WxRepModel;
@@ -26,7 +24,6 @@ import com.hrsoft.taskgo.mvp.model.account.request.LoginReqModel;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -57,27 +54,27 @@ public interface ApiService {
      * @return
      */
     @POST("login")
-    Observable<ApiResponse<TokenResponse>> login(@Body LoginReqModel reqModel);
+    Observable<ApiResponse<AccountRespModel>> login(@Body LoginReqModel reqModel);
 
 
     /**
      * 注册新账户
      *
-     * @param registerReqModel
+     * @param registerRespModel
      * @return
      */
     @POST("register")
-    Observable<ApiResponse<TokenResponse>> register(@Body RegisterReqModel registerReqModel);
+    Observable<ApiResponse<AccountRespModel>> register(@Body RegisterReqModel registerRespModel);
 
 
     /**
      * 忘记密码
      *
-     * @param forgetPasswordModel
+     * @param updatePasswordReqModel
      * @return
      */
     @POST("password/forgot")
-    Observable<ApiResponse> updatePassword(@Body ForgetPasswordModel forgetPasswordModel);
+    Observable<ApiResponse> updatePassword(@Body UpdatePasswordReqModel updatePasswordReqModel);
 
     /**
      * 获取验证码

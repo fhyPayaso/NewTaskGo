@@ -46,32 +46,32 @@ public class MyTaskListPresenter extends BasePresenter<MyTaskListContract.View> 
 
     @Override
     public void loadTaskList(final String taskStatusType, final int page) {
-
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                switch (taskStatusType) {
-                    case MyTaskConfig.MY_RELEASE_NOT_ACCEPTED:
-                        loadMyReleaseTaskList(MyTaskConfig.STATUS_NOT_ACCEPT, page);
-                        break;
-                    case MyTaskConfig.MY_RELEASE_HAS_ACCEPTED:
-                        loadMyReleaseTaskList(MyTaskConfig.STATUS_HAS_ACCEPT, page);
-                        break;
-                    case MyTaskConfig.MY_RELEASE_HAS_FINISHED:
-                        loadMyReleaseTaskList(MyTaskConfig.STATUS_HAS_FINISH, page);
-                        break;
-                    case MyTaskConfig.MY_ACCEPT_NOT_FINISHED:
-                        loadMyAcceptTaskList(MyTaskConfig.STATUS_HAS_ACCEPT, page);
-                        break;
-                    case MyTaskConfig.MY_ACCEPT_HAS_FINISHED:
-                        loadMyAcceptTaskList(MyTaskConfig.STATUS_HAS_FINISH, page);
-                        break;
-                    default:
-                        break;
+        if (mView != null) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    switch (taskStatusType) {
+                        case MyTaskConfig.MY_RELEASE_NOT_ACCEPTED:
+                            loadMyReleaseTaskList(MyTaskConfig.STATUS_NOT_ACCEPT, page);
+                            break;
+                        case MyTaskConfig.MY_RELEASE_HAS_ACCEPTED:
+                            loadMyReleaseTaskList(MyTaskConfig.STATUS_HAS_ACCEPT, page);
+                            break;
+                        case MyTaskConfig.MY_RELEASE_HAS_FINISHED:
+                            loadMyReleaseTaskList(MyTaskConfig.STATUS_HAS_FINISH, page);
+                            break;
+                        case MyTaskConfig.MY_ACCEPT_NOT_FINISHED:
+                            loadMyAcceptTaskList(MyTaskConfig.STATUS_HAS_ACCEPT, page);
+                            break;
+                        case MyTaskConfig.MY_ACCEPT_HAS_FINISHED:
+                            loadMyAcceptTaskList(MyTaskConfig.STATUS_HAS_FINISH, page);
+                            break;
+                        default:
+                            break;
+                    }
                 }
-            }
-        }, 1000);
+            }, 1000);
+        }
     }
 
     @Override
@@ -173,27 +173,31 @@ public class MyTaskListPresenter extends BasePresenter<MyTaskListContract.View> 
      * @param page
      */
     private void processingData(List<TasListRespModel<String>> tasListRespModels, int page) {
-        if (tasListRespModels == null || tasListRespModels.size() == 0) {
-            if (page == 1) {
-                mView.onLoadTaskListError("当前列表暂无任务");
-            } else {
-                mView.onLoadTaskListError("暂无更多");
-            }
-        } else {
-            List<BaseTaskModel> baseTaskModels = new ArrayList<>();
-            for (TasListRespModel<String> respModel : tasListRespModels) {
-                switch (respModel.getType()) {
-                    case RESP_WATER:
-                        BaseTaskModel model = processingWaterTaskData(respModel);
-                        if (model != null) {
-                            baseTaskModels.add(model);
-                        }
-                        break;
-                    default:
-                        break;
+
+        if (mView != null) {
+
+            if (tasListRespModels == null || tasListRespModels.size() == 0) {
+                if (page == 1) {
+                    mView.onLoadTaskListError("当前列表暂无任务");
+                } else {
+                    mView.onLoadTaskListError("暂无更多");
                 }
+            } else {
+                List<BaseTaskModel> baseTaskModels = new ArrayList<>();
+                for (TasListRespModel<String> respModel : tasListRespModels) {
+                    switch (respModel.getType()) {
+                        case RESP_WATER:
+                            BaseTaskModel model = processingWaterTaskData(respModel);
+                            if (model != null) {
+                                baseTaskModels.add(model);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                mView.onLoadTaskListSuccess(baseTaskModels);
             }
-            mView.onLoadTaskListSuccess(baseTaskModels);
         }
     }
 

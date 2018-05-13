@@ -75,7 +75,7 @@ public class ReleaseTaskPresenter extends BasePresenter<ReleaseTaskContract.View
         if (cardsModel.getGoodPeople() != 1) {
             mView.onLoadWxOrdersInfoError("水任务需要一张好人卡");
         } else {
-
+            mView.showDialog();
             IDataCallback.Callback<WxRepModel> callback = new IDataCallback.Callback<WxRepModel>() {
                 @Override
                 public void onFailedLoaded(String error) {

@@ -89,8 +89,8 @@
     <string name="txt_submit_id_card">submit</string>
     <string name="txt_real_name">真实姓名</string>
     <string name="txt_real_name_no_name">请输入真实姓名</string>
-    <string name="txt_real_name_no_front_page">请上传身份证正面照片（带国徽）</string>
-    <string name="txt_real_name_no_back_page">请上传身份证背面照片（带照片）</string>
+    <string name="txt_real_name_no_front_page">请上传身份证正面照片</string>
+    <string name="txt_real_name_no_back_page">请上传身份证背面照片</string>
     <string name="txt_submit_success">提交成功</string>
     <string name="txt_please_input_advice">请在下方输入反馈：</string>
     <string name="txt_hint_advice">请输入不少于10个字的意见或者建议</string>

@@ -56,7 +56,7 @@ public class RealNameActivity extends BaseToolBarPresenterActivity<RealNameContr
     private String photoPath;
     private DialogUtil.NativeProgressDialog mProgressDialog;
     private int imagePosition;
-    private RealNameModel mRealNameModel=new RealNameModel("","","");
+    private RealNameModel mRealNameModel=new RealNameModel(null,null,null);
 
 
     @Override
@@ -193,6 +193,8 @@ public class RealNameActivity extends BaseToolBarPresenterActivity<RealNameContr
             public void onClick(View view) {
 
                 FileUtil.openAlbum(RealNameActivity.this);
+                bottomDialog.dismiss();
+
             }
         });
 
@@ -224,7 +226,11 @@ public class RealNameActivity extends BaseToolBarPresenterActivity<RealNameContr
                     break;
                 case FileUtil.ALBUM_REQUEST:
                     String picturePath = FileUtil.getSelectedPicturePath(data, RealNameActivity.this);
-                    mBtnSubmitBackIdCard.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                    if(imagePosition==0){
+                        mBtnSubmitFrontIdCard.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                    }else {
+                        mBtnSubmitBackIdCard.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                    }
                     photoPath = picturePath;
                     UpLoadHelper.upLoadImgToQiNiu(photoPath, this);
                     showProgressDialog();

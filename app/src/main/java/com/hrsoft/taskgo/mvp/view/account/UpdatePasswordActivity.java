@@ -6,11 +6,12 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.mvp.view.BasePresenterActivity;
-import com.hrsoft.taskgo.mvp.model.account.request.ForgetPasswordModel;
 import com.hrsoft.taskgo.mvp.contract.account.ForgetPasswordContract;
+import com.hrsoft.taskgo.mvp.model.account.request.UpdatePasswordReqModel;
 import com.hrsoft.taskgo.mvp.presenter.account.ForgetPasswordPresenter;
 import com.hrsoft.taskgo.utils.ToastUtil;
 import com.hrsoft.taskgo.widget.VerificationCountDownTimer;
@@ -25,7 +26,8 @@ import butterknife.OnClick;
  * email 549044363@qq.com
  */
 
-public class UpdatePasswordActivity extends BasePresenterActivity<ForgetPasswordContract.Presenter> implements ForgetPasswordContract.View {
+public class UpdatePasswordActivity extends BasePresenterActivity<ForgetPasswordContract.Presenter> implements
+        ForgetPasswordContract.View {
 
     @BindView(R.id.btn_certain)
     Button mbtnCertain;
@@ -43,12 +45,67 @@ public class UpdatePasswordActivity extends BasePresenterActivity<ForgetPassword
     EditText meditSecretAgainForget;
 
     VerificationCountDownTimer mCountDownTimer;
+    @BindView(R.id.txt_password_title)
+    TextView txtPasswordTitle;
+
+
+    @OnClick(R.id.btn_certain)
+    public void onViewClicked() {
+        UpdatePasswordReqModel passwordModel = new UpdatePasswordReqModel(meditUserNumberForget.getText().toString()
+                .trim(),
+                meditVerificationCodeForget.getText().toString().trim(),
+                meditSecretForget.getText().toString().trim());
+        mPresenter.updatePassWord(passwordModel, meditSecretAgainForget.getText().toString().trim());
+    }
+
+    @OnClick(R.id.ly_header_forget)
+    public void onLyHeaderForgetClicked() {
+        finish();
+    }
+
+    @OnClick(R.id.btn_verification)
+    public void onBtnVerificationClicked() {
+        mPresenter.getCaptcha(meditUserNumberForget.getText().toString().trim());
+        mCountDownTimer.timerStart(true);
+    }
+
+    @Override
+    public void onGetCaptchaSuccess() {
+        ToastUtil.showToast("你即将获得验证码，请注意查收");
+    }
+
+    @Override
+    public void onGetCaptchaError(String error) {
+        ToastUtil.showToast(error);
+    }
+
+    @Override
+    public void onUpdatePasswordSuccess() {
+
+        dismissProgressDialog();
+        mbtnCertain.setClickable(true);
+        ToastUtil.showToast("密码已修改，请重新登录");
+        finish();
+    }
+
+    @Override
+    public void onUpdatePasswordError(String error) {
+        ToastUtil.showToast(error);
+        dismissProgressDialog();
+        mbtnCertain.setClickable(true);
+    }
+
+    @Override
+    public void showDialog() {
+
+        showProgressDialog();
+        mbtnCertain.setClickable(false);
+    }
+
 
     public static void startActivity(Context context) {
         context.startActivity(new Intent(context, UpdatePasswordActivity.class));
-
     }
-
 
 
     @Override
@@ -71,7 +128,12 @@ public class UpdatePasswordActivity extends BasePresenterActivity<ForgetPassword
 
     @Override
     protected void initView() {
+        if (getIntent().getStringExtra("updatePassword") != null) {
 
+            if (getIntent().getStringExtra("updatePassword").equals("updatePassword")) {
+                txtPasswordTitle.setText(getString(R.string.txt_update_password_title));
+            }
+        }
     }
 
     @Override
@@ -79,36 +141,6 @@ public class UpdatePasswordActivity extends BasePresenterActivity<ForgetPassword
         return new ForgetPasswordPresenter(this);
     }
 
-
-    @OnClick(R.id.btn_certain)
-    public void onViewClicked() {
-        mPresenter.sendRequestNewInformation(new ForgetPasswordModel(
-                meditUserNumberForget.getText().toString().trim(),
-                meditVerificationCodeForget.getText().toString().trim(),
-                meditSecretForget.getText().toString().trim()),
-                meditSecretAgainForget.getText().toString().trim());
-
-    }
-
-    @OnClick(R.id.ly_header_forget)
-    public void onLyHeaderForgetClicked() {
-        /**
-         * 点击 发送验证码 按钮，P层进行数据的传输
-         */
-        LoginActivity.startActivity(UpdatePasswordActivity.this);
-
-    }
-
-    @OnClick(R.id.btn_verification)
-    public void onBtnVerificationClicked() {
-
-                mPresenter.getCaptchato(meditUserNumberForget.getText().toString().trim());
-            ToastUtil.showToast("你即将获得验证码，请注意查收");
-            mCountDownTimer.timerStart(true);
-
-
-
-    }
 
     /**
      * 倒计时生物具体方法
@@ -148,20 +180,5 @@ public class UpdatePasswordActivity extends BasePresenterActivity<ForgetPassword
                 }
             }
         };
-    }
-
-
-    @Override
-    public void onSendInformationSuccess() {
-        ToastUtil.showToast("密码已找回，请重新登录");
-        LoginActivity.startActivity(UpdatePasswordActivity.this);
-        finish();
-    }
-
-    @Override
-    public void onError(String error) {
-
-        ToastUtil.showToast("失败");
-
     }
 }

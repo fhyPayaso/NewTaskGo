@@ -113,13 +113,11 @@ public class ReleaseTaskActivity extends BaseToolBarPresenterActivity<ReleaseTas
     @OnClick(R.id.txt_release_task)
     public void onTxtReleaseTaskClicked() {
 
-        showProgressDialog();
+
         upDateCardInfo();
-        txtReleaseTask.setClickable(false);
         switch (mTaskType) {
             case TaskTypeConfig.COLLEGE_ENTREPRENEURSHIP_WATER_SCHOOL:
-                mPresenter.releaseWaterTask((WaterAttributesReqModel) getIntent().getSerializableExtra(mTaskType),
-                        mCardPickInfo);
+                mPresenter.releaseWaterTask((WaterAttributesReqModel) getIntent().getSerializableExtra(mTaskType), mCardPickInfo);
                 break;
             default:
                 break;
@@ -151,6 +149,12 @@ public class ReleaseTaskActivity extends BaseToolBarPresenterActivity<ReleaseTas
     @Override
     public void onLoadWxOrdersInfoError(String error) {
         ToastUtil.showToast(error);
+    }
+
+    @Override
+    public void showDialog() {
+        txtReleaseTask.setClickable(false);
+        showProgressDialog();
     }
 
 

@@ -27,5 +27,7 @@ public interface LoginContract {
 
         void onWriteFailed(String showError);
 
+        void showDialog();
+
     }
 }

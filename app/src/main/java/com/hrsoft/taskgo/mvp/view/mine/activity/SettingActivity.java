@@ -8,9 +8,8 @@ import android.view.View;
 import com.hrsoft.taskgo.App;
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.activity.BaseToolBarActivity;
-import com.hrsoft.taskgo.common.CacheKey;
+import com.hrsoft.taskgo.mvp.view.account.LoginActivity;
 import com.hrsoft.taskgo.mvp.view.account.UpdatePasswordActivity;
-import com.hrsoft.taskgo.utils.CacheUtil;
 
 import butterknife.OnClick;
 
@@ -45,13 +44,17 @@ public class SettingActivity extends BaseToolBarActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rlayout_mine_setting_change_password:
-                UpdatePasswordActivity.startActivity(SettingActivity.this);
+
+                Intent intent = new Intent(SettingActivity.this, UpdatePasswordActivity.class);
+                intent.putExtra("updatePassword", "updatePassword");
+                startActivity(intent);
                 break;
             case R.id.rlayout_mine_setting_about:
-                AboutAvtivity.startAboutActivity(SettingActivity.this);
+                AboutActivity.startAboutActivity(SettingActivity.this);
                 break;
             case R.id.rlayout_mine_exchange_account:
                 App.getInstance().exitAccount();
+                LoginActivity.startActivity(this);
                 finish();
                 break;
             default:

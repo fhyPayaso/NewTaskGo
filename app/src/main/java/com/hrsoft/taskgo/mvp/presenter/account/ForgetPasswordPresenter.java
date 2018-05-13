@@ -1,14 +1,11 @@
 package com.hrsoft.taskgo.mvp.presenter.account;
 
-import com.hrsoft.taskgo.App;
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
-import com.hrsoft.taskgo.common.CacheKey;
 import com.hrsoft.taskgo.common.Config;
-import com.hrsoft.taskgo.mvp.model.account.helper.ForgetpasswordHelper;
-import com.hrsoft.taskgo.mvp.model.account.request.ForgetPasswordModel;
+import com.hrsoft.taskgo.mvp.model.account.helper.AccountHelper;
+import com.hrsoft.taskgo.mvp.model.account.request.UpdatePasswordReqModel;
 import com.hrsoft.taskgo.mvp.contract.account.ForgetPasswordContract;
-import com.hrsoft.taskgo.utils.CacheUtil;
 import com.hrsoft.taskgo.utils.RegexpUtils;
 import com.hrsoft.taskgo.utils.ToastUtil;
 
@@ -18,50 +15,51 @@ import com.hrsoft.taskgo.utils.ToastUtil;
  * email 549044363@qq.com
  */
 
-public class ForgetPasswordPresenter extends BasePresenter<ForgetPasswordContract.View> implements ForgetPasswordContract.Presenter {
+public class ForgetPasswordPresenter extends BasePresenter<ForgetPasswordContract.View> implements
+        ForgetPasswordContract.Presenter {
 
     public ForgetPasswordPresenter(ForgetPasswordContract.View view) {
         super(view);
     }
 
     @Override
-    public void sendRequestNewInformation(ForgetPasswordModel forgetPasswordModel, String repeatPassword) {
-        if (isInformationTrue(forgetPasswordModel,repeatPassword)) {
-            final IDataCallback.Callback<String> callback = new IDataCallback.Callback<String>() {
+    public void updatePassWord(UpdatePasswordReqModel updatePasswordReqModel, String repeatPassword) {
 
+        if (isInformationTrue(updatePasswordReqModel, repeatPassword)) {
 
+            mView.showDialog();
+            IDataCallback.Callback callback = new IDataCallback.Callback() {
                 @Override
                 public void onFailedLoaded(String error) {
-                    mView.onError(error);
+                    mView.onUpdatePasswordError(error);
                 }
 
                 @Override
-                public void onDataLoaded(String s) {
-                    App.getInstance().getCacheUtil().putString(CacheKey.TOKEN,s);
-                    mView.onSendInformationSuccess();
+                public void onDataLoaded(Object o) {
+                    mView.onUpdatePasswordSuccess();
                 }
             };
-            ForgetpasswordHelper.getInstance().requestNewInformation(this, forgetPasswordModel, callback);
+
+            AccountHelper.getInstance().updatePassword(this,updatePasswordReqModel,callback);
         }
+
     }
 
     @Override
-    public void getCaptchato(String mobile) {
-        if(isPhoneTrue(mobile)){
-
-            IDataCallback.Callback<String> callback=new IDataCallback.Callback<String>() {
-
+    public void getCaptcha(String mobile) {
+        if (isPhoneTrue(mobile)) {
+            IDataCallback.Callback callback = new IDataCallback.Callback() {
                 @Override
                 public void onFailedLoaded(String error) {
-                    mView.onError(error);
+                    mView.onGetCaptchaError(error);
                 }
 
                 @Override
-                public void onDataLoaded(String s) {
-                    mView.onSendInformationSuccess();
+                public void onDataLoaded(Object o) {
+                    mView.onGetCaptchaSuccess();
                 }
             };
-            ForgetpasswordHelper.getInstance().getCaptcha(this,mobile,callback);
+            AccountHelper.getInstance().getCaptcha(this, mobile, callback);
         }
     }
 
@@ -82,31 +80,30 @@ public class ForgetPasswordPresenter extends BasePresenter<ForgetPasswordContrac
      *
      * @return
      */
-    private boolean isInformationTrue(ForgetPasswordModel forgetPasswordModel, String repeatPassword) {
+    private boolean isInformationTrue(UpdatePasswordReqModel updatePasswordReqModel, String repeatPassword) {
 
         boolean flag = true;
 
-        if(forgetPasswordModel.getMobile().equals(Config.EMPTY_FIELD)){
+        if (updatePasswordReqModel.getMobile().equals(Config.EMPTY_FIELD)) {
             ToastUtil.showToast("输入的账号格式不正确");
             flag = false;
-        } else if (!RegexpUtils.checkMobile(forgetPasswordModel.getMobile())) {
+        } else if (!RegexpUtils.checkMobile(updatePasswordReqModel.getMobile())) {
             ToastUtil.showToast("账号个数有误，请重新输入");
             flag = false;
-        } else if (forgetPasswordModel.getNew_password().length() < Config.PASSWORD_MIN) {
+        } else if (updatePasswordReqModel.getNew_password().length() < Config.PASSWORD_MIN) {
             ToastUtil.showToast("请输入6位以上的密码");
             flag = false;
-        } else if (forgetPasswordModel.getNew_password().length() > Config.PASSWORD_MAX) {
+        } else if (updatePasswordReqModel.getNew_password().length() > Config.PASSWORD_MAX) {
             ToastUtil.showToast("密码位数最多不能超过20位");
             flag = false;
-        }else if(forgetPasswordModel.getCaptcha().equals(Config.EMPTY_FIELD)){
+        } else if (updatePasswordReqModel.getCaptcha().equals(Config.EMPTY_FIELD)) {
             ToastUtil.showToast("验证码不能为空");
             flag = false;
-        }
-        else if(!forgetPasswordModel.getNew_password().equals(repeatPassword)){
+        } else if (!updatePasswordReqModel.getNew_password().equals(repeatPassword)) {
             ToastUtil.showToast("两次密码输入不一致");
             flag = false;
-        }
-        else if((repeatPassword.equals(Config.EMPTY_FIELD))||(forgetPasswordModel.getNew_password().equals(Config.EMPTY_FIELD))){
+        } else if ((repeatPassword.equals(Config.EMPTY_FIELD)) || (updatePasswordReqModel.getNew_password().equals
+                (Config.EMPTY_FIELD))) {
             ToastUtil.showToast("两次输入密码不能为空");
             flag = false;
         }

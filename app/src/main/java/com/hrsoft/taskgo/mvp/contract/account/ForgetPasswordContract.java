@@ -1,7 +1,7 @@
 package com.hrsoft.taskgo.mvp.contract.account;
 
 import com.hrsoft.taskgo.base.mvp.IBaseContract;
-import com.hrsoft.taskgo.mvp.model.account.request.ForgetPasswordModel;
+import com.hrsoft.taskgo.mvp.model.account.request.UpdatePasswordReqModel;
 
 /**
  * @author heaijia
@@ -11,27 +11,39 @@ import com.hrsoft.taskgo.mvp.model.account.request.ForgetPasswordModel;
 
 public interface ForgetPasswordContract {
 
-    interface Presenter extends IBaseContract.IBasePresenter{
-        /**
-         * P层进行登录成功
-         */
-        void sendRequestNewInformation(ForgetPasswordModel forgetPasswordModel,String repeatPassword);
+    interface Presenter extends IBaseContract.IBasePresenter {
 
-        void getCaptchato(String mobile);
+        /**
+         * 更新密码
+         *
+         * @param updatePasswordReqModel
+         * @param repeatPassword
+         */
+        void updatePassWord(UpdatePasswordReqModel updatePasswordReqModel, String repeatPassword);
+
+
+        /**
+         * 获取验证码
+         *
+         * @param mobile
+         */
+        void getCaptcha(String mobile);
     }
 
-    interface View extends IBaseContract.IBaseView{
-        /**
-         * 通知V层登录成功，并进行相关的操作
-         */
+    interface View extends IBaseContract.IBaseView {
 
-        void onSendInformationSuccess();
 
-        /**
-         * 失败回调
-         *
-         * @param error
-         */
-        void onError(String error);
+        void onGetCaptchaSuccess();
+
+
+        void onGetCaptchaError(String error);
+
+
+        void onUpdatePasswordSuccess();
+
+
+        void onUpdatePasswordError(String error);
+
+        void showDialog();
     }
 }

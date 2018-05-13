@@ -36,7 +36,7 @@ public class MessagePresenter extends BasePresenter<MessageContract.View> implem
             public void onDataLoaded(List<MessageModel> messageModelList) {
 
                 if (messageModelList == null || messageModelList.size() == 0) {
-
+                    mView.loadMsgListError("暂无消息");
                 } else {
 
                     int unreadNum = 0;
@@ -83,6 +83,7 @@ public class MessagePresenter extends BasePresenter<MessageContract.View> implem
             public void onFailedLoaded(String error) {
                 mView.deleteMsgError(error);
             }
+
             @Override
             public void onDataLoaded(Object o) {
                 mView.deleteMsgSuccess(position);

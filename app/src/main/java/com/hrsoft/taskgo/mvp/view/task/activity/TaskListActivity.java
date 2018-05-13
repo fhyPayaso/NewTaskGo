@@ -114,8 +114,6 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
         //添加下拉刷新事件监听
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.txt_blue));
-
-
     }
 
     @Override

@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.hrsoft.taskgo.common.CacheKey;
 import com.hrsoft.taskgo.common.Config;
+import com.hrsoft.taskgo.mvp.view.account.LoginActivity;
 import com.hrsoft.taskgo.utils.CacheUtil;
 import com.hrsoft.taskgo.utils.ToastUtil;
 import com.squareup.leakcanary.LeakCanary;

@@ -3,7 +3,6 @@ package com.hrsoft.taskgo.mvp.view.account;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,7 +27,8 @@ import butterknife.OnClick;
  * email fanhongyu@hrsoft.net.
  */
 
-public class RegisterActivity extends BasePresenterActivity<RegisterContract.Presenter> implements RegisterContract.View {
+public class RegisterActivity extends BasePresenterActivity<RegisterContract.Presenter> implements RegisterContract
+        .View {
 
     @BindView(R.id.btn_verification_register)
     Button mbtnVerificationRegister;
@@ -63,51 +63,6 @@ public class RegisterActivity extends BasePresenterActivity<RegisterContract.Pre
         return new RegisterPresenter(this);
     }
 
-    @Override
-    public void onGetCaptchaSuccess() {
-        ToastUtil.showToast("已经发送验证码，请注意查收");
-    }
-
-    @Override
-    public void onCheckCaptchaError(String Token) {
-
-    }
-
-
-    /**
-     * 注册成功回调，直接进入主界面
-     */
-    @Override
-    public void onRegisterSucess(String token) {
-
-        ToastUtil.showToast(token);
-        startActivity(MainActivity.class);
-        finish();
-
-    }
-
-
-    @Override
-    public void onError(String error) {
-
-    }
-
-
-    /**
-     * 登录成功回调，缓存token
-     * @param token
-     */
-    @Override
-    public void onLoginAgainSuccess(String token) {
-
-        Log.i("register", "onLoginAgainSuccess: " + token);
-
-//        CacheUtil.putString(CacheKey.TOKEN, token);
-//        MainActivity.startActivity(RegisterActivity.this);
-        finish();
-        mverificationCountDownTimer.cancel();
-    }
-
 
     @Override
     protected int getLayoutId() {
@@ -118,6 +73,96 @@ public class RegisterActivity extends BasePresenterActivity<RegisterContract.Pre
     protected void initData(Bundle savedInstanceState) {
         initCountDownTimer();
 
+    }
+
+    @Override
+    protected void initView() {
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    /**
+     * 绑定 获得验证码 按钮，启动timerStart
+     */
+    @OnClick(R.id.btn_verification_register)
+    public void onBtnVerificationRegisterClicked() {
+        mPresenter.getCaptcha(meditUserNumber.getText().toString().trim());
+        mverificationCountDownTimer.timerStart(true);
+    }
+
+    @OnClick(R.id.btn_register)
+    public void onBtnRegisterClicked() {
+
+        mPresenter.register(new RegisterReqModel(meditUserNumber.getText().toString().trim(),
+                meditSecret.getText().toString().trim(),
+                meditVerificationCode.getText().toString().trim()), meditSecretAgain.getText().toString().trim());
+
+    }
+
+
+    /**
+     * 忘记密码的返回按钮，从忘记密码界面，回到登录界面
+     */
+    @OnClick(R.id.ly_header_register)
+    public void onLyHeaderRegisterClicked() {
+        this.finish();
+    }
+
+    @OnClick(R.id.txt_servise)
+    public void onTxtServiseClicked() {
+        ToastUtil.showToast("暂未开启");
+    }
+
+
+    @Override
+    public void getCaptchaSuccess() {
+        ToastUtil.showToast("已经发送验证码，请注意查收");
+    }
+
+    @Override
+    public void getCaptchaError(String error) {
+
+        ToastUtil.showToast(error);
+    }
+
+    @Override
+    public void onRegisterSuccess() {
+        ToastUtil.showToast("注册成功");
+        dismissProgressDialog();
+        btnRegister.setClickable(true);
+        startActivity(MainActivity.class);
+        mverificationCountDownTimer.cancel();
+        finish();
+    }
+
+    @Override
+    public void onRegisterError(String error) {
+        ToastUtil.showToast(error);
+        dismissProgressDialog();
+        btnRegister.setClickable(true);
+    }
+
+    @Override
+    public void showDialog() {
+        showProgressDialog();
+        btnRegister.setClickable(false);
+    }
+
+
+    @OnClick(R.id.img_agreement_selector)
+    public void onViewClicked() {
+        if (flagAgreement) {
+            flagAgreement = false;
+            imgAgreementSelector.setSelected(true);
+        } else {
+            imgAgreementSelector.setSelected(false);
+            flagAgreement = true;
+        }
     }
 
     /**
@@ -158,62 +203,5 @@ public class RegisterActivity extends BasePresenterActivity<RegisterContract.Pre
                 }
             }
         };
-    }
-
-    @Override
-    protected void initView() {
-
-
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
-    /**
-     * 绑定 获得验证码 按钮，启动timerStart
-     */
-    @OnClick(R.id.btn_verification_register)
-    public void onBtnVerificationRegisterClicked() {
-        mPresenter.getCaptcha(meditUserNumber.getText().toString().trim());
-        ToastUtil.showToast("你即将获得验证码，请注意查收");
-        mverificationCountDownTimer.timerStart(true);
-    }
-
-    @OnClick(R.id.btn_register)
-    public void onBtnRegisterClicked() {
-
-        mPresenter.register(new RegisterReqModel(meditUserNumber.getText().toString().trim(),
-                meditSecret.getText().toString().trim(),
-                meditVerificationCode.getText().toString().trim()),meditSecretAgain.getText().toString().trim());
-
-    }
-
-    @OnClick(R.id.img_agreement_selector)
-    public void onViewClicked() {
-        if (flagAgreement) {
-            flagAgreement = false;
-            imgAgreementSelector.setSelected(true);
-        } else {
-            imgAgreementSelector.setSelected(false);
-            flagAgreement = true;
-        }
-    }
-
-
-    /**
-     * 忘记密码的返回按钮，从忘记密码界面，回到登录界面
-     */
-    @OnClick(R.id.ly_header_register)
-    public void onLyHeaderRegisterClicked() {
-        this.finish();
-    }
-
-    @OnClick(R.id.txt_servise)
-    public void onTxtServiseClicked() {
-        ToastUtil.showToast("暂未开启");
     }
 }

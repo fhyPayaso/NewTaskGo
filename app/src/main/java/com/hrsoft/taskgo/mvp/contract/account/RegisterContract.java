@@ -1,8 +1,6 @@
 package com.hrsoft.taskgo.mvp.contract.account;
 
 import com.hrsoft.taskgo.base.mvp.IBaseContract;
-import com.hrsoft.taskgo.mvp.model.account.request.CheckCaptchaModel;
-import com.hrsoft.taskgo.mvp.model.account.request.LoginReqModel;
 import com.hrsoft.taskgo.mvp.model.account.request.RegisterReqModel;
 
 /**
@@ -17,30 +15,16 @@ public interface RegisterContract {
     interface Presenter extends IBaseContract.IBasePresenter {
 
         /**
-         * 注册成功回调，直接调用登录接口
-         */
-        void loginAgain(LoginReqModel loginReqModel);
-
-        /**
          * 获取验证码
          *
          * @param phoneNumber
          */
         void getCaptcha(String phoneNumber);
 
-
-        /**
-         * 核对验证码
-         *
-         */
-        void checkCaptcha(CheckCaptchaModel loginRequestModel);
-
-
         /**
          * 注册
-
          */
-        void register(RegisterReqModel registerReqModel, String repeatPassword);
+        void register(RegisterReqModel registerRespModel, String repeatPassword);
     }
 
 
@@ -50,33 +34,31 @@ public interface RegisterContract {
         /**
          * 获取验证码成功
          */
-        void onGetCaptchaSuccess();
+        void getCaptchaSuccess();
 
 
         /**
-         * 核对验证码成功
+         * 获取验证码失败
          */
-        void onCheckCaptchaError(String Token);
+        void getCaptchaError(String error);
 
 
         /**
          * 注册成功
          */
-        void onRegisterSucess(String token);
+        void onRegisterSuccess();
 
 
         /**
-         * 失败回调
+         * 注册失败回调
          *
          * @param error
          */
-        void onError(String error);
+        void onRegisterError(String error);
 
-        /**
-         * 直接登录成功回调，缓存token
-         */
-        void onLoginAgainSuccess(String Token);
 
+
+        void showDialog();
 
     }
 }

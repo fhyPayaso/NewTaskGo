@@ -87,11 +87,9 @@ public class LoginActivity extends BasePresenterActivity<LoginContract.Presenter
 
     @OnClick(R.id.btn_login)
     public void onViewClicked() {
-
-        mBtnLogin.setClickable(false);
-        showProgressDialog();
-        mPresenter.login(new LoginReqModel(mEditPhoneNumber.getText().toString().trim(), mEditPassword.getText()
-                .toString().trim()));
+        String phone = mEditPhoneNumber.getText().toString().trim();
+        String password = mEditPassword.getText().toString().trim();
+        mPresenter.login(new LoginReqModel(phone,password));
     }
 
     @OnClick(R.id.txt_forget_password)
@@ -122,8 +120,16 @@ public class LoginActivity extends BasePresenterActivity<LoginContract.Presenter
 
     @Override
     public void onWriteFailed(String showError) {
+        dismissProgressDialog();
         ToastUtil.showToast(showError);
         mBtnLogin.setClickable(true);
+    }
+
+    @Override
+    public void showDialog() {
+
+        mBtnLogin.setClickable(false);
+        showProgressDialog();
     }
 
     @Override

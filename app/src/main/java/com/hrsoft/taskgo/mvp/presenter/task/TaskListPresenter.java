@@ -69,23 +69,27 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
     @Override
     public void acceptAllTask(List<BaseTaskModel> modelList) {
 
-        IDataCallback.Callback callback = new IDataCallback.Callback() {
-            @Override
-            public void onFailedLoaded(String error) {
-                mView.onAcceptTaskError(error);
-            }
+        if (modelList == null || modelList.size() == 0) {
+            mView.onAcceptTaskError("当前任务列表为空");
+        } else {
+            IDataCallback.Callback callback = new IDataCallback.Callback() {
+                @Override
+                public void onFailedLoaded(String error) {
+                    mView.onAcceptTaskError(error);
+                }
 
-            @Override
-            public void onDataLoaded(Object o) {
-                mView.onAcceptAllTaskSuccess();
-            }
-        };
-        List<Integer> list = new ArrayList<>();
+                @Override
+                public void onDataLoaded(Object o) {
+                    mView.onAcceptAllTaskSuccess();
+                }
+            };
+            List<Integer> list = new ArrayList<>();
 
-        for (BaseTaskModel model : modelList) {
-            list.add(model.getTaskId());
+            for (BaseTaskModel model : modelList) {
+                list.add(model.getTaskId());
+            }
+            TaskHelper.getInstance().acceptTask(this, new AcceptTaskReqModel(list), callback);
         }
-        TaskHelper.getInstance().acceptTask(this, new AcceptTaskReqModel(list), callback);
     }
 
 
@@ -102,35 +106,40 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
             @Override
             public void onDataLoaded(List<TasListRespModel<WaterAttributesRespModel>> tasListRespModels) {
 
-                if (tasListRespModels == null || tasListRespModels.size() == 0) {
-                    if (page == 1) {
-                        mView.onLoadTaskListError("当前没有可接受的任务");
-                    } else {
-                        mView.onLoadTaskListError("暂无更多");
-                    }
-                } else {
-                    List<BaseTaskModel> baseTaskModels = new ArrayList<>();
-                    for (TasListRespModel<WaterAttributesRespModel> respModel : tasListRespModels) {
-                        BaseTaskModel model = new BaseTaskModel();
-                        model.setUserName(respModel.getUserName() == null ? "" : respModel.getUserName());
-                        model.setAvatarUrl(respModel.getAvatarImgUrl());
-                        model.setTaskType("校内送水");
-                        model.setCardNumber(respModel.getCardsJson().getGoodPeople());
-                        model.setMoney(Double.valueOf(respModel.getAttributes().getMoney()));
 
-                        model.setFirstTitle("宿舍楼 : ");
-                        model.setFirstValue(String.valueOf(respModel.getAttributes().getApartment()));
-                        model.setSecondTitle("宿舍号 : ");
-                        model.setSecondValue(respModel.getAttributes().getAddress());
-                        model.setThirdTitle("送水类型 : ");
-                        model.setThirdValue(respModel.getAttributes().getSendType().equals("0") ? "送水上门" : "自取");
-                        model.setTaskId(respModel.getId());
-                        model.setTaskStatus(respModel.getAttributes().getStatus());
-                        model.setTaskPayStatus(respModel.getAttributes().getPayStatus());
-                        model.setUserId(respModel.getUserId());
-                        baseTaskModels.add(model);
+                if (mView != null) {
+
+                    if (tasListRespModels == null || tasListRespModels.size() == 0) {
+                        if (page == 1) {
+                            mView.onLoadTaskListError("当前没有可接受的任务");
+                        } else {
+                            mView.onLoadTaskListError("暂无更多");
+                        }
+                    } else {
+                        List<BaseTaskModel> baseTaskModels = new ArrayList<>();
+                        for (TasListRespModel<WaterAttributesRespModel> respModel : tasListRespModels) {
+                            BaseTaskModel model = new BaseTaskModel();
+                            model.setUserName(respModel.getUserName() == null ? "" : respModel.getUserName());
+                            model.setAvatarUrl(respModel.getAvatarImgUrl());
+                            model.setTaskType("校内送水");
+                            model.setCardNumber(respModel.getCardsJson().getGoodPeople());
+                            model.setMoney(Double.valueOf(respModel.getAttributes().getMoney()));
+
+                            model.setFirstTitle("宿舍楼 : ");
+                            model.setFirstValue(String.valueOf(respModel.getAttributes().getApartment()));
+                            model.setSecondTitle("宿舍号 : ");
+                            model.setSecondValue(respModel.getAttributes().getAddress());
+                            model.setThirdTitle("送水类型 : ");
+                            model.setThirdValue(respModel.getAttributes().getSendType().equals("0") ? "送水上门" : "自取");
+                            model.setTaskId(respModel.getId());
+                            model.setTaskStatus(respModel.getAttributes().getStatus());
+                            model.setTaskPayStatus(respModel.getAttributes().getPayStatus());
+                            model.setUserId(respModel.getUserId());
+                            baseTaskModels.add(model);
+                        }
+                        mView.onLoadTaskListSuccess(baseTaskModels);
                     }
-                    mView.onLoadTaskListSuccess(baseTaskModels);
+
                 }
             }
 

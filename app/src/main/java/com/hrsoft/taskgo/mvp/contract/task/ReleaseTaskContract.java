@@ -44,6 +44,9 @@ public interface ReleaseTaskContract {
          */
         void onLoadWxOrdersInfoError(String error);
 
+
+        void showDialog();
+
     }
 
 
@@ -70,6 +73,10 @@ public interface ReleaseTaskContract {
          * @param repModel
          */
         void openWxPayPage(Context context, WxRepModel repModel);
+
+
+
+
 
     }
 }

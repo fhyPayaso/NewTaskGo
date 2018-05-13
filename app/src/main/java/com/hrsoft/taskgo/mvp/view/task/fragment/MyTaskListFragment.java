@@ -165,6 +165,7 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
         if (mScrollListener.isLoading()) {
             mScrollListener.setLoadMoreFinish();
         }
+
         mCurrentPage++;
         if (mCurrentPage == 1) {
             mRecyclerAdapter.reSetDataList(taskModelList);

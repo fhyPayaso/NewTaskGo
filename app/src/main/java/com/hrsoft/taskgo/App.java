@@ -2,19 +2,19 @@ package com.hrsoft.taskgo;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.StrictMode;
-import android.support.annotation.RequiresApi;
 import android.os.StrictMode;
 import android.util.Log;
 
 import com.hrsoft.taskgo.common.CacheKey;
 import com.hrsoft.taskgo.common.Config;
-import com.hrsoft.taskgo.mvp.view.account.LoginActivity;
+import com.hrsoft.taskgo.utils.AppUtil;
 import com.hrsoft.taskgo.utils.CacheUtil;
 import com.hrsoft.taskgo.utils.ToastUtil;
 import com.squareup.leakcanary.LeakCanary;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,9 +46,12 @@ public class App extends Application {
         sInstance = this;
         registerActivityLifecycleCallbacks(getActivityLifecycleCallbacks());
 
+
+        //内存泄漏检测工具
         if (Config.DEBUG) {
             LeakCanary.install(this);
         }
+        initBugly();
 
         Log.i(TAG, "onCreate: ");
 
@@ -62,7 +65,6 @@ public class App extends Application {
     public static App getInstance() {
         return sInstance;
     }
-
 
     /**
      * 缓存初始化
@@ -112,6 +114,27 @@ public class App extends Application {
                 sActivityList.remove(activity);
             }
         };
+    }
+
+
+    /**
+     * 日志崩溃信息
+     */
+    public void initBugly() {
+
+
+        Context context = getApplicationContext();
+        // 获取当前包名
+        String packageName = context.getPackageName();
+        // 获取当前进程名
+        String processName = AppUtil.getProcessName(android.os.Process.myPid());
+        // 设置是否为上报进程
+        CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(context);
+        strategy.setUploadProcess(processName == null || processName.equals(packageName));
+
+
+        CrashReport.initCrashReport(getApplicationContext(), "0f123ad5cc", Config.DEBUG);
+
     }
 
 

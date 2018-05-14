@@ -3,7 +3,7 @@ package com.hrsoft.taskgo.mvp.presenter.account;
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 import com.hrsoft.taskgo.common.Config;
-import com.hrsoft.taskgo.mvp.model.account.helper.AccountHelper;
+import com.hrsoft.taskgo.mvp.model.account.AccountHelper;
 import com.hrsoft.taskgo.mvp.model.account.request.UpdatePasswordReqModel;
 import com.hrsoft.taskgo.mvp.contract.account.ForgetPasswordContract;
 import com.hrsoft.taskgo.utils.RegexpUtils;
@@ -15,10 +15,9 @@ import com.hrsoft.taskgo.utils.ToastUtil;
  * email 549044363@qq.com
  */
 
-public class ForgetPasswordPresenter extends BasePresenter<ForgetPasswordContract.View> implements
-        ForgetPasswordContract.Presenter {
+public class UpdatePasswordPresenter extends BasePresenter<ForgetPasswordContract.View> implements ForgetPasswordContract.Presenter {
 
-    public ForgetPasswordPresenter(ForgetPasswordContract.View view) {
+    public UpdatePasswordPresenter(ForgetPasswordContract.View view) {
         super(view);
     }
 
@@ -39,15 +38,14 @@ public class ForgetPasswordPresenter extends BasePresenter<ForgetPasswordContrac
                     mView.onUpdatePasswordSuccess();
                 }
             };
-
             AccountHelper.getInstance().updatePassword(this,updatePasswordReqModel,callback);
         }
-
     }
 
     @Override
     public void getCaptcha(String mobile) {
         if (isPhoneTrue(mobile)) {
+            mView.startTimer();
             IDataCallback.Callback callback = new IDataCallback.Callback() {
                 @Override
                 public void onFailedLoaded(String error) {
@@ -90,19 +88,19 @@ public class ForgetPasswordPresenter extends BasePresenter<ForgetPasswordContrac
         } else if (!RegexpUtils.checkMobile(updatePasswordReqModel.getMobile())) {
             ToastUtil.showToast("账号个数有误，请重新输入");
             flag = false;
-        } else if (updatePasswordReqModel.getNew_password().length() < Config.PASSWORD_MIN) {
+        } else if (updatePasswordReqModel.getNewPassword().length() < Config.PASSWORD_MIN) {
             ToastUtil.showToast("请输入6位以上的密码");
             flag = false;
-        } else if (updatePasswordReqModel.getNew_password().length() > Config.PASSWORD_MAX) {
+        } else if (updatePasswordReqModel.getNewPassword().length() > Config.PASSWORD_MAX) {
             ToastUtil.showToast("密码位数最多不能超过20位");
             flag = false;
         } else if (updatePasswordReqModel.getCaptcha().equals(Config.EMPTY_FIELD)) {
             ToastUtil.showToast("验证码不能为空");
             flag = false;
-        } else if (!updatePasswordReqModel.getNew_password().equals(repeatPassword)) {
+        } else if (!updatePasswordReqModel.getNewPassword().equals(repeatPassword)) {
             ToastUtil.showToast("两次密码输入不一致");
             flag = false;
-        } else if ((repeatPassword.equals(Config.EMPTY_FIELD)) || (updatePasswordReqModel.getNew_password().equals
+        } else if ((repeatPassword.equals(Config.EMPTY_FIELD)) || (updatePasswordReqModel.getNewPassword().equals
                 (Config.EMPTY_FIELD))) {
             ToastUtil.showToast("两次输入密码不能为空");
             flag = false;

@@ -1,4 +1,4 @@
-package com.hrsoft.taskgo.mvp.view.initiate.adapter;
+package com.hrsoft.taskgo.mvp.view.account.adapter;
 
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
@@ -41,6 +41,7 @@ public class GuidePagerAdapter extends PagerAdapter{
         return view==object;
     }
 
+    @Override
     public Object instantiateItem(ViewGroup container, int position) {
         container.addView(pagerList.get(position));
         return pagerList.get(position);

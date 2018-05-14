@@ -4,8 +4,9 @@ import com.hrsoft.taskgo.App;
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 import com.hrsoft.taskgo.common.CacheKey;
-import com.hrsoft.taskgo.mvp.model.account.helper.SplashHelper;
+import com.hrsoft.taskgo.mvp.model.account.AccountHelper;
 import com.hrsoft.taskgo.mvp.contract.account.SplashContract;
+import com.hrsoft.taskgo.utils.CacheUtil;
 
 /**
  * @author heaijia
@@ -20,25 +21,24 @@ public class SplashPresenter extends BasePresenter<SplashContract.View> implemen
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public void checkToken(String token) {
+    public void checkToken() {
 
         IDataCallback.Callback<String> callback = new IDataCallback.Callback<String>() {
             @Override
             public void onFailedLoaded(String error) {
-                mView.noneffectiveToken(error);
+                mView.checkTokenError(error);
             }
 
             @Override
             public void onDataLoaded(String s) {
-
-                String token = App.getInstance().getCacheUtil().getString(CacheKey.TOKEN);
-                if(!s.equals(token)){
-                    App.getInstance().getCacheUtil().putString(CacheKey.TOKEN, s);
+                CacheUtil cacheUtil = App.getInstance().getCacheUtil();
+                String token = cacheUtil.getString(CacheKey.TOKEN);
+                if(!s.equals(token)) {
+                    cacheUtil.putString(CacheKey.TOKEN,s);
                 }
-                mView.effectiveToken(s);
+                mView.checkTokenSuccess(s);
             }
-        } ;
-        SplashHelper.getInstance().updatetoken(this,callback);
+        };
+        AccountHelper.getInstance().checkToken(this,callback);
     }
 }

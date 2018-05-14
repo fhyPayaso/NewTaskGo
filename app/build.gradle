@@ -93,6 +93,9 @@ dependencies {
     compile 'com.qiniu:happy-dns:0.2.13'
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.qiniu:qiniu-java-sdk:7.2.0'
+
+
+    compile 'com.tencent.bugly:crashreport:2.6.6.1'
 }
 repositories {
     mavenCentral()

@@ -1,4 +1,4 @@
-package com.hrsoft.taskgo.mvp.view.account;
+package com.hrsoft.taskgo.mvp.view.account.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.mvp.view.BasePresenterActivity;
+import com.hrsoft.taskgo.common.Config;
 import com.hrsoft.taskgo.mvp.model.account.request.LoginReqModel;
 import com.hrsoft.taskgo.mvp.contract.account.LoginContract;
 import com.hrsoft.taskgo.mvp.presenter.account.LoginPresenter;
@@ -34,52 +35,30 @@ public class LoginActivity extends BasePresenterActivity<LoginContract.Presenter
     EditText mEditPassword;
     @BindView(R.id.btn_login)
     Button mBtnLogin;
-    @BindView(R.id.txt_forget_password)
-    TextView mTxtForgetPassword;
-    @BindView(R.id.txt_register)
-    TextView mTxtRegister;
-
 
     public static void startActivity(Activity context) {
         context.startActivity(new Intent(context, LoginActivity.class));
     }
 
 
-    /**
-     * 获取Presenter实例
-     *
-     * @return
-     */
     @Override
     protected LoginPresenter getPresenter() {
         return new LoginPresenter(this);
     }
 
 
-    /**
-     * 获取父布局
-     *
-     * @return
-     */
     @Override
     protected int getLayoutId() {
         return R.layout.activity_login;
     }
 
-    /**
-     * 加载数据
-     *
-     * @param savedInstanceState
-     */
+
     @Override
     protected void initData(Bundle savedInstanceState) {
 
 
     }
 
-    /**
-     * 初始化View
-     */
     @Override
     protected void initView() {
     }
@@ -89,7 +68,7 @@ public class LoginActivity extends BasePresenterActivity<LoginContract.Presenter
     public void onViewClicked() {
         String phone = mEditPhoneNumber.getText().toString().trim();
         String password = mEditPassword.getText().toString().trim();
-        mPresenter.login(new LoginReqModel(phone,password));
+        mPresenter.login(new LoginReqModel(phone, password));
     }
 
     @OnClick(R.id.txt_forget_password)
@@ -105,9 +84,11 @@ public class LoginActivity extends BasePresenterActivity<LoginContract.Presenter
 
     @Override
     public void onLoginSuccess(String token) {
+
         dismissProgressDialog();
         startActivity(MainActivity.class);
         finish();
+        ToastUtil.showToast("登录成功");
     }
 
     @Override
@@ -115,29 +96,11 @@ public class LoginActivity extends BasePresenterActivity<LoginContract.Presenter
         dismissProgressDialog();
         ToastUtil.showToast(error);
         mBtnLogin.setClickable(true);
-
-    }
-
-    @Override
-    public void onWriteFailed(String showError) {
-        dismissProgressDialog();
-        ToastUtil.showToast(showError);
-        mBtnLogin.setClickable(true);
     }
 
     @Override
     public void showDialog() {
-
         mBtnLogin.setClickable(false);
         showProgressDialog();
     }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
-
 }

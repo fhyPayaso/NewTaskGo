@@ -31,7 +31,7 @@ import butterknife.Unbinder;
  * email fanhongyu@hrsoft.net.
  */
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements BannerPager.OnBannerClick {
 
 
     @BindView(R.id.vp_banner_pager)
@@ -67,10 +67,10 @@ public class HomeFragment extends BaseFragment {
 
 
     private void initBanner() {
+        vpBannerPager.setOnBannerClick(this);
         vpBannerPager.addView(getImageView(R.drawable.bg_banner1));
         vpBannerPager.addView(getImageView(R.drawable.bg_banner2));
         vpBannerPager.addView(getImageView(R.drawable.bg_banner3));
-        //vpBannerPager.addView(getImageView(R.drawable.bg_banner4));
         vpBannerPager.startFlipping();
     }
 
@@ -136,5 +136,10 @@ public class HomeFragment extends BaseFragment {
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onBannerClick(int position) {
+
     }
 }

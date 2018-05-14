@@ -1,4 +1,4 @@
-package com.hrsoft.taskgo.mvp.model.account.helper;
+package com.hrsoft.taskgo.mvp.model.account;
 
 import com.hrsoft.taskgo.base.mvp.IBaseContract;
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
@@ -6,7 +6,7 @@ import com.hrsoft.taskgo.base.mvp.model.BaseModel;
 import com.hrsoft.taskgo.mvp.model.account.request.UpdatePasswordReqModel;
 import com.hrsoft.taskgo.mvp.model.account.request.LoginReqModel;
 import com.hrsoft.taskgo.mvp.model.account.request.RegisterReqModel;
-import com.hrsoft.taskgo.mvp.model.account.response.AccountRespModel;
+import com.hrsoft.taskgo.mvp.model.account.response.TokenRespModel;
 import com.hrsoft.taskgo.network.BaseObserver;
 import com.hrsoft.taskgo.network.NetworkFactory;
 import com.hrsoft.taskgo.network.response.ApiException;
@@ -24,13 +24,43 @@ public class AccountHelper extends BaseModel {
 
     }
 
-    public static class AccountHelperHolder {
+    private static class AccountHelperHolder {
         private static final AccountHelper INSTANCE = new AccountHelper();
     }
 
     public static AccountHelper getInstance() {
         return AccountHelperHolder.INSTANCE;
     }
+
+
+    /**
+     * 检查token是否过期
+     *
+     * @param presenter
+     * @param callback
+     */
+    public void checkToken(IBaseContract.IBasePresenter presenter, final IDataCallback.Callback<String> callback) {
+
+
+        addNotifyListener(presenter, callback);
+
+        NetworkFactory
+                .getService()
+                .checkToken()
+                .compose(BaseObserver.<ApiResponse<String>>setThread())
+                .subscribe(new BaseObserver<String>() {
+                    @Override
+                    public void onSuccess(ApiResponse<String> response) {
+                        callback.onDataLoaded(response.getData());
+                    }
+
+                    @Override
+                    public void onError(ApiException exception) {
+                        callback.onFailedLoaded(exception.getMsg());
+                    }
+                });
+    }
+
 
     /**
      * 登录
@@ -47,10 +77,10 @@ public class AccountHelper extends BaseModel {
         NetworkFactory
                 .getService()
                 .login(reqModel)
-                .compose(BaseObserver.<ApiResponse<AccountRespModel>>setThread())
-                .subscribe(new BaseObserver<AccountRespModel>() {
+                .compose(BaseObserver.<ApiResponse<TokenRespModel>>setThread())
+                .subscribe(new BaseObserver<TokenRespModel>() {
                     @Override
-                    public void onSuccess(ApiResponse<AccountRespModel> response) {
+                    public void onSuccess(ApiResponse<TokenRespModel> response) {
                         callback.onDataLoaded(response.getData().getToken());
                     }
 
@@ -76,10 +106,10 @@ public class AccountHelper extends BaseModel {
         NetworkFactory
                 .getService()
                 .register(reqModel)
-                .compose(BaseObserver.<ApiResponse<AccountRespModel>>setThread())
-                .subscribe(new BaseObserver<AccountRespModel>() {
+                .compose(BaseObserver.<ApiResponse<TokenRespModel>>setThread())
+                .subscribe(new BaseObserver<TokenRespModel>() {
                     @Override
-                    public void onSuccess(ApiResponse<AccountRespModel> response) {
+                    public void onSuccess(ApiResponse<TokenRespModel> response) {
                         callback.onDataLoaded(response.getData().getToken());
                     }
 

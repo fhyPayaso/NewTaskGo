@@ -31,7 +31,7 @@
         android:roundIcon="@drawable/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mvp.view.initiate.activity.SplashActivity">
+        <activity android:name=".mvp.view.account.activity.SplashActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -45,15 +45,15 @@
 
         </activity>
 
-        <activity android:name=".mvp.view.account.LoginActivity"/>
+        <activity android:name=".mvp.view.account.activity.LoginActivity"/>
 
-        <activity android:name=".mvp.view.initiate.activity.GuideActivity"/>
+        <activity android:name=".mvp.view.account.activity.GuideActivity"/>
         <activity android:name=".mvp.view.task.activity.TaskGridActivity"/>
 
-        <activity android:name=".mvp.view.account.RegisterActivity"/>
+        <activity android:name=".mvp.view.account.activity.RegisterActivity"/>
 
 
-        <activity android:name=".mvp.view.account.UpdatePasswordActivity"/>
+        <activity android:name=".mvp.view.account.activity.UpdatePasswordActivity"/>
 
 
         <activity

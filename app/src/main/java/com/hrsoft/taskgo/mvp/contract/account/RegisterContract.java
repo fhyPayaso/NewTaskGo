@@ -22,7 +22,10 @@ public interface RegisterContract {
         void getCaptcha(String phoneNumber);
 
         /**
-         * 注册
+         * 注册请求
+         *
+         * @param registerRespModel
+         * @param repeatPassword
          */
         void register(RegisterReqModel registerRespModel, String repeatPassword);
     }
@@ -30,6 +33,11 @@ public interface RegisterContract {
 
     interface View extends IBaseContract.IBaseView {
 
+
+        /**
+         * 开启验证码倒计时
+         */
+        void startTimer();
 
         /**
          * 获取验证码成功
@@ -55,7 +63,6 @@ public interface RegisterContract {
          * @param error
          */
         void onRegisterError(String error);
-
 
 
         void showDialog();

@@ -1,4 +1,4 @@
-package com.hrsoft.taskgo.mvp.view.initiate.activity;
+package com.hrsoft.taskgo.mvp.view.account.activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,8 +11,7 @@ import android.widget.Button;
 
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.activity.BaseNoBarActivity;
-import com.hrsoft.taskgo.mvp.view.account.LoginActivity;
-import com.hrsoft.taskgo.mvp.view.initiate.adapter.GuidePagerAdapter;
+import com.hrsoft.taskgo.mvp.view.account.adapter.GuidePagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +29,7 @@ public class GuideActivity extends BaseNoBarActivity {
     @BindView(R.id.vp_guide_pager)
     ViewPager vpGuidePager;
 
-    private Button btnToLogin;
+    private Button mBtnToLogin;
     private int imageId[];
     private List<View> pagerList;
 
@@ -65,12 +64,9 @@ public class GuideActivity extends BaseNoBarActivity {
         for (int i = 0; i < imageId.length; i++) {
 
             View view = LayoutInflater.from(this).inflate(imageId[i], null);
-
-
             if (i == imageId.length - 1) {
-
-                btnToLogin = (Button) view.findViewById(R.id.btn_initiate);
-                btnToLogin.setOnClickListener(new View.OnClickListener() {
+                mBtnToLogin = (Button) view.findViewById(R.id.btn_initiate);
+                mBtnToLogin.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         LoginActivity.startActivity(GuideActivity.this);
@@ -83,7 +79,4 @@ public class GuideActivity extends BaseNoBarActivity {
 
         vpGuidePager.setAdapter(new GuidePagerAdapter(pagerList));
     }
-
-
-
 }

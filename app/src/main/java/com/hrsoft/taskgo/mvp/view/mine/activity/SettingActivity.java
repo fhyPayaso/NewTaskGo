@@ -8,8 +8,8 @@ import android.view.View;
 import com.hrsoft.taskgo.App;
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.activity.BaseToolBarActivity;
-import com.hrsoft.taskgo.mvp.view.account.LoginActivity;
-import com.hrsoft.taskgo.mvp.view.account.UpdatePasswordActivity;
+import com.hrsoft.taskgo.mvp.view.account.activity.LoginActivity;
+import com.hrsoft.taskgo.mvp.view.account.activity.UpdatePasswordActivity;
 
 import butterknife.OnClick;
 

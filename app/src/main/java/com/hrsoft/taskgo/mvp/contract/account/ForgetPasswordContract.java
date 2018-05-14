@@ -33,17 +33,38 @@ public interface ForgetPasswordContract {
     interface View extends IBaseContract.IBaseView {
 
 
+        /**
+         * 获取验证码成功
+         */
         void onGetCaptchaSuccess();
 
-
+        /**
+         * 获取验证码失败
+         *
+         * @param error
+         */
         void onGetCaptchaError(String error);
 
-
+        /**
+         * 重设密码成功
+         */
         void onUpdatePasswordSuccess();
 
-
+        /**
+         * 重设密码失败
+         *
+         * @param error
+         */
         void onUpdatePasswordError(String error);
 
+        /**
+         * 显示dialog
+         */
         void showDialog();
+
+        /**
+         * 开启验证码倒计时
+         */
+        void startTimer();
     }
 }

@@ -9,7 +9,7 @@ import com.hrsoft.taskgo.base.mvp.model.BaseBean;
  * email 549044363@qq.com
  */
 
-public class AccountRespModel extends BaseBean{
+public class TokenRespModel extends BaseBean{
 
     @SerializedName("user_id")
     private String userId;

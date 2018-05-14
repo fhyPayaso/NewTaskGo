@@ -1,4 +1,4 @@
-package com.hrsoft.taskgo.mvp.view.account;
+package com.hrsoft.taskgo.mvp.view.account.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.mvp.view.BasePresenterActivity;
@@ -18,7 +17,6 @@ import com.hrsoft.taskgo.utils.ToastUtil;
 import com.hrsoft.taskgo.widget.VerificationCountDownTimer;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -27,31 +25,27 @@ import butterknife.OnClick;
  * email fanhongyu@hrsoft.net.
  */
 
-public class RegisterActivity extends BasePresenterActivity<RegisterContract.Presenter> implements RegisterContract
-        .View {
+public class RegisterActivity extends BasePresenterActivity<RegisterContract.Presenter> implements RegisterContract.View {
 
     @BindView(R.id.btn_verification_register)
-    Button mbtnVerificationRegister;
+    Button mBtnGetCaptcha;
     @BindView(R.id.btn_register)
-    Button btnRegister;
+    Button mBtnRegister;
     @BindView(R.id.edit_user_number)
-    EditText meditUserNumber;
+    EditText mEditPhoneNumber;
     @BindView(R.id.edit_verification_code)
-    EditText meditVerificationCode;
+    EditText mEditCaptchaCode;
     @BindView(R.id.edit_secret)
-    EditText meditSecret;
+    EditText mEditPassword;
     @BindView(R.id.edit_secret_again)
-    EditText meditSecretAgain;
+    EditText mEditRepeatPassword;
     @BindView(R.id.img_agreement_selector)
     ImageView imgAgreementSelector;
-    @BindView(R.id.ly_header_register)
-    LinearLayout lyHeaderRegister;
-    @BindView(R.id.txt_servise)
-    LinearLayout txtServise;
+
 
     private boolean flagAgreement = false;
 
-    VerificationCountDownTimer mverificationCountDownTimer;
+    private VerificationCountDownTimer mCountDownTimer;
 
     public static void startActivity(Activity context) {
         context.startActivity(new Intent(context, RegisterActivity.class));
@@ -71,42 +65,37 @@ public class RegisterActivity extends BasePresenterActivity<RegisterContract.Pre
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        initCountDownTimer();
 
     }
 
     @Override
     protected void initView() {
+        initCountDownTimer();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     /**
-     * 绑定 获得验证码 按钮，启动timerStart
+     * 获取验证码点击事件
      */
     @OnClick(R.id.btn_verification_register)
     public void onBtnVerificationRegisterClicked() {
-        mPresenter.getCaptcha(meditUserNumber.getText().toString().trim());
-        mverificationCountDownTimer.timerStart(true);
+        mPresenter.getCaptcha(mEditPhoneNumber.getText().toString().trim());
     }
-
-    @OnClick(R.id.btn_register)
-    public void onBtnRegisterClicked() {
-
-        mPresenter.register(new RegisterReqModel(meditUserNumber.getText().toString().trim(),
-                meditSecret.getText().toString().trim(),
-                meditVerificationCode.getText().toString().trim()), meditSecretAgain.getText().toString().trim());
-
-    }
-
 
     /**
-     * 忘记密码的返回按钮，从忘记密码界面，回到登录界面
+     * 注册按钮点击事件
+     */
+    @OnClick(R.id.btn_register)
+    public void onBtnRegisterClicked() {
+        String phoneNumber = mEditPhoneNumber.getText().toString().trim();
+        String password = mEditPassword.getText().toString().trim();
+        String captcha = mEditCaptchaCode.getText().toString().trim();
+        String repeatPassword = mEditRepeatPassword.getText().toString().trim();
+        mPresenter.register(new RegisterReqModel(phoneNumber, password, captcha), repeatPassword);
+    }
+
+    /**
+     * 左上角箭头点击事件
      */
     @OnClick(R.id.ly_header_register)
     public void onLyHeaderRegisterClicked() {
@@ -114,10 +103,15 @@ public class RegisterActivity extends BasePresenterActivity<RegisterContract.Pre
     }
 
     @OnClick(R.id.txt_servise)
-    public void onTxtServiseClicked() {
+    public void onTxtServiceClicked() {
         ToastUtil.showToast("暂未开启");
     }
 
+
+    @Override
+    public void startTimer() {
+        mCountDownTimer.timerStart(true);
+    }
 
     @Override
     public void getCaptchaSuccess() {
@@ -126,17 +120,14 @@ public class RegisterActivity extends BasePresenterActivity<RegisterContract.Pre
 
     @Override
     public void getCaptchaError(String error) {
-
         ToastUtil.showToast(error);
     }
 
     @Override
     public void onRegisterSuccess() {
         ToastUtil.showToast("注册成功");
-        dismissProgressDialog();
-        btnRegister.setClickable(true);
         startActivity(MainActivity.class);
-        mverificationCountDownTimer.cancel();
+        mCountDownTimer.cancel();
         finish();
     }
 
@@ -144,13 +135,13 @@ public class RegisterActivity extends BasePresenterActivity<RegisterContract.Pre
     public void onRegisterError(String error) {
         ToastUtil.showToast(error);
         dismissProgressDialog();
-        btnRegister.setClickable(true);
+        mBtnRegister.setClickable(true);
     }
 
     @Override
     public void showDialog() {
         showProgressDialog();
-        btnRegister.setClickable(false);
+        mBtnRegister.setClickable(false);
     }
 
 
@@ -172,31 +163,29 @@ public class RegisterActivity extends BasePresenterActivity<RegisterContract.Pre
 
         if (!VerificationCountDownTimer.FLAG_FIRST_IN &&
                 VerificationCountDownTimer.mcurMillis + 60000 > System.currentTimeMillis()) {
-
             setCountDownTimer(VerificationCountDownTimer.mcurMillis + 60000 - System.currentTimeMillis());
-            mverificationCountDownTimer.timerStart(false);
-
+            mCountDownTimer.timerStart(false);
         } else {
-
             setCountDownTimer(60000);
         }
     }
 
     public void setCountDownTimer(final long countDownTime) {
 
-        mverificationCountDownTimer = new VerificationCountDownTimer(countDownTime, 1000) {
+        mCountDownTimer = new VerificationCountDownTimer(countDownTime, 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
-                mbtnVerificationRegister.setEnabled(false);
-                mbtnVerificationRegister.setText((millisUntilFinished / 1000) + " s");
+                mBtnGetCaptcha.setEnabled(false);
+                String time = millisUntilFinished / 1000 + " s";
+                mBtnGetCaptcha.setText(time);
             }
 
             @Override
             public void onFinish() {
 
-                mbtnVerificationRegister.setEnabled(true);
-                mbtnVerificationRegister.setText(getString(R.string.btn_verification_gain));
+                mBtnGetCaptcha.setEnabled(true);
+                mBtnGetCaptcha.setText(getString(R.string.btn_verification_gain));
 
                 if (countDownTime != 60000) {
                     setCountDownTimer(60000);

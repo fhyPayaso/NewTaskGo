@@ -12,20 +12,32 @@ import retrofit2.Response;
  * email 549044363@qq.com
  */
 
-public interface SplashContract  {
+public interface SplashContract {
 
     interface Presenter extends IBaseContract.IBasePresenter {
 
-        void checkToken(String token);
+        /**
+         * 检查token是否有效
+         */
+        void checkToken();
     }
 
 
-    interface View extends IBaseContract.IBaseView{
+    interface View extends IBaseContract.IBaseView {
 
 
-        void effectiveToken(String s);
+        /**
+         * 有效token
+         *
+         * @param token
+         */
+        void checkTokenSuccess(String token);
 
-        void noneffectiveToken(String error);
+        /**
+         * 无效token
+         *
+         * @param error
+         */
+        void checkTokenError(String error);
     }
-
 }

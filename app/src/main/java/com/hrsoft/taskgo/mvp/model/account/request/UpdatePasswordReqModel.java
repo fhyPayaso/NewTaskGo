@@ -1,8 +1,11 @@
 package com.hrsoft.taskgo.mvp.model.account.request;
 
+import com.google.gson.annotations.SerializedName;
 import com.hrsoft.taskgo.base.mvp.model.BaseBean;
 
 /**
+ * 更新密码请求体
+ *
  * @author heaijia
  * @since 2018/5/5 下午9:56
  * email 549044363@qq.com
@@ -13,8 +16,8 @@ public class UpdatePasswordReqModel extends BaseBean {
 
     private String mobile;
     private String captcha;
-    private String new_password;
-
+    @SerializedName("new_password")
+    private String newPassword;
 
     public String getMobile() {
         return mobile;
@@ -32,19 +35,19 @@ public class UpdatePasswordReqModel extends BaseBean {
         this.captcha = captcha;
     }
 
-    public String getNew_password() {
-        return new_password;
+    public String getNewPassword() {
+        return newPassword;
     }
 
-    public void setNew_password(String new_password) {
-        this.new_password = new_password;
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 
-    public UpdatePasswordReqModel(String mobile, String captcha, String new_password) {
+    public UpdatePasswordReqModel(String mobile, String captcha, String newPassword) {
 
         this.mobile = mobile;
         this.captcha = captcha;
-        this.new_password = new_password;
+        this.newPassword = newPassword;
     }
 
 

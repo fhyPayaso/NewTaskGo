@@ -5,7 +5,7 @@ import com.hrsoft.taskgo.base.mvp.IDataCallback;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
 import com.hrsoft.taskgo.common.CacheKey;
 import com.hrsoft.taskgo.common.Config;
-import com.hrsoft.taskgo.mvp.model.account.helper.AccountHelper;
+import com.hrsoft.taskgo.mvp.model.account.AccountHelper;
 import com.hrsoft.taskgo.mvp.model.account.request.RegisterReqModel;
 import com.hrsoft.taskgo.mvp.contract.account.RegisterContract;
 import com.hrsoft.taskgo.utils.ToastUtil;
@@ -26,6 +26,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
     public void getCaptcha(String mobile) {
 
         if (isPhoneTrue(mobile)) {
+            mView.startTimer();
             IDataCallback.Callback callback = new IDataCallback.Callback() {
                 @Override
                 public void onFailedLoaded(String error) {
@@ -34,7 +35,6 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
 
                 @Override
                 public void onDataLoaded(Object o) {
-
                     mView.getCaptchaSuccess();
                 }
             };
@@ -61,7 +61,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
                     mView.onRegisterSuccess();
                 }
             };
-            AccountHelper.getInstance().register(this, registerRespModel,callback);
+            AccountHelper.getInstance().register(this, registerRespModel, callback);
         }
     }
 
@@ -74,18 +74,18 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
 
         boolean flag = true;
 
-        if (registerRespModel.getMobile().equals(Config.EMPTY_FIELD)) {
-            ToastUtil.showToast("输入的账号格式不正确");
+        if (Config.EMPTY_FIELD.equals(registerRespModel.getMobile())) {
+            mView.onRegisterError("输入的账号格式不正确");
             flag = false;
-        } else if (registerRespModel.getCaptcha().equals(Config.EMPTY_FIELD)) {
-            ToastUtil.showToast("验证码不能为空");
+        } else if (Config.EMPTY_FIELD.equals(registerRespModel.getCaptcha())) {
+            mView.onRegisterError("验证码不能为空");
             flag = false;
         } else if (!registerRespModel.getPassword().equals(repeatPassword)) {
-            ToastUtil.showToast("两次密码输入不一致");
+            mView.onRegisterError("两次密码输入不一致");
             flag = false;
-        } else if ((repeatPassword.equals(Config.EMPTY_FIELD)) || (registerRespModel.getPassword().equals(Config
-                .EMPTY_FIELD))) {
-            ToastUtil.showToast("两次输入密码不能为空");
+        } else if ((Config.EMPTY_FIELD.equals(repeatPassword)) || Config.EMPTY_FIELD.equals(registerRespModel
+                .getPassword())) {
+            mView.onRegisterError("输入密码不能为空");
             flag = false;
         }
         return flag;
@@ -100,13 +100,11 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
     private boolean isPhoneTrue(String phoneNumber) {
 
         boolean flag = true;
-
+        // TODO: 18/5/14 细节格式判断
         if (phoneNumber.equals(Config.EMPTY_FIELD)) {
-            ToastUtil.showToast("输入的账号格式不正确");
+            mView.getCaptchaError("输入的账号格式不正确");
             flag = false;
         }
         return flag;
     }
-
-
 }

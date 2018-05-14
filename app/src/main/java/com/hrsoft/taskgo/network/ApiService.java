@@ -2,7 +2,7 @@ package com.hrsoft.taskgo.network;
 
 import com.hrsoft.taskgo.mvp.model.account.request.UpdatePasswordReqModel;
 import com.hrsoft.taskgo.mvp.model.account.request.RegisterReqModel;
-import com.hrsoft.taskgo.mvp.model.account.response.AccountRespModel;
+import com.hrsoft.taskgo.mvp.model.account.response.TokenRespModel;
 import com.hrsoft.taskgo.mvp.model.app.AppInfoRespModel;
 import com.hrsoft.taskgo.mvp.model.message.MessageModel;
 import com.hrsoft.taskgo.mvp.model.message.MsgReadDeleteReqModel;
@@ -48,13 +48,21 @@ public interface ApiService {
 
 
     /**
+     * 检查token是否过期
+     *
+     * @return
+     */
+    @GET("token")
+    Observable<ApiResponse<String>> checkToken();
+
+    /**
      * 登录账户
      *
      * @param reqModel
      * @return
      */
     @POST("login")
-    Observable<ApiResponse<AccountRespModel>> login(@Body LoginReqModel reqModel);
+    Observable<ApiResponse<TokenRespModel>> login(@Body LoginReqModel reqModel);
 
 
     /**
@@ -64,7 +72,7 @@ public interface ApiService {
      * @return
      */
     @POST("register")
-    Observable<ApiResponse<AccountRespModel>> register(@Body RegisterReqModel registerRespModel);
+    Observable<ApiResponse<TokenRespModel>> register(@Body RegisterReqModel registerRespModel);
 
 
     /**
@@ -84,14 +92,6 @@ public interface ApiService {
      */
     @GET("captcha/{mobile}")
     Observable<ApiResponse> sendCaptcha(@Path("mobile") String mobile);
-
-    /**
-     * 检查token是否过期
-     *
-     * @return
-     */
-    @GET("token")
-    Observable<ApiResponse> updateToke();
 
 
     /**
@@ -202,7 +202,6 @@ public interface ApiService {
     Observable<ApiResponse> deleteMessage(@Body MsgReadDeleteReqModel reqModel);
 
 
-
     /**
      * @return
      */
@@ -215,6 +214,7 @@ public interface ApiService {
      */
     @GET("following")
     Observable<ApiResponse<List<MyFollowFansModel>>> loadMyFollowList();
+
     /**
      * @return
      */
@@ -254,7 +254,6 @@ public interface ApiService {
 
     @POST("advice")
     Observable<ApiResponse> submitAdvice(@Body FeedBackModel feedBackModel);
-
 
 
     @GET("mycards")

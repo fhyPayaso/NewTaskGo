@@ -1,4 +1,4 @@
-package com.hrsoft.taskgo.mvp.view.initiate.activity;
+package com.hrsoft.taskgo.mvp.view.account.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,7 +15,7 @@ import com.hrsoft.taskgo.mvp.model.app.AppInfoModel;
 import com.hrsoft.taskgo.mvp.contract.account.SplashContract;
 import com.hrsoft.taskgo.mvp.presenter.account.SplashPresenter;
 import com.hrsoft.taskgo.mvp.view.MainActivity;
-import com.hrsoft.taskgo.mvp.view.account.LoginActivity;
+import com.hrsoft.taskgo.utils.CacheUtil;
 
 /**
  * @author heaijia
@@ -24,6 +24,12 @@ import com.hrsoft.taskgo.mvp.view.account.LoginActivity;
  */
 
 public class SplashActivity extends BasePresenterActivity<SplashContract.Presenter> implements SplashContract.View {
+
+
+    /**
+     * 起始页停留时间
+     */
+    public static final int SPLASH_DELAYED_TIME = 1000;
 
 
     public static void startActivity(Activity context) {
@@ -53,50 +59,46 @@ public class SplashActivity extends BasePresenterActivity<SplashContract.Present
             public void run() {
                 checkToken();
             }
-        }, 1000);
-
+        }, SPLASH_DELAYED_TIME);
     }
 
     /**
      * 检查token
      */
     private void checkToken() {
-
-
-        AppInfoModel infoModel = (AppInfoModel) App.getInstance().getCacheUtil().getSerializableObj(CacheKey
-                .APP_INFORMATION);
-
-
+        CacheUtil cacheUtil = App.getInstance().getCacheUtil();
+        //获取本地缓存的版本信息
+        AppInfoModel infoModel = (AppInfoModel) cacheUtil.getSerializableObj(CacheKey.APP_INFORMATION);
         //没有版本信息说明第一次进入app
         if (infoModel == null) {
-            //生成版本信息
-            App.getInstance()
-                    .getCacheUtil()
-                    .putSerializableObj(CacheKey.APP_INFORMATION, new AppInfoModel(Config.APP_VERSION));
+            //生成版本号,如1.0.0
+            cacheUtil.putSerializableObj(CacheKey.APP_INFORMATION, new AppInfoModel(Config.APP_VERSION));
             GuideActivity.startActivity(this);
             finish();
 
         } else {
-            String token = App.getInstance().getCacheUtil().getString(CacheKey.TOKEN);
-            Log.i(TAG, "checkToken: " + token);
-
+            String token = cacheUtil.getString(CacheKey.TOKEN);
             if (token == null) {
-                noneffectiveToken("无效token");
+                checkTokenError("本地无缓存token");
             } else {
-                mPresenter.checkToken(token);
+                mPresenter.checkToken();
             }
         }
     }
 
 
     @Override
-    public void effectiveToken(String s) {
+    public void checkTokenSuccess(String s) {
+
+        if (Config.DEBUG) {
+            Log.i(TAG, "checkTokenSuccess: " + s);
+        }
         startActivity(MainActivity.class);
         finish();
     }
 
     @Override
-    public void noneffectiveToken(String error) {
+    public void checkTokenError(String error) {
         LoginActivity.startActivity(this);
         finish();
     }

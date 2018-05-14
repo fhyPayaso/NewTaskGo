@@ -3,12 +3,14 @@ package com.hrsoft.taskgo.mvp.model.account.request;
 import com.hrsoft.taskgo.base.mvp.model.BaseBean;
 
 /**
+ * 注册请求体
+ *
  * @author FanHongyu.
  * @since 18/5/3 19:00.
  * email fanhongyu@hrsoft.net.
  */
 
-public class RegisterReqModel extends BaseBean{
+public class RegisterReqModel extends BaseBean {
 
 
     private String mobile;

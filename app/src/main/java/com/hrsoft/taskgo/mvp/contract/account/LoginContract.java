@@ -15,18 +15,35 @@ public interface LoginContract {
 
     interface Presenter extends IBaseContract.IBasePresenter {
 
+        /**
+         * 登录账户
+         *
+         * @param loginReqModel
+         */
         void login(LoginReqModel loginReqModel);
     }
 
 
-    interface View extends IBaseContract.IBaseView{
+    interface View extends IBaseContract.IBaseView {
 
+        /**
+         * 登录成功
+         *
+         * @param token
+         */
         void onLoginSuccess(String token);
 
+        /**
+         * 登录失败
+         *
+         * @param error
+         */
         void onLoginFailed(String error);
 
-        void onWriteFailed(String showError);
 
+        /**
+         * 显示dialog
+         */
         void showDialog();
 
     }

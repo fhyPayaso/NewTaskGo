@@ -2,22 +2,11 @@ package com.hrsoft.taskgo.wxapi;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.TextView;
 
-import com.hrsoft.taskgo.R;
-import com.hrsoft.taskgo.base.activity.BaseActivity;
-import com.hrsoft.taskgo.base.mvp.WeakHandler;
-import com.hrsoft.taskgo.mvp.model.task.TaskHelper;
-import com.hrsoft.taskgo.mvp.view.task.activity.ReleaseTaskActivity;
-import com.hrsoft.taskgo.mvp.view.task.activity.TaskListActivity;
-import com.hrsoft.taskgo.network.BaseObserver;
-import com.hrsoft.taskgo.network.NetworkFactory;
-import com.hrsoft.taskgo.network.response.ApiException;
-import com.hrsoft.taskgo.network.response.ApiResponse;
+import com.hrsoft.taskgo.business.task.view.activity.ReleaseTaskActivity;
+import com.hrsoft.taskgo.business.task.view.activity.TaskListActivity;
 import com.hrsoft.taskgo.utils.ToastUtil;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
@@ -25,9 +14,6 @@ import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import static android.content.ContentValues.TAG;
 

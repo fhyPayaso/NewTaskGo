@@ -8,9 +8,11 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 import android.provider.MediaStore;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
@@ -28,11 +30,12 @@ import static android.content.ContentValues.TAG;
 public class FileUtil {
 
 
-    private static final int REQUEST_EXTERNAL_STORAGE = 100;
+    public static final int REQUEST_EXTERNAL_STORAGE = 100;
 
-
-    private static final String[] PERMISSIONS_STORAGE = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
-            , Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
+    private static final String[] PERMISSIONS_STORAGE = new String[]{
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+            , Manifest.permission.READ_EXTERNAL_STORAGE
+            , Manifest.permission.CAMERA};
 
 
     /**
@@ -47,11 +50,19 @@ public class FileUtil {
      * @param activity
      */
     public static void verifyStoragePermissions(Activity activity) {
-
-        int permissionWrite = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (permissionWrite != PackageManager.PERMISSION_GRANTED) {
+        if(!checkPermissions(activity)){
             ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
         }
+    }
+
+    /**
+     * 检查是否拥有文件写入权限
+     *
+     * @param activity
+     * @return
+     */
+    public static boolean checkPermissions(Activity activity) {
+        return ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
 

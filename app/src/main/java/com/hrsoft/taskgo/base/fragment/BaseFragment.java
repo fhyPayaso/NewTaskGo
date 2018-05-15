@@ -80,8 +80,9 @@ public abstract class BaseFragment extends Fragment {
     public void showProgressDialog() {
 
         if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(getContext(), ProgressDialog.STYLE_SPINNER);
-            mProgressDialog.setTitle("");
+            mProgressDialog = new ProgressDialog(getContext());
+            mProgressDialog.setCanceledOnTouchOutside(false);
+            mProgressDialog.setMessage("请稍后");
         }
 
         ThreadUtil.runOnUiThread(new Runnable() {
@@ -94,15 +95,14 @@ public abstract class BaseFragment extends Fragment {
 
 
     public void dismissProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-
-            ThreadUtil.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+        ThreadUtil.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (mProgressDialog != null && mProgressDialog.isShowing()) {
                     mProgressDialog.dismiss();
                 }
-            });
-        }
+            }
+        });
     }
 
     /**

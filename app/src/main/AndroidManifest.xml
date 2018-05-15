@@ -15,13 +15,18 @@
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <!-- iBeancon功能所需权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <!-- 个推3.0电子围栏功能所需权限 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".App"
@@ -31,7 +36,7 @@
         android:roundIcon="@drawable/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mvp.view.account.activity.SplashActivity">
+        <activity android:name=".business.account.view.activity.SplashActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -41,32 +46,34 @@
 
         </activity>
 
-        <activity android:name=".mvp.view.MainActivity">
+        <activity android:name=".business.app.view.MainActivity">
 
         </activity>
 
-        <activity android:name=".mvp.view.account.activity.LoginActivity"/>
+        <activity android:name=".business.account.view.activity.LoginActivity"/>
 
-        <activity android:name=".mvp.view.account.activity.GuideActivity"/>
-        <activity android:name=".mvp.view.task.activity.TaskGridActivity"/>
+        <activity android:name=".business.account.view.activity.GuideActivity"/>
+        <activity android:name=".business.task.view.activity.TaskGridActivity"
+            android:launchMode="singleTop"
+            />
 
-        <activity android:name=".mvp.view.account.activity.RegisterActivity"/>
+        <activity android:name=".business.account.view.activity.RegisterActivity"/>
 
 
-        <activity android:name=".mvp.view.account.activity.UpdatePasswordActivity"/>
+        <activity android:name=".business.account.view.activity.UpdatePasswordActivity"/>
 
 
         <activity
-            android:name=".mvp.view.task.activity.TaskListActivity"
+            android:name=".business.task.view.activity.TaskListActivity"
             android:launchMode="singleTask"/>
 
 
-        <activity android:name=".mvp.view.task.activity.ReleaseTaskActivity"/>
+        <activity android:name=".business.task.view.activity.ReleaseTaskActivity"/>
 
-        <activity android:name=".mvp.view.task.activity.FillTaskInfoActivity"/>
+        <activity android:name=".business.task.view.activity.FillTaskInfoActivity"/>
 
 
-        <activity android:name=".mvp.view.task.activity.MyTaskListActivity"/>
+        <activity android:name=".business.task.view.activity.MyTaskListActivity"/>
 
 
         <activity
@@ -75,26 +82,31 @@
             android:launchMode="singleTop"/>
 
 
-        <service android:name=".mvp.view.message.service.LoopMsgService"/>
+        <service
+            android:name=".business.app.view.PushService"
+            android:exported="true"
+            android:label="PushService"
+            android:process=":pushservice">
+        </service>
 
 
-        <activity android:name=".mvp.view.mine.activity.MyFollowFansActivity"/>
-        <activity android:name=".mvp.view.mine.activity.OtherUserPageActivity"/>
+        <activity android:name=".business.mine.view.activity.MyFollowFansActivity"/>
+        <activity android:name=".business.mine.view.activity.OtherUserPageActivity"/>
         <activity
-            android:name=".mvp.view.mine.activity.EditDataActivity"
+            android:name=".business.mine.view.activity.EditDataActivity"
             android:label="@string/app_name"/>
         <activity
-            android:name=".mvp.view.mine.activity.ChangeNameActivity"
+            android:name=".business.mine.view.activity.ChangeNameActivity"
             android:label="@string/app_name"/>
         <activity
-            android:name=".mvp.view.mine.activity.RealNameActivity"
+            android:name=".business.mine.view.activity.RealNameActivity"
             android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".mvp.view.mine.activity.FeedbackActivity"/>
-        <activity android:name=".mvp.view.mine.activity.SettingActivity"/>
-        <activity android:name=".mvp.view.mine.activity.MineCardActivity"/>
+        <activity android:name=".business.mine.view.activity.FeedbackActivity"/>
+        <activity android:name=".business.mine.view.activity.SettingActivity"/>
+        <activity android:name=".business.mine.view.activity.MineCardActivity"/>
 
-        <activity android:name=".mvp.view.mine.activity.AboutActivity"/>
-        <activity android:name=".mvp.view.mine.activity.MoneyPackageActivity" />
+        <activity android:name=".business.mine.view.activity.AboutActivity"/>
+        <activity android:name=".business.mine.view.activity.MoneyPackageActivity" />
     </application>
 
 </manifest>

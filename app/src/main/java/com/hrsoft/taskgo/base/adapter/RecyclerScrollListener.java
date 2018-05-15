@@ -50,8 +50,11 @@ public class RecyclerScrollListener extends RecyclerView.OnScrollListener {
             int lastCompletePosition = linearLayoutManager.findLastCompletelyVisibleItemPosition();
             int totalItemCount = linearLayoutManager.getItemCount();
 
-            //达到需要分页的数目并且滚动到最后
-            if (totalItemCount >= mItemNumPerPage && lastCompletePosition == (totalItemCount - 1)) {
+            //达到需要最大分页的数目并且滚动到最后
+            if (totalItemCount != 0
+                    && totalItemCount % mItemNumPerPage == 0
+                    && lastCompletePosition == (totalItemCount - 1)) {
+
                 mLoading = true;
                 mFooterRecyclerViewAdapter.showFooterVisibility(true);
                 if (mListener != null) {

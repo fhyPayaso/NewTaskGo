@@ -3,18 +3,20 @@ package com.hrsoft.taskgo.base.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
-import com.hrsoft.taskgo.App;
-import com.hrsoft.taskgo.R;
+import com.hrsoft.taskgo.business.app.view.PushService;
+import com.hrsoft.taskgo.common.Config;
 import com.hrsoft.taskgo.utils.ThreadUtil;
 import com.hrsoft.taskgo.utils.ToastUtil;
-
-import butterknife.ButterKnife;
+import com.igexin.sdk.PushManager;
 
 /**
  * @author FanHongyu.
@@ -30,6 +32,8 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     protected ProgressDialog mProgressDialog;
 
+    protected boolean mHasPermission = true;
+
     /**
      * 获取日志输出标志
      */
@@ -42,7 +46,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         allowScreenHorizontal(false);
 
         //浅颜色ToolBar设置深色状态栏文字颜色
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View
+                .SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        //个推初始化
+        PushManager.getInstance().initialize(this.getApplicationContext(), PushService.class);
     }
 
     protected void initActivity(Bundle savedInstanceState) {
@@ -110,7 +117,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 简单类型的ProgressDialog
      */
     public void showProgressDialog() {
-        showProgressDialog(App.getInstance().getResources().getString(R.string.empty));
+        showProgressDialog("请稍后");
     }
 
 
@@ -133,8 +140,6 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 隐藏ProgressDialog
      */
     public void dismissProgressDialog() {
-
-
         ThreadUtil.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -143,7 +148,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     /**

@@ -1,25 +1,25 @@
 package com.hrsoft.taskgo.network;
 
-import com.hrsoft.taskgo.mvp.model.account.request.UpdatePasswordReqModel;
-import com.hrsoft.taskgo.mvp.model.account.request.RegisterReqModel;
-import com.hrsoft.taskgo.mvp.model.account.response.TokenRespModel;
-import com.hrsoft.taskgo.mvp.model.app.AppInfoRespModel;
-import com.hrsoft.taskgo.mvp.model.message.MessageModel;
-import com.hrsoft.taskgo.mvp.model.message.MsgReadDeleteReqModel;
-import com.hrsoft.taskgo.mvp.model.mine.FeedBackModel;
-import com.hrsoft.taskgo.mvp.model.mine.request.RealNameModel;
-import com.hrsoft.taskgo.mvp.model.mine.request.UpdateInformationModel;
-import com.hrsoft.taskgo.mvp.model.mine.response.MineCardModel;
-import com.hrsoft.taskgo.mvp.model.mine.response.MineInformationModel;
-import com.hrsoft.taskgo.mvp.model.mine.response.MyFollowFansModel;
-import com.hrsoft.taskgo.mvp.model.mine.response.OtherUserPageModel;
-import com.hrsoft.taskgo.mvp.model.task.request.AcceptTaskReqModel;
-import com.hrsoft.taskgo.mvp.model.task.request.ReleaseTaskReqModel;
-import com.hrsoft.taskgo.mvp.model.task.response.TaskListPrePageRespModel;
-import com.hrsoft.taskgo.mvp.model.task.response.WaterAttributesRespModel;
-import com.hrsoft.taskgo.mvp.model.task.response.WxRepModel;
+import com.hrsoft.taskgo.business.account.model.request.UpdatePasswordReqModel;
+import com.hrsoft.taskgo.business.account.model.request.RegisterReqModel;
+import com.hrsoft.taskgo.business.account.model.response.TokenRespModel;
+import com.hrsoft.taskgo.business.app.model.AppInfoRespModel;
+import com.hrsoft.taskgo.business.message.model.MessageModel;
+import com.hrsoft.taskgo.business.message.model.MsgReadDeleteReqModel;
+import com.hrsoft.taskgo.business.mine.model.request.FeedBackModel;
+import com.hrsoft.taskgo.business.mine.model.request.RealNameModel;
+import com.hrsoft.taskgo.business.mine.model.request.UpdateInformationModel;
+import com.hrsoft.taskgo.business.mine.model.response.MineCardModel;
+import com.hrsoft.taskgo.business.mine.model.response.MineInformationModel;
+import com.hrsoft.taskgo.business.mine.model.response.MyFollowFansModel;
+import com.hrsoft.taskgo.business.mine.model.response.OtherUserPageModel;
+import com.hrsoft.taskgo.business.task.model.request.AcceptTaskReqModel;
+import com.hrsoft.taskgo.business.task.model.request.ReleaseTaskReqModel;
+import com.hrsoft.taskgo.business.task.model.response.TaskListPrePageRespModel;
+import com.hrsoft.taskgo.business.task.model.response.WaterAttributesRespModel;
+import com.hrsoft.taskgo.business.task.model.response.WxRepModel;
 import com.hrsoft.taskgo.network.response.ApiResponse;
-import com.hrsoft.taskgo.mvp.model.account.request.LoginReqModel;
+import com.hrsoft.taskgo.business.account.model.request.LoginReqModel;
 
 import java.util.List;
 

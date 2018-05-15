@@ -17,7 +17,6 @@ import java.util.Map;
  */
 public abstract class BaseModel implements IBaseContract.IBaseModel {
 
-
     /**
      * 维护每一个Presenter所对应的回调
      */
@@ -46,9 +45,10 @@ public abstract class BaseModel implements IBaseContract.IBaseModel {
 
     @Override
     public void removeNotifyListener(IBaseContract.IBasePresenter presenter) {
-        if (mListenerMap != null && mListenerMap.get(presenter) != null) {
+        if ((mListenerMap != null && mListenerMap.get(presenter) != null)) {
             mListenerMap.get(presenter).clear();
             mListenerMap.remove(presenter);
+            presenter = null;
         }
     }
 

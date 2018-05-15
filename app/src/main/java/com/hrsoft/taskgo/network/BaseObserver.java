@@ -25,6 +25,8 @@ import static android.content.ContentValues.TAG;
 public abstract class BaseObserver<T> implements Observer<ApiResponse<T>> {
 
 
+
+
     public abstract void onSuccess(ApiResponse<T> response);
 
     public abstract void onError(ApiException exception);

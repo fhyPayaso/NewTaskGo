@@ -132,7 +132,6 @@ public class App extends Application {
         CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(context);
         strategy.setUploadProcess(processName == null || processName.equals(packageName));
 
-
         CrashReport.initCrashReport(getApplicationContext(), "0f123ad5cc", Config.DEBUG);
 
     }
@@ -188,6 +187,6 @@ public class App extends Application {
      */
     public void exitAccount() {
         removeAllActivity();
-        getCacheUtil().putString(CacheKey.TOKEN, null);
+        getCacheUtil().clear();
     }
 }

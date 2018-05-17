@@ -20,6 +20,10 @@
     <color name="txt_blue">#007AFF</color>
     <color name="txt_gray">#979797</color>
 
+    <color name="btn_blue_btn">#2C91FF</color>
+
+    <color name="bg_btn">#BEBEBE</color>
+
     <color name="bg_gray">#EFEFF4</color>
 
     <!--message模块-->

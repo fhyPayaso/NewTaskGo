@@ -24,7 +24,7 @@ public class Config {
     /**
      * 是否为测试版本
      */
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
 
 
     /**

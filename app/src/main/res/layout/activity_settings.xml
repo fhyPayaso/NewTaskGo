@@ -1,83 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rlayout_mine_setting_change_password"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/bg_gray"
-        android:id="@+id/linearLayout"
-        android:orientation="vertical">
+        android:layout_height="45dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="@string/btn_mine_change_password"
+            android:textColor="@color/text_mine_button"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="11dp"
+            android:src="@drawable/ic_mine_arrow"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlayout_mine_setting_about"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="@string/btn_mine_about"
+            android:textColor="@color/text_mine_button"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="11dp"
+            android:src="@drawable/ic_mine_arrow"/>
 
 
+    </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/rlayout_mine_exchange_account"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/white">
 
-        <RelativeLayout
-            android:id="@+id/rlayout_mine_setting_change_password"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/white">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:text="@string/btn_mine_change_password"
-                android:textColor="@color/text_mine_button"
-                android:textSize="18sp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="11dp"
-                android:src="@drawable/ic_mine_arrow" />
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rlayout_mine_setting_about"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="0.5dp"
-            android:background="@color/white">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:text="@string/btn_mine_about"
-                android:textColor="@color/text_mine_button"
-                android:textSize="18sp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="11dp"
-                android:src="@drawable/ic_mine_arrow" />
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rlayout_mine_exchange_account"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/white">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:text="@string/btn_mine_exchange_account"
-                android:textColor="@color/txt_blue"
-                android:textSize="18sp" />
-        </RelativeLayout>
-    </LinearLayout>
-</RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/btn_mine_exchange_account"
+            android:textColor="@color/txt_blue"
+            android:textSize="16sp"/>
+    </RelativeLayout>
+</LinearLayout>

@@ -80,12 +80,6 @@ public class ReleaseTaskActivity extends BaseToolBarPresenterActivity<ReleaseTas
         countMoney();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     @Override
     protected ReleaseTaskContract.Presenter getPresenter() {

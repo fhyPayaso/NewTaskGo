@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 
+import com.hrsoft.taskgo.business.app.model.AppInfoModel;
 import com.hrsoft.taskgo.common.CacheKey;
 import com.hrsoft.taskgo.common.Config;
 import com.hrsoft.taskgo.utils.AppUtil;
@@ -188,5 +189,7 @@ public class App extends Application {
     public void exitAccount() {
         removeAllActivity();
         getCacheUtil().clear();
+        //保证版本信息不被清空
+        getCacheUtil().putSerializableObj(CacheKey.APP_INFORMATION, new AppInfoModel(Config.APP_VERSION));
     }
 }

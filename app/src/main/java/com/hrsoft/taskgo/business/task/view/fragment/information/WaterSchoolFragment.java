@@ -42,10 +42,9 @@ public class WaterSchoolFragment extends BasePresenterFragment<FillTaskInfContra
     TextView txtTypeSelf;
     @BindView(R.id.btn_release_task)
     Button btnReleaseTask;
-    Unbinder unbinder;
 
     /**
-     * 记录送水类型
+     * 记录送水类型，0代表自取，1代表送水上门
      */
     private int mWaterTaskType;
 
@@ -74,20 +73,6 @@ public class WaterSchoolFragment extends BasePresenterFragment<FillTaskInfContra
     }
 
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
     /**
      * 送水上门类型点击事件
      */
@@ -96,7 +81,7 @@ public class WaterSchoolFragment extends BasePresenterFragment<FillTaskInfContra
 
         txtTypeSend.setSelected(true);
         txtTypeSelf.setSelected(false);
-        mWaterTaskType = 0;
+        mWaterTaskType = 1;
     }
 
     /**
@@ -106,7 +91,7 @@ public class WaterSchoolFragment extends BasePresenterFragment<FillTaskInfContra
     public void onTxtTypeSelfClicked() {
         txtTypeSend.setSelected(false);
         txtTypeSelf.setSelected(true);
-        mWaterTaskType = 1;
+        mWaterTaskType = 0;
     }
 
     @OnClick(R.id.btn_release_task)

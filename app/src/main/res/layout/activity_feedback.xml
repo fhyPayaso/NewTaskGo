@@ -1,47 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg_gray">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bg_gray"
+              android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/rlayout_mine_feedback"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/white">
+        android:layout_height="150dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/white"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        >
 
         <EditText
             android:id="@+id/edit_mine_feedback"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:hint="@string/txt_mine_pleease_enter_feedback"
             android:background="@null"
-            android:textSize="13sp"
+            android:hint="@string/txt_mine_pleease_enter_feedback"
             android:textColor="@color/text_mine_gray"
-            android:layout_marginTop="10dp"
-            />
+            android:textSize="13sp"/>
+    </LinearLayout>
 
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/bg_gray" />
-
-        <Button
-            android:id="@+id/btn_mine_feedback"
-            android:layout_width="324dp"
-            android:layout_height="31.5dp"
-            android:layout_below="@id/edit_mine_feedback"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="75dp"
-            android:layout_marginBottom="20dp"
-            android:textColor="@color/white"
-            android:background="@drawable/bg_task_btn_blue"
-            android:text="@string/btn_mine_submmit" />
-    </RelativeLayout>
-
-
-</RelativeLayout>
+    <Button
+        android:id="@+id/btn_mine_feedback"
+        android:layout_width="324dp"
+        android:layout_height="35dp"
+        android:layout_below="@id/edit_mine_feedback"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_task_btn_blue"
+        android:text="@string/btn_mine_submmit"
+        android:textColor="@color/white"/>
+</LinearLayout>

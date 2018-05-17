@@ -41,13 +41,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        removeFragmentState(savedInstanceState);
         super.onCreate(savedInstanceState);
         //禁止应用横屏
         allowScreenHorizontal(false);
 
         //浅颜色ToolBar设置深色状态栏文字颜色
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View
-                .SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         //个推初始化
         PushManager.getInstance().initialize(this.getApplicationContext(), PushService.class);
     }
@@ -164,5 +164,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         dismissProgressDialog();
         super.onDestroy();
+    }
+
+
+    /**
+     * 清除fragment状态
+     *
+     * @param savedInstanceState
+     */
+    protected void removeFragmentState(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            savedInstanceState.remove("android:support:fragments");
+            savedInstanceState.remove("android:fragments");
+        }
     }
 }

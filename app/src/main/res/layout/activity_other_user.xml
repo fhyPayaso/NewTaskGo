@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#EFEFF4"
-    android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#EFEFF4"
+                android:orientation="horizontal">
 
     <RelativeLayout
         android:id="@+id/rlayout_mine_title"
@@ -12,204 +12,175 @@
         android:background="@color/white">
 
         <ImageView
+            android:id="@+id/img_mine_background"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/bg_img_mine_background" />
+            android:src="@drawable/bg_img_mine_background"/>
+
+
+        <TextView
+            android:id="@+id/txt_personal_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="240dp"/>
+
+
+        <LinearLayout
+            android:id="@+id/rlayout_mine_follow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/txt_personal_name"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="60dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_mine_follower"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_mine_follow"
+                android:textColor="#979797"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/rlayout_mine_fans"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/txt_personal_name"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="60dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_mine_fans"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_mine_fans"
+                android:textColor="#979797"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="123.5dp"
-            android:src="@drawable/bg_img_mine_below_portrait" />
-
+            android:src="@drawable/bg_img_mine_below_portrait"/>
 
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_portrait"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="127.5dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="23dp" />
-        <TextView
-            android:id="@+id/txt_personal_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="240dp"
-            android:layout_marginBottom="10dp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_marginBottom="23dp"
+            android:layout_marginTop="127.5dp"/>
 
     </RelativeLayout>
 
 
-
-
     <RelativeLayout
-        android:id="@+id/rlayout_mine_friend"
+        android:id="@+id/rlayout_mine_real_name"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="42dp"
         android:layout_below="@id/rlayout_mine_title"
-        android:layout_centerHorizontal="true"
+        android:layout_marginTop="1dp"
         android:background="@color/white">
 
-        <RelativeLayout
-            android:id="@+id/rlayout_mine_follow"
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/ic_personal_phone"/>
+
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="80dp">
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50dp"
+            android:text="@string/txt_mine_phone"
+            android:textColor="@color/text_mine_button"
+            android:textSize="14sp"/>
 
-            <TextView
-                android:id="@+id/txt_mine_follower"
-                android:layout_width="22dp"
-                android:layout_height="25dp"
-                android:layout_centerHorizontal="true"
-                android:textColor="#000000"
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:text="@string/txt_mine_follow"
-                android:layout_marginBottom="20dp"
-                android:textColor="#979797"
-                android:textSize="12sp" />
-
-
-        </RelativeLayout>
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="15.5dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="9.5dp"
-            android:background="#ABB4BF" />
-
-        <RelativeLayout
-            android:id="@+id/rlayout_mine_fans"
+        <TextView
+            android:id="@+id/txt_personal_phone"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="80dp">
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"/>
 
-            <TextView
-                android:id="@+id/txt_mine_fans"
-                android:layout_width="22dp"
-                android:layout_height="25dp"
-                android:layout_centerHorizontal="true"
-                android:textColor="#000000"
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:text="@string/txt_mine_fans"
-                android:layout_marginBottom="20dp"
-                android:textColor="#979797"
-                android:textSize="12sp" />
-
-        </RelativeLayout>
 
     </RelativeLayout>
 
 
-
-
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/rlayout_mine_feedback"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="330dp"
+        android:layout_height="42dp"
+        android:layout_below="@id/rlayout_mine_real_name"
+        android:layout_marginTop="1dp"
+        android:background="@color/white">
 
-        android:background="@color/white"
-        android:orientation="vertical">
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/ic_personal_sex"/>
 
-        <RelativeLayout
-            android:id="@+id/rlayout_mine_real_name"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="6dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50dp"
+            android:text="@string/txt_mine_gender"
+            android:textColor="@color/text_mine_button"
+            android:textSize="14sp"/>
 
+        <TextView
+            android:id="@+id/txt_personal_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"/>
+    </RelativeLayout>
 
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/ic_personal_phone" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="50dp"
-                android:text="@string/txt_mine_phone"
-                android:textColor="@color/text_mine_button"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/txt_personal_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="150dp"/>
-
-
-
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#D1D1D6" />
-
-
-        <RelativeLayout
-            android:id="@+id/rlayout_mine_feedback"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="6dp">
-
-
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/ic_personal_sex" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="50dp"
-                android:text="@string/txt_mine_gender"
-                android:textColor="@color/text_mine_button"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/txt_personal_sex"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="50dp"/>
-
-
-        </RelativeLayout>
-
-
-
-    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:layout_height="wrap_content">
+        android:layout_marginBottom="10dp">
 
         <Button
             android:id="@+id/btn_chat"
@@ -220,20 +191,21 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
-            android:background="@color/white"
+            android:background="@drawable/bg_task_btn_gray"
             android:text="私信"
-            android:textSize="18sp" />
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
 
         <Button
             android:id="@+id/btn_concentrate"
             android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
-            android:background="@color/btn_blue"
+            android:background="@drawable/bg_task_btn_blue"
             android:text="关注"
             android:textColor="@color/white"
-            android:textSize="18sp"
-            android:layout_alignParentRight="true"
-            android:layout_height="40dp" />
+            android:textSize="18sp"/>
 
     </RelativeLayout>
 

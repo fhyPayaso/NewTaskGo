@@ -206,8 +206,7 @@ public class MyTaskListPresenter extends BasePresenter<MyTaskListContract.View> 
                 WaterAttributesRespModel.class);
 
         if (mNeedUserInfo) {
-            MineInformationModel infoModel = (MineInformationModel) App.getInstance().getCacheUtil()
-                    .getSerializableObj(CacheKey.USER_INFO);
+            MineInformationModel infoModel = (MineInformationModel) App.getInstance().getCacheUtil().getSerializableObj(CacheKey.USER_INFO);
             model.setUserId(Integer.valueOf(infoModel.getId()));
             model.setAvatarUrl(infoModel.getAvatar());
             model.setUserName(infoModel.getName());
@@ -226,7 +225,7 @@ public class MyTaskListPresenter extends BasePresenter<MyTaskListContract.View> 
         model.setSecondTitle("宿舍号 : ");
         model.setSecondValue(waterRespModel.getAddress());
         model.setThirdTitle("送水类型 : ");
-        model.setThirdValue(waterRespModel.getSendType().equals("0") ? "送水上门" : "自取");
+        model.setThirdValue(waterRespModel.getSendType().equals("1") ? "送水上门" : "自取");
         model.setTaskId(respModel.getId());
         model.setTaskStatus(waterRespModel.getStatus());
         model.setTaskPayStatus(waterRespModel.getPayStatus());

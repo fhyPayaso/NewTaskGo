@@ -129,7 +129,7 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
                             model.setSecondTitle("宿舍号 : ");
                             model.setSecondValue(respModel.getAttributes().getAddress());
                             model.setThirdTitle("送水类型 : ");
-                            model.setThirdValue(respModel.getAttributes().getSendType().equals("0") ? "送水上门" : "自取");
+                            model.setThirdValue(respModel.getAttributes().getSendType().equals("1") ? "送水上门" : "自取");
                             model.setTaskId(respModel.getId());
                             model.setTaskStatus(respModel.getAttributes().getStatus());
                             model.setTaskPayStatus(respModel.getAttributes().getPayStatus());

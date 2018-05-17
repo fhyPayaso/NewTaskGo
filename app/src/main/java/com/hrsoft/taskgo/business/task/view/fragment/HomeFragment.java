@@ -36,7 +36,6 @@ public class HomeFragment extends BaseFragment implements BannerPager.OnBannerCl
 
     @BindView(R.id.vp_banner_pager)
     BannerPager vpBannerPager;
-    Unbinder unbinder;
     @BindView(R.id.card_student_company)
     CardView cardStudentCompany;
     @BindView(R.id.card_diy_task)
@@ -98,13 +97,6 @@ public class HomeFragment extends BaseFragment implements BannerPager.OnBannerCl
         return imageView;
     }
 
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
     @OnClick({R.id.card_student_company, R.id.card_diy_task, R.id.card_money_task, R.id.card_help_task, R.id
             .card_promotion_task, R.id.card_recruitment_task})
     public void onViewClicked(View view) {
@@ -144,12 +136,5 @@ public class HomeFragment extends BaseFragment implements BannerPager.OnBannerCl
     public void onBannerClick(int position) {
 
     }
-
-
-    private void unClick() {
-
-        cardStudentCompany.setClickable(false);
-    }
-
 
 }

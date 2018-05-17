@@ -151,5 +151,4 @@ public class MyFollowFansActivity extends BaseToolBarPresenterActivity<MyFollowC
         context.startActivity(intent);
     }
 
-
 }

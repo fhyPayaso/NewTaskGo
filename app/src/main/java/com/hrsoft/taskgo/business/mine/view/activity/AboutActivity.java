@@ -44,6 +44,4 @@ public class AboutActivity extends BaseToolBarActivity {
         Intent intent = new Intent(context, AboutActivity.class);
         context.startActivity(intent);
     }
-
-
 }

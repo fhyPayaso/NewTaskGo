@@ -17,7 +17,7 @@ public class RealNamePresenter extends BasePresenter<RealNameContract.View> impl
     }
 
     @Override
-    public void submitRealName(RealNameModel realNameModel) {
+    public void submitRealName(final RealNameModel realNameModel) {
         IDataCallback.Callback callback = new IDataCallback.Callback() {
             @Override
             public void onFailedLoaded(String error) {

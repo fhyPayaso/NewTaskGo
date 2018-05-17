@@ -28,8 +28,7 @@ import static com.hrsoft.taskgo.common.Config.APP_ID;
  * email fanhongyu@hrsoft.net.
  */
 
-public class ReleaseTaskPresenter extends BasePresenter<ReleaseTaskContract.View> implements ReleaseTaskContract
-        .Presenter {
+public class ReleaseTaskPresenter extends BasePresenter<ReleaseTaskContract.View> implements ReleaseTaskContract.Presenter {
 
     public ReleaseTaskPresenter(ReleaseTaskContract.View view) {
         super(view);

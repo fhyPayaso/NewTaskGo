@@ -135,8 +135,7 @@ public class EditDataActivity extends BaseToolBarPresenterActivity<EditDataContr
                                         new UpdateInformationModel(
                                                 mineInformationModel.getAvatar(),
                                                 mineInformationModel.getName(),
-                                                "男")
-                                );
+                                                "男"));
                                 break;
                             case 1:
                                 mTxtMineEditDataGender.setText(getString(R.string.txt_gender_woman));
@@ -176,8 +175,6 @@ public class EditDataActivity extends BaseToolBarPresenterActivity<EditDataContr
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(lp);
-
-
         btnTakePhoto = bottomDialog.findViewById(R.id.btn_take_photo);
         btnFromAlbum = bottomDialog.findViewById(R.id.btn_from_album);
         btnCancel = bottomDialog.findViewById(R.id.btn_cancel);

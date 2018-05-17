@@ -20,7 +20,9 @@
             android:hint="@string/txt_mine_pleease_enter_feedback"
             android:background="@null"
             android:textSize="13sp"
-            android:textColor="@color/text_mine_gray"/>
+            android:textColor="@color/text_mine_gray"
+            android:layout_marginTop="10dp"
+            />
 
 
         <View
@@ -37,7 +39,7 @@
             android:layout_marginTop="75dp"
             android:layout_marginBottom="20dp"
             android:textColor="@color/white"
-            android:background="@color/btn_blue"
+            android:background="@drawable/bg_task_btn_blue"
             android:text="@string/btn_mine_submmit" />
     </RelativeLayout>
 

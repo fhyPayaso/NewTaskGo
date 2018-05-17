@@ -76,14 +76,8 @@
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:text="@string/btn_mine_exchange_account"
-                android:textColor="@color/text_mine_button"
+                android:textColor="@color/txt_blue"
                 android:textSize="18sp" />
         </RelativeLayout>
-
-
-
-
-
     </LinearLayout>
-
 </RelativeLayout>

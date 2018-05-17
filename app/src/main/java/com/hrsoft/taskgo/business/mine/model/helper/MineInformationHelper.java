@@ -1,5 +1,6 @@
 package com.hrsoft.taskgo.business.mine.model.helper;
 
+import com.hrsoft.taskgo.App;
 import com.hrsoft.taskgo.base.mvp.IBaseContract;
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
 import com.hrsoft.taskgo.base.mvp.model.BaseModel;
@@ -8,6 +9,7 @@ import com.hrsoft.taskgo.business.mine.model.request.RealNameModel;
 import com.hrsoft.taskgo.business.mine.model.request.UpdateInformationModel;
 import com.hrsoft.taskgo.business.mine.model.response.MineCardModel;
 import com.hrsoft.taskgo.business.mine.model.response.MineInformationModel;
+import com.hrsoft.taskgo.common.CacheKey;
 import com.hrsoft.taskgo.network.BaseObserver;
 import com.hrsoft.taskgo.network.NetworkFactory;
 import com.hrsoft.taskgo.network.response.ApiException;
@@ -44,6 +46,8 @@ public class MineInformationHelper extends BaseModel {
                     @Override
                     public void onSuccess(ApiResponse<MineInformationModel> response) {
                         iDataCallback.onDataLoaded(response.getData());
+                        //缓存用户信息
+                        App.getInstance().getCacheUtil().putSerializableObj(CacheKey.USER_INFO, response.getData());
                     }
 
                     @Override
@@ -51,7 +55,6 @@ public class MineInformationHelper extends BaseModel {
                         iDataCallback.onFailedLoaded(exception.getMsg());
                     }
                 });
-
     }
 
     @SuppressWarnings("unchecked")

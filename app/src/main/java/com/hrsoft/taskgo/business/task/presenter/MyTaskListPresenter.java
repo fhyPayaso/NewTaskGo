@@ -1,10 +1,14 @@
 package com.hrsoft.taskgo.business.task.presenter;
 
 import android.os.Handler;
+import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
+import com.hrsoft.taskgo.App;
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
 import com.hrsoft.taskgo.base.mvp.presenter.BasePresenter;
+import com.hrsoft.taskgo.business.mine.model.response.MineInformationModel;
+import com.hrsoft.taskgo.common.CacheKey;
 import com.hrsoft.taskgo.common.MyTaskConfig;
 import com.hrsoft.taskgo.business.task.contract.MyTaskListContract;
 import com.hrsoft.taskgo.business.task.model.TaskHelper;
@@ -30,6 +34,9 @@ public class MyTaskListPresenter extends BasePresenter<MyTaskListContract.View> 
      * 送水类型响应体
      */
     public static final String RESP_WATER = "water";
+
+    private boolean mNeedUserInfo = false;
+
 
     public MyTaskListPresenter(MyTaskListContract.View view) {
         super(view);
@@ -149,7 +156,9 @@ public class MyTaskListPresenter extends BasePresenter<MyTaskListContract.View> 
 
             @Override
             public void onDataLoaded(List<TasListRespModel<String>> tasListRespModels) {
+                mNeedUserInfo = true;
                 processingData(tasListRespModels, page);
+                mNeedUserInfo = false;
             }
         };
         TaskHelper.getInstance().loadMyReleaseTaskList(this, page, status, callback);
@@ -165,29 +174,20 @@ public class MyTaskListPresenter extends BasePresenter<MyTaskListContract.View> 
     private void processingData(List<TasListRespModel<String>> tasListRespModels, int page) {
 
         if (mView != null) {
-
-            if (tasListRespModels == null || tasListRespModels.size() == 0) {
-                if (page == 1) {
-                    mView.onLoadTaskListError("当前列表暂无任务");
-                } else {
-                    mView.onLoadTaskListError("暂无更多");
+            List<BaseTaskModel> baseTaskModels = new ArrayList<>();
+            for (TasListRespModel<String> respModel : tasListRespModels) {
+                switch (respModel.getType()) {
+                    case RESP_WATER:
+                        BaseTaskModel model = processingWaterTaskData(respModel);
+                        if (model != null) {
+                            baseTaskModels.add(model);
+                        }
+                        break;
+                    default:
+                        break;
                 }
-            } else {
-                List<BaseTaskModel> baseTaskModels = new ArrayList<>();
-                for (TasListRespModel<String> respModel : tasListRespModels) {
-                    switch (respModel.getType()) {
-                        case RESP_WATER:
-                            BaseTaskModel model = processingWaterTaskData(respModel);
-                            if (model != null) {
-                                baseTaskModels.add(model);
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                mView.onLoadTaskListSuccess(baseTaskModels);
             }
+            mView.onLoadTaskListSuccess(baseTaskModels);
         }
     }
 
@@ -205,9 +205,19 @@ public class MyTaskListPresenter extends BasePresenter<MyTaskListContract.View> 
         WaterAttributesRespModel waterRespModel = new Gson().fromJson(respModel.getAttributes(),
                 WaterAttributesRespModel.class);
 
-        model.setUserId(respModel.getUserId());
-        model.setUserName(respModel.getUserName() == null ? "" : respModel.getUserName());
-        model.setAvatarUrl(respModel.getAvatarImgUrl());
+        if (mNeedUserInfo) {
+            MineInformationModel infoModel = (MineInformationModel) App.getInstance().getCacheUtil()
+                    .getSerializableObj(CacheKey.USER_INFO);
+            model.setUserId(Integer.valueOf(infoModel.getId()));
+            model.setAvatarUrl(infoModel.getAvatar());
+            model.setUserName(infoModel.getName());
+        } else {
+            model.setUserId(respModel.getUserId());
+            model.setUserName(respModel.getUserName() == null ? "" : respModel.getUserName());
+            model.setAvatarUrl(respModel.getAvatarImgUrl());
+        }
+
+
         model.setTaskType("校内送水");
         model.setCardNumber(respModel.getCardsJson().getGoodPeople());
         model.setMoney(Double.valueOf(waterRespModel.getMoney()));

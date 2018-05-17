@@ -98,13 +98,6 @@ public class HomeFragment extends BaseFragment implements BannerPager.OnBannerCl
         return imageView;
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
 
     @Override
     public void onDestroyView() {
@@ -116,14 +109,11 @@ public class HomeFragment extends BaseFragment implements BannerPager.OnBannerCl
             .card_promotion_task, R.id.card_recruitment_task})
     public void onViewClicked(View view) {
 
-
-        ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), view,
-                getString(R.string.key_home_animation));
         Intent intent = new Intent(getContext(), TaskGridActivity.class);
         switch (view.getId()) {
             case R.id.card_student_company:
                 intent.putExtra(TaskTypeConfig.KEY_MODULE_TYPE, TaskTypeConfig.MODEL_COLLEGE);
-                ActivityCompat.startActivity(getContext(), intent, compat.toBundle());
+                getContext().startActivity(intent);
                 break;
             case R.id.card_diy_task:
                 intent.putExtra(TaskTypeConfig.KEY_MODULE_TYPE, TaskTypeConfig.MODEL_DIY);
@@ -131,19 +121,19 @@ public class HomeFragment extends BaseFragment implements BannerPager.OnBannerCl
                 break;
             case R.id.card_money_task:
                 intent.putExtra(TaskTypeConfig.KEY_MODULE_TYPE, TaskTypeConfig.MODEL_MONEY);
-                ActivityCompat.startActivity(getContext(), intent, compat.toBundle());
+                getContext().startActivity(intent);
                 break;
             case R.id.card_help_task:
                 intent.putExtra(TaskTypeConfig.KEY_MODULE_TYPE, TaskTypeConfig.MODEL_HELP);
-                ActivityCompat.startActivity(getContext(), intent, compat.toBundle());
+                getContext().startActivity(intent);
                 break;
             case R.id.card_promotion_task:
                 intent.putExtra(TaskTypeConfig.KEY_MODULE_TYPE, TaskTypeConfig.MODEL_PROMOTION);
-                ActivityCompat.startActivity(getContext(), intent, compat.toBundle());
+                getContext().startActivity(intent);
                 break;
             case R.id.card_recruitment_task:
                 intent.putExtra(TaskTypeConfig.KEY_MODULE_TYPE, TaskTypeConfig.MODEL_OFFER);
-                ActivityCompat.startActivity(getContext(), intent, compat.toBundle());
+                getContext().startActivity(intent);
                 break;
             default:
                 break;
@@ -156,15 +146,10 @@ public class HomeFragment extends BaseFragment implements BannerPager.OnBannerCl
     }
 
 
-
-
     private void unClick() {
 
         cardStudentCompany.setClickable(false);
     }
-
-
-
 
 
 }

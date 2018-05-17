@@ -117,7 +117,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 简单类型的ProgressDialog
      */
     public void showProgressDialog() {
-        showProgressDialog("请稍后");
+        showProgressDialog("请稍后...");
     }
 
 

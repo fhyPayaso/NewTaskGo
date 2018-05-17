@@ -204,15 +204,15 @@ public class TaskListActivity extends BaseToolBarPresenterActivity<TaskListContr
         FillTaskInfoActivity.startActivity(this, mTaskType);
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
-        mBtnReleaseTask.setClickable(true);
-        //初始化加载数据
-        mRefreshLayout.setRefreshing(true);
-        onRefresh();
-
+        if (!mRefreshLayout.isRefreshing()) {
+            mBtnReleaseTask.setClickable(true);
+            //初始化加载数据
+            mRefreshLayout.setRefreshing(true);
+            onRefresh();
+        }
     }
 
     /**

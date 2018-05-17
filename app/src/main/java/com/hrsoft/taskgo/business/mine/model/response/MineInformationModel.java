@@ -1,12 +1,14 @@
 package com.hrsoft.taskgo.business.mine.model.response;
 
 import com.google.gson.annotations.SerializedName;
+import com.hrsoft.taskgo.base.mvp.model.BaseBean;
+import com.hrsoft.taskgo.base.mvp.model.BaseModel;
 
 /**
  * @author：lszr on 2018/5/7 20:53
  * @email：1085963811@qq.com
  */
-public class MineInformationModel {
+public class MineInformationModel extends BaseBean{
     private String name;
     private String id;
     private String mobile;
@@ -178,4 +180,8 @@ public class MineInformationModel {
     }
 
 
+    @Override
+    public boolean checkValue() {
+        return false;
+    }
 }

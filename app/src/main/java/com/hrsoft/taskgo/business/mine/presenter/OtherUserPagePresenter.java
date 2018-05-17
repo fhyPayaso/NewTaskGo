@@ -19,7 +19,7 @@ public class OtherUserPagePresenter extends BasePresenter<OtherUserPageContract.
     @Override
     public void loadOtherUserPage(int userId) {
 
-        IDataCallback.Callback<OtherUserPageModel> callback=new IDataCallback.Callback<OtherUserPageModel>() {
+        IDataCallback.Callback<OtherUserPageModel> callback = new IDataCallback.Callback<OtherUserPageModel>() {
             @Override
             public void onFailedLoaded(String error) {
 
@@ -30,13 +30,13 @@ public class OtherUserPagePresenter extends BasePresenter<OtherUserPageContract.
                 mView.onLoadOtherUserPageSuccess(otherUserPageModel);
             }
         };
-        MyFollowFansHelper.getInstance().loadOtherUserPage(this,callback,userId);
+        MyFollowFansHelper.getInstance().loadOtherUserPage(this, callback, userId);
 
     }
 
     @Override
     public void concentrateSB(int userId) {
-        IDataCallback.Callback callback=new IDataCallback.Callback() {
+        IDataCallback.Callback callback = new IDataCallback.Callback() {
             @Override
             public void onFailedLoaded(String error) {
 
@@ -47,13 +47,13 @@ public class OtherUserPagePresenter extends BasePresenter<OtherUserPageContract.
                 mView.onConcentrateSBSuccess();
             }
         };
-        MyFollowFansHelper.getInstance().concentrateSB(this,callback,userId);
+        MyFollowFansHelper.getInstance().concentrateSB(this, callback, userId);
 
     }
 
     @Override
     public void unConcentrateSB(int userId) {
-        IDataCallback.Callback callback=new IDataCallback.Callback() {
+        IDataCallback.Callback callback = new IDataCallback.Callback() {
             @Override
             public void onFailedLoaded(String error) {
 
@@ -64,7 +64,7 @@ public class OtherUserPagePresenter extends BasePresenter<OtherUserPageContract.
                 mView.onUnConcentrateSBSuccess();
             }
         };
-        MyFollowFansHelper.getInstance().unConcentrateSB(this,callback,userId);
+        MyFollowFansHelper.getInstance().unConcentrateSB(this, callback, userId);
 
     }
 }

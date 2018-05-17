@@ -82,7 +82,7 @@ public abstract class BaseFragment extends Fragment {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(getContext());
             mProgressDialog.setCanceledOnTouchOutside(false);
-            mProgressDialog.setMessage("请稍后");
+            mProgressDialog.setMessage("请稍后...");
         }
 
         ThreadUtil.runOnUiThread(new Runnable() {

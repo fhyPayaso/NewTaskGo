@@ -12,7 +12,7 @@ public class Config {
     /**
      * 当前app版本号
      */
-    public static final String APP_VERSION = "1.0.1";
+    public static final String APP_VERSION = "1.0.2";
 
 
     /**
@@ -24,7 +24,7 @@ public class Config {
     /**
      * 是否为测试版本
      */
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
 
     /**

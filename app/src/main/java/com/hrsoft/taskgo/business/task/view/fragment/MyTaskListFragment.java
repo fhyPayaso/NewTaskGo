@@ -1,18 +1,23 @@
 package com.hrsoft.taskgo.business.task.view.fragment;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.adapter.RecyclerScrollListener;
 import com.hrsoft.taskgo.base.mvp.view.BasePresenterFragment;
-import com.hrsoft.taskgo.common.MyTaskConfig;
+import com.hrsoft.taskgo.business.mine.view.activity.OtherUserPageActivity;
 import com.hrsoft.taskgo.business.task.contract.MyTaskListContract;
 import com.hrsoft.taskgo.business.task.model.bean.BaseTaskModel;
 import com.hrsoft.taskgo.business.task.presenter.MyTaskListPresenter;
-import com.hrsoft.taskgo.business.mine.view.activity.OtherUserPageActivity;
 import com.hrsoft.taskgo.business.task.view.adapter.TaskListRecyclerAdapter;
+import com.hrsoft.taskgo.common.MyTaskConfig;
 import com.hrsoft.taskgo.utils.DialogUtil;
 import com.hrsoft.taskgo.utils.ToastUtil;
 
@@ -20,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 
 /**
@@ -36,6 +43,9 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
     RecyclerView mRecyclerView;
     @BindView(R.id.fresh_task_list)
     SwipeRefreshLayout mRefreshLayout;
+    @BindView(R.id.txt_my_task_default)
+    TextView txtMyTaskDefault;
+
 
     private String mTaskStatusType;
     private TaskListRecyclerAdapter mRecyclerAdapter;
@@ -83,9 +93,11 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
     @Override
     public void onResume() {
         super.onResume();
-        mRefreshLayout.setRefreshing(true);
+        if (!mRefreshLayout.isRefreshing()) {
+            mRefreshLayout.setRefreshing(true);
+            onRefresh();
+        }
         //初始化加载数据
-        onRefresh();
     }
 
     /**
@@ -127,7 +139,6 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
 
     @Override
     public void onRefresh() {
-
         mCurrentPage = 0;
         mPresenter.loadTaskList(mTaskStatusType, mCurrentPage + 1);
     }
@@ -135,22 +146,32 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
 
     @Override
     public void onLoadMore() {
-
         mPresenter.loadTaskList(mTaskStatusType, mCurrentPage + 1);
     }
 
     @Override
     public void onLoadTaskListSuccess(List<BaseTaskModel> taskModelList) {
+
+
         mRefreshLayout.setRefreshing(false);
         if (mScrollListener.isLoading()) {
             mScrollListener.setLoadMoreFinish();
         }
 
-        mCurrentPage++;
-        if (mCurrentPage == 1) {
-            mRecyclerAdapter.reSetDataList(taskModelList);
+        if (taskModelList == null || taskModelList.size() == 0) {
+            if (mCurrentPage == 0) {
+                txtMyTaskDefault.setText("当前列表暂无任务");
+            } else {
+                ToastUtil.showToast("暂无更多");
+            }
         } else {
-            mRecyclerAdapter.addItems(taskModelList);
+
+            mCurrentPage++;
+            if (mCurrentPage == 1) {
+                mRecyclerAdapter.reSetDataList(taskModelList);
+            } else {
+                mRecyclerAdapter.addItems(taskModelList);
+            }
         }
     }
 
@@ -181,8 +202,6 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
         //添加下拉刷新事件监听
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.txt_blue));
-
-
     }
 
     @Override
@@ -195,6 +214,5 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
     public void finishTaskError(String error) {
         ToastUtil.showToast(error);
     }
-
 
 }

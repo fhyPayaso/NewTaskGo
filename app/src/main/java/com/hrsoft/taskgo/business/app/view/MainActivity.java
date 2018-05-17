@@ -17,6 +17,8 @@ import com.hrsoft.taskgo.business.app.presenter.MainPresenter;
 import com.hrsoft.taskgo.business.message.view.fragment.MessageFragment;
 import com.hrsoft.taskgo.business.mine.view.fragment.MineFragment;
 import com.hrsoft.taskgo.business.task.view.fragment.HomeFragment;
+import com.hrsoft.taskgo.common.CacheKey;
+import com.hrsoft.taskgo.common.Config;
 import com.hrsoft.taskgo.utils.DialogUtil;
 import com.hrsoft.taskgo.utils.FragmentUtil;
 
@@ -61,6 +63,8 @@ public class MainActivity extends BasePresenterActivity<MainContract.Presenter> 
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        //每次进入检查是否有新版本
+        App.getInstance().getCacheUtil().putSerializableObj(CacheKey.APP_INFORMATION,new AppInfoModel(Config.APP_VERSION));
         mPresenter.checkAppVersion();
     }
 

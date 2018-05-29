@@ -25,8 +25,8 @@
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <!-- 个推3.0电子围栏功能所需权限 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:name=".App"
@@ -53,7 +53,8 @@
         <activity android:name=".business.account.view.activity.LoginActivity"/>
 
         <activity android:name=".business.account.view.activity.GuideActivity"/>
-        <activity android:name=".business.task.view.activity.TaskGridActivity"
+        <activity
+            android:name=".business.task.view.activity.TaskGridActivity"
             android:launchMode="singleTop"
             />
 
@@ -73,7 +74,8 @@
         <activity android:name=".business.task.view.activity.FillTaskInfoActivity"/>
 
 
-        <activity android:name=".business.task.view.activity.MyTaskListActivity"
+        <activity
+            android:name=".business.task.view.activity.MyTaskListActivity"
             android:launchMode="singleTop"
 
             />
@@ -96,20 +98,20 @@
         <activity android:name=".business.mine.view.activity.MyFollowFansActivity"/>
         <activity android:name=".business.mine.view.activity.OtherUserPageActivity"/>
         <activity
-            android:name=".business.mine.view.activity.EditDataActivity"
-            android:label="@string/app_name"/>
+            android:name=".business.mine.view.activity.EditDataActivity"/>
         <activity
-            android:name=".business.mine.view.activity.ChangeNameActivity"
-            android:label="@string/app_name"/>
+            android:name=".business.mine.view.activity.ChangeNameActivity"/>
         <activity
             android:name=".business.mine.view.activity.RealNameActivity"
             android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".business.mine.view.activity.FeedbackActivity"/>
+        <activity android:name=".business.mine.view.activity.FeedbackActivity"
+            android:launchMode="singleTop"
+            />
         <activity android:name=".business.mine.view.activity.SettingActivity"/>
         <activity android:name=".business.mine.view.activity.MineCardActivity"/>
 
         <activity android:name=".business.mine.view.activity.AboutActivity"/>
-        <activity android:name=".business.mine.view.activity.MoneyPackageActivity" />
+        <activity android:name=".business.mine.view.activity.MoneyPackageActivity"/>
     </application>
 
 </manifest>

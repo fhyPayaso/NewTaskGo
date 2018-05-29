@@ -46,7 +46,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
             if (baseResp.errCode == 0) {
                 ToastUtil.showToast("支付成功");
             } else {
-                ToastUtil.showToast("支付失败");
+                ToastUtil.showToast("支付失败,可在我的任务界面撤销该任务。");
             }
         }
         TaskListActivity.startActivity(this, ReleaseTaskActivity.mTaskType);

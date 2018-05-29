@@ -42,7 +42,7 @@ public class TaskListPresenter extends BasePresenter<TaskListContract.View> impl
                         break;
                 }
             }
-        }, 1000);
+        }, 100);
     }
 
     @Override

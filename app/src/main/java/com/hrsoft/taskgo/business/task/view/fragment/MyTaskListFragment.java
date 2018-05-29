@@ -84,6 +84,8 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
             case MyTaskConfig.MY_ACCEPT_NOT_FINISHED:
                 finishTask(position);
                 break;
+            case MyTaskConfig.MY_RELEASE_NOT_ACCEPTED:
+                mPresenter.returnCard(mRecyclerAdapter.getDataList().get(position).getTaskId(),position);
             default:
                 break;
         }
@@ -161,6 +163,7 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
         if (taskModelList == null || taskModelList.size() == 0) {
             if (mCurrentPage == 0) {
                 txtMyTaskDefault.setText("当前列表暂无任务");
+                mRecyclerAdapter.removeAllItem();
             } else {
                 ToastUtil.showToast("暂无更多");
             }
@@ -212,6 +215,17 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
 
     @Override
     public void finishTaskError(String error) {
+        ToastUtil.showToast(error);
+    }
+
+    @Override
+    public void returnCardSuccess(int position) {
+        ToastUtil.showToast("退回卡片成功");
+        mRecyclerAdapter.removeItem(position);
+    }
+
+    @Override
+    public void returnCardError(String error) {
         ToastUtil.showToast(error);
     }
 

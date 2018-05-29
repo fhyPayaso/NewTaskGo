@@ -61,7 +61,7 @@ public class TaskHelper extends BaseModel {
 
                         if (response.getData() != null) {
                             callback.onDataLoaded(response.getData().getData());
-                        } else{
+                        } else {
                             callback.onFailedLoaded("暂无数据");
                         }
                     }
@@ -129,6 +129,33 @@ public class TaskHelper extends BaseModel {
                     @Override
                     public void onError(ApiException exception) {
                         callback.onDataLoaded(exception.getMsg());
+                    }
+                });
+    }
+
+    /**
+     * 退回卡片
+     *
+     * @param presenter
+     * @param waterId
+     * @param callback
+     */
+    @SuppressWarnings("unchecked")
+    public void returnCard(IBaseContract.IBasePresenter presenter, int waterId, final IDataCallback.Callback callback) {
+        addNotifyListener(presenter, callback);
+        NetworkFactory
+                .getService()
+                .returnCard(waterId)
+                .compose(BaseObserver.<ApiResponse>setThread())
+                .subscribe(new BaseObserver() {
+                    @Override
+                    public void onSuccess(ApiResponse response) {
+                        callback.onDataLoaded(response);
+                    }
+
+                    @Override
+                    public void onError(ApiException exception) {
+                        callback.onFailedLoaded(exception.getMsg());
                     }
                 });
     }

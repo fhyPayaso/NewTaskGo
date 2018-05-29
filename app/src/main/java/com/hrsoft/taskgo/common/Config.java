@@ -12,7 +12,7 @@ public class Config {
     /**
      * 当前app版本号
      */
-    public static final String APP_VERSION = "1.0.2";
+    public static final String APP_VERSION = "1.0.3";
 
 
     /**

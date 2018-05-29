@@ -118,6 +118,7 @@ public abstract class FooterRecyclerViewAdapter<Data> extends RecyclerView.Adapt
      */
     public void reSetDataList(Collection<Data> data) {
         this.mDataList.clear();
+        notifyDataSetChanged();
         this.mDataList.addAll(data);
         notifyDataSetChanged();
     }

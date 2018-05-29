@@ -38,7 +38,16 @@ public interface MyTaskListContract {
          *
          * @param taskId
          */
-        void finishTask(int taskId,int position);
+        void finishTask(int taskId, int position);
+
+
+        /**
+         * 退回卡片
+         *
+         * @param taskId
+         * @param position
+         */
+        void returnCard(int taskId, int position);
     }
 
 
@@ -79,6 +88,22 @@ public interface MyTaskListContract {
          * @param error
          */
         void finishTaskError(String error);
+
+
+        /**
+         * 退回卡片成功
+         *
+         * @param position
+         */
+        void returnCardSuccess(int position);
+
+
+        /**
+         * 退回卡片失败
+         *
+         * @param error
+         */
+        void returnCardError(String error);
 
     }
 

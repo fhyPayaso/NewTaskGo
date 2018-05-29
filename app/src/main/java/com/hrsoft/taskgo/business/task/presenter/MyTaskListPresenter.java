@@ -1,5 +1,6 @@
 package com.hrsoft.taskgo.business.task.presenter;
 
+import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 
@@ -69,7 +70,7 @@ public class MyTaskListPresenter extends BasePresenter<MyTaskListContract.View> 
                             break;
                     }
                 }
-            }, 1000);
+            }, 100);
         }
     }
 
@@ -111,6 +112,31 @@ public class MyTaskListPresenter extends BasePresenter<MyTaskListContract.View> 
             }
         };
         TaskHelper.getInstance().finishTask(this, taskId, callback);
+    }
+
+
+    /**
+     * 返回卡片
+     *
+     * @param taskId
+     * @param position
+     */
+    @Override
+    public void returnCard(int taskId, final int position) {
+
+        IDataCallback.Callback callback = new IDataCallback.Callback() {
+            @Override
+            public void onFailedLoaded(String error) {
+                mView.returnCardError(error);
+            }
+
+            @Override
+            public void onDataLoaded(Object o) {
+                mView.returnCardSuccess(position);
+            }
+        };
+        TaskHelper.getInstance().returnCard(this, taskId, callback);
+
     }
 
     /**
@@ -206,7 +232,8 @@ public class MyTaskListPresenter extends BasePresenter<MyTaskListContract.View> 
                 WaterAttributesRespModel.class);
 
         if (mNeedUserInfo) {
-            MineInformationModel infoModel = (MineInformationModel) App.getInstance().getCacheUtil().getSerializableObj(CacheKey.USER_INFO);
+            MineInformationModel infoModel = (MineInformationModel) App.getInstance().getCacheUtil()
+                    .getSerializableObj(CacheKey.USER_INFO);
             model.setUserId(Integer.valueOf(infoModel.getId()));
             model.setAvatarUrl(infoModel.getAvatar());
             model.setUserName(infoModel.getName());
@@ -229,13 +256,6 @@ public class MyTaskListPresenter extends BasePresenter<MyTaskListContract.View> 
         model.setTaskId(respModel.getId());
         model.setTaskStatus(waterRespModel.getStatus());
         model.setTaskPayStatus(waterRespModel.getPayStatus());
-
-
-        //先只展示支付成功的任务
-        if (model.getTaskPayStatus() == 1) {
-            return model;
-        } else {
-            return null;
-        }
+        return model;
     }
 }

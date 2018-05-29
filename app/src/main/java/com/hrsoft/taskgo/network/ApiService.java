@@ -105,6 +105,16 @@ public interface ApiService {
 
 
     /**
+     * 退回卡片
+     *
+     * @param waterId
+     * @return
+     */
+    @GET("water/return/cards/{waterId}")
+    Observable<ApiResponse> returnCard(@Path("waterId") int waterId);
+
+
+    /**
      * 分页拉取水任务列表
      *
      * @param page 页码

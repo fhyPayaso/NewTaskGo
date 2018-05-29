@@ -52,7 +52,8 @@ public class RecyclerScrollListener extends RecyclerView.OnScrollListener {
 
             //达到需要最大分页的数目并且滚动到最后
             if (totalItemCount != 0
-                    && totalItemCount % mItemNumPerPage == 0
+                    && mFooterRecyclerViewAdapter.getDataList().size() % mItemNumPerPage == 0
+                    && mFooterRecyclerViewAdapter.getDataList().size() != 0
                     && lastCompletePosition == (totalItemCount - 1)) {
 
                 mLoading = true;

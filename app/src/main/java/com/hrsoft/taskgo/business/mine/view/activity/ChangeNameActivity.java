@@ -45,9 +45,16 @@ public class ChangeNameActivity extends BaseToolBarActivity {
     @OnClick(R.id.btn_submmit_new_name)
     public void onViewClicked() {
 
-        if("".equals(editChangeName.getText().toString())){
+        String name = editChangeName.getText().toString();
+
+
+
+        if("".equals(name)){
             ToastUtil.showToast("请输入新的昵称");
-        }else{
+        }else if(name.length()>15){
+            ToastUtil.showToast("昵称不能超过15个字");
+        }
+        else{
 
             Intent intent = new Intent(this,EditDataActivity.class);
             intent.putExtra("newName", editChangeName.getText().toString().trim());

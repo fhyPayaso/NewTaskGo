@@ -14,6 +14,12 @@ import java.io.IOException;
 
 public class AppUtil {
 
+    /**
+     * 获取当前进程名
+     *
+     * @param pid
+     * @return
+     */
     public static String getProcessName(int pid) {
         BufferedReader reader = null;
         try {

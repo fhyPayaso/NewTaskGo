@@ -6,6 +6,7 @@ import com.hrsoft.taskgo.business.account.model.response.TokenRespModel;
 import com.hrsoft.taskgo.business.app.model.AppInfoRespModel;
 import com.hrsoft.taskgo.business.message.model.MessageModel;
 import com.hrsoft.taskgo.business.message.model.MsgReadDeleteReqModel;
+import com.hrsoft.taskgo.business.mine.model.request.BindBankCardModel;
 import com.hrsoft.taskgo.business.mine.model.request.FeedBackModel;
 import com.hrsoft.taskgo.business.mine.model.request.RealNameModel;
 import com.hrsoft.taskgo.business.mine.model.request.UpdateInformationModel;
@@ -112,6 +113,15 @@ public interface ApiService {
      */
     @GET("water/return/cards/{waterId}")
     Observable<ApiResponse> returnCard(@Path("waterId") int waterId);
+
+    /**
+     * 退款接口
+     *
+     * @param waterId
+     * @return
+     */
+    @GET("water/close/{waterId}")
+    Observable<ApiResponse> returnMoney(@Path("waterId") int waterId);
 
 
     /**
@@ -268,4 +278,22 @@ public interface ApiService {
 
     @GET("mycards")
     Observable<ApiResponse<List<MineCardModel>>> loadMineCard();
+
+
+    /**
+     * 提现接口
+     *
+     * @return
+     */
+    @GET("pay/money/true")
+    Observable<ApiResponse> withdrawMoney();
+
+    /**
+     * 绑定银行卡接口
+     *
+     * @param bindBankCardModel
+     * @return
+     */
+    @POST("userInfo/bank")
+    Observable<ApiResponse> bindBankCard(@Body BindBankCardModel bindBankCardModel);
 }

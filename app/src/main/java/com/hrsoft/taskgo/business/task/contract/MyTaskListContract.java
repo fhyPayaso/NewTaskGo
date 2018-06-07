@@ -48,6 +48,14 @@ public interface MyTaskListContract {
          * @param position
          */
         void returnCard(int taskId, int position);
+
+        /**
+         * 退款
+         *
+         * @param taskId
+         * @param position
+         */
+        void returnMoney(int taskId, int position);
     }
 
 
@@ -104,6 +112,20 @@ public interface MyTaskListContract {
          * @param error
          */
         void returnCardError(String error);
+
+        /**
+         * 退款成功
+         *
+         * @param position
+         */
+        void returnMoneySuccess(int position);
+
+        /**
+         * 退款失败
+         *
+         * @param error
+         */
+        void returnMoneyError(String error);
 
     }
 

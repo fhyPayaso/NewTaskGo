@@ -127,16 +127,45 @@ public class MyTaskListPresenter extends BasePresenter<MyTaskListContract.View> 
         IDataCallback.Callback callback = new IDataCallback.Callback() {
             @Override
             public void onFailedLoaded(String error) {
-                mView.returnCardError(error);
+                if (mView != null) {
+                    mView.returnCardError(error);
+                }
             }
 
             @Override
             public void onDataLoaded(Object o) {
-                mView.returnCardSuccess(position);
+                if (mView != null) {
+                    mView.returnCardSuccess(position);
+                }
             }
         };
         TaskHelper.getInstance().returnCard(this, taskId, callback);
 
+    }
+
+    /**
+     * 退款
+     *
+     * @param taskId
+     * @param position
+     */
+    @Override
+    public void returnMoney(int taskId, final int position) {
+        IDataCallback.Callback callback = new IDataCallback.Callback() {
+            @Override
+            public void onFailedLoaded(String error) {
+                if (mView != null) {
+                    mView.returnMoneyError(error);
+                }
+            }
+            @Override
+            public void onDataLoaded(Object o) {
+                if (mView != null) {
+                    mView.returnMoneySuccess(position);
+                }
+            }
+        };
+        TaskHelper.getInstance().returnMoney(this, taskId, callback);
     }
 
     /**

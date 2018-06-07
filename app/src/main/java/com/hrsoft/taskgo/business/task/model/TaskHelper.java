@@ -160,6 +160,34 @@ public class TaskHelper extends BaseModel {
                 });
     }
 
+    /**
+     * 退款
+     *
+     * @param presenter
+     * @param waterId
+     * @param callback
+     */
+    @SuppressWarnings("unchecked")
+    public void returnMoney(IBaseContract.IBasePresenter presenter, int waterId, final IDataCallback.Callback
+            callback) {
+        addNotifyListener(presenter, callback);
+        NetworkFactory
+                .getService()
+                .returnMoney(waterId)
+                .compose(BaseObserver.<ApiResponse>setThread())
+                .subscribe(new BaseObserver() {
+                    @Override
+                    public void onSuccess(ApiResponse response) {
+                        callback.onDataLoaded(response);
+                    }
+
+                    @Override
+                    public void onError(ApiException exception) {
+                        callback.onFailedLoaded(exception.getMsg());
+                    }
+                });
+    }
+
 
     /**
      * 接受任务网络请求

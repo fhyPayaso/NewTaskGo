@@ -130,7 +130,7 @@ public class BaseTaskModel {
     }
 
     public double getMoney() {
-        return money;
+        return money/100;
     }
 
     public void setMoney(double money) {

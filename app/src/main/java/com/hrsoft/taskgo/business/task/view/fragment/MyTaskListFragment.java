@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.adapter.RecyclerScrollListener;
+import com.hrsoft.taskgo.base.mvp.model.BaseModel;
 import com.hrsoft.taskgo.base.mvp.view.BasePresenterFragment;
 import com.hrsoft.taskgo.business.mine.view.activity.OtherUserPageActivity;
 import com.hrsoft.taskgo.business.task.contract.MyTaskListContract;
@@ -85,7 +86,7 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
                 finishTask(position);
                 break;
             case MyTaskConfig.MY_RELEASE_NOT_ACCEPTED:
-                mPresenter.returnCard(mRecyclerAdapter.getDataList().get(position).getTaskId(),position);
+                cancelTask(position);
             default:
                 break;
         }
@@ -117,6 +118,30 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
                     }
                 })
                 .showDialog("是否确认完成任务");
+    }
+
+    /**
+     * 撤销未接受的任务(退回卡片/退款)
+     *
+     * @param position
+     */
+    private void cancelTask(final int position) {
+
+        final BaseTaskModel taskModel = mRecyclerAdapter.getDataList().get(position);
+
+        //如果是成功支付的任务调退款接口，否则调用退卡接口
+        if (taskModel.getTaskPayStatus() == MyTaskConfig.PAY_STATUS_SUCCESS_PAY) {
+            new DialogUtil.QuickDialog(getContext())
+                    .setClickListener(new DialogUtil.QuickDialog.DialogPositiveButtonListener() {
+                        @Override
+                        public void onPositiveButtonClick() {
+                            mPresenter.returnMoney(taskModel.getTaskId(), position);
+                        }
+                    })
+                    .showDialog("是否确认退款");
+        } else {
+            mPresenter.returnCard(taskModel.getTaskId(), position);
+        }
     }
 
 
@@ -229,4 +254,14 @@ public class MyTaskListFragment extends BasePresenterFragment<MyTaskListContract
         ToastUtil.showToast(error);
     }
 
+    @Override
+    public void returnMoneySuccess(int position) {
+        ToastUtil.showToast("退款成功，请在微信中查看详情");
+        mRecyclerAdapter.removeItem(position);
+    }
+
+    @Override
+    public void returnMoneyError(String error) {
+        ToastUtil.showToast(error);
+    }
 }

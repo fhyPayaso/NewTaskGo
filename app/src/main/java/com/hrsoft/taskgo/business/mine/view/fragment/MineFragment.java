@@ -20,6 +20,7 @@ import com.hrsoft.taskgo.business.mine.view.activity.MyFollowFansActivity;
 import com.hrsoft.taskgo.business.mine.view.activity.RealNameActivity;
 import com.hrsoft.taskgo.business.mine.view.activity.SettingActivity;
 import com.hrsoft.taskgo.business.task.view.activity.MyTaskListActivity;
+import com.hrsoft.taskgo.network.NetworkFactory;
 import com.hrsoft.taskgo.utils.ToastUtil;
 
 import butterknife.BindView;
@@ -156,8 +157,6 @@ public class MineFragment extends BasePresenterFragment<MineInformationContract.
                     .load(mineInformationModel.getAvatar())
                     .into(imgPortrait);
         }
-
-
     }
 
     private boolean checkInformation(MineInformationModel mineInformationModel) {

@@ -5,7 +5,6 @@ import android.util.Log;
 import com.hrsoft.taskgo.common.Config;
 import com.hrsoft.taskgo.network.response.ApiException;
 import com.hrsoft.taskgo.network.response.ApiResponse;
-import com.hrsoft.taskgo.utils.ToastUtil;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -23,8 +22,6 @@ import static android.content.ContentValues.TAG;
  * fhyPayaso@qq.com
  */
 public abstract class BaseObserver<T> implements Observer<ApiResponse<T>> {
-
-
 
 
     public abstract void onSuccess(ApiResponse<T> response);

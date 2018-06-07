@@ -1,6 +1,7 @@
 package com.hrsoft.taskgo.business.task.view.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,6 +12,8 @@ import com.hrsoft.taskgo.business.task.model.bean.BaseTaskModel;
 import com.hrsoft.taskgo.common.MyTaskConfig;
 
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * @author fhyPayaso
@@ -68,6 +71,8 @@ public class TaskListRecyclerAdapter extends FooterRecyclerViewAdapter<BaseTaskM
                 .setText(R.id.txt_title_third, item.getThirdTitle())
                 .setText(R.id.txt_value_third, item.getThirdValue());
 
+        Log.i(TAG, "bindView: "+item.getMoney());
+
 
         TextView textButton = (TextView) viewHolder.getViewById(R.id.txt_task_btn);
         switch (mBtnType) {
@@ -80,11 +85,11 @@ public class TaskListRecyclerAdapter extends FooterRecyclerViewAdapter<BaseTaskM
                 textButton.setText("完成");
                 break;
             case BTN_CANCEL_OR_PAY:
-                if (item.getTaskPayStatus() != MyTaskConfig.PAY_STATUS_SUCCESS_PAY) {
-                    textButton.setVisibility(View.VISIBLE);
-                    textButton.setText("退回卡片");
+                textButton.setVisibility(View.VISIBLE);
+                if (item.getTaskPayStatus() == MyTaskConfig.PAY_STATUS_SUCCESS_PAY) {
+                    textButton.setText("撤销任务");
                 } else {
-                    textButton.setVisibility(View.GONE);
+                    textButton.setText("退回卡片");
                 }
                 break;
             default:

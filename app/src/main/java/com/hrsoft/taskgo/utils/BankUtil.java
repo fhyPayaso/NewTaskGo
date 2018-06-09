@@ -1,5 +1,7 @@
 package com.hrsoft.taskgo.utils;
 
+import com.hrsoft.taskgo.common.BankCardConfig;
+
 /**
  * @author FanHongyu.
  * @since 18/6/9 19:05.
@@ -14,11 +16,11 @@ public class BankUtil {
      * @param idCard
      * @return
      */
-    public static String getNameOfBank(String idCard) {
+    public static int getNameOfBank(String idCard) {
         int index = -1;
 
         if (idCard == null || idCard.length() < 16 || idCard.length() > 19) {
-            return "";
+            return -1;
         }
 
         //6位Bin号
@@ -29,7 +31,26 @@ public class BankUtil {
             }
         }
         if (index != -1) {
-            return BANK_NAME[index];
+
+            String temp = BANK_NAME[index];
+
+            if (temp.contains("招商银行")) {
+                return BankCardConfig.CMB;
+            } else if (temp.contains("工商银行")) {
+                return BankCardConfig.ICBC;
+            } else if (temp.contains("建设银行")) {
+                return BankCardConfig.CCB;
+            } else if (temp.contains("农业银行")) {
+                return BankCardConfig.ABC;
+            } else if (temp.contains("交通银行")) {
+                return BankCardConfig.BCM;
+            } else if (temp.contains("中国银行")) {
+                return BankCardConfig.BOC;
+            } else if (temp.contains("邮政储蓄银行") || temp.contains("邮储银行")) {
+                return BankCardConfig.PSBC;
+            } else {
+                return -1;
+            }
         }
 
         //8位Bin号
@@ -40,11 +61,31 @@ public class BankUtil {
             }
         }
         if (index != -1) {
-            return BANK_NAME[index];
+            String temp = BANK_NAME[index];
+
+            if (temp.contains("招商银行")) {
+                return BankCardConfig.CMB;
+            } else if (temp.contains("工商银行")) {
+                return BankCardConfig.ICBC;
+            } else if (temp.contains("建设银行")) {
+                return BankCardConfig.CCB;
+            } else if (temp.contains("农业银行")) {
+                return BankCardConfig.ABC;
+            } else if (temp.contains("交通银行")) {
+                return BankCardConfig.BCM;
+            } else if (temp.contains("中国银行")) {
+                return BankCardConfig.BOC;
+            } else if (temp.contains("邮政储蓄银行") || temp.contains("邮储银行")) {
+                return BankCardConfig.PSBC;
+            } else {
+                return -1;
+            }
         }
 
-        return "";
-    };
+        return -1;
+    }
+
+    ;
 
     /**
      * bin号

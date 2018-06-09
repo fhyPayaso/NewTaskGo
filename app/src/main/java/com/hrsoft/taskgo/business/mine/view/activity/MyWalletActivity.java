@@ -123,6 +123,6 @@ public class MyWalletActivity extends BaseToolBarPresenterActivity<MyWalletContr
 
     @OnClick(R.id.rl_add_my_bank_card)
     public void onRlAddMyBankCard() {
-        ToastUtil.showToast("点击了添加银行卡");
+        BindBankCardActivity.startActivity(MyWalletActivity.this);
     }
 }

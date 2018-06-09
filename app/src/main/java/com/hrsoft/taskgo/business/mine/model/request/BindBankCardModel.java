@@ -23,8 +23,41 @@ public class BindBankCardModel extends BaseBean {
      */
     @SerializedName("bankCard_userName")
     private String bankCradUserName;
+
+    public String getBankCradId() {
+        return bankCradId;
+    }
+
+    public void setBankCradId(String bankCradId) {
+        this.bankCradId = bankCradId;
+    }
+
+    public String getBankCradUserName() {
+        return bankCradUserName;
+    }
+
+    public void setBankCradUserName(String bankCradUserName) {
+        this.bankCradUserName = bankCradUserName;
+    }
+
+    public String getBankType() {
+        return bankType;
+    }
+
+    public void setBankType(String bankType) {
+        this.bankType = bankType;
+    }
+
+    public BindBankCardModel(String bankCradId, String bankCradUserName, String bankType) {
+
+        this.bankCradId = bankCradId;
+        this.bankCradUserName = bankCradUserName;
+        this.bankType = bankType;
+    }
+
     /**
      * 银行卡类型
+
      */
     @SerializedName("bank_type")
     private String bankType;

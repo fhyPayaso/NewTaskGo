@@ -23,6 +23,7 @@ import java.util.List;
  * @email：1085963811@qq.com
  */
 public class MineInformationHelper extends BaseModel {
+
     private MineInformationHelper() {
 
     }
@@ -146,66 +147,5 @@ public class MineInformationHelper extends BaseModel {
                     }
                 });
     }
-
-    /**
-     * 绑定银行卡
-     *
-     * @param presenter
-     * @param bankCardModel
-     * @param callback
-     */
-    @SuppressWarnings("unchecked")
-    public void bindBankCard(IBaseContract.IBasePresenter presenter, BindBankCardModel bankCardModel, final
-    IDataCallback
-            .Callback callback) {
-
-        addNotifyListener(presenter, callback);
-
-        NetworkFactory
-                .getService()
-                .bindBankCard(bankCardModel)
-                .compose(BaseObserver.<ApiResponse>setThread())
-                .subscribe(new BaseObserver() {
-                    @Override
-                    public void onSuccess(ApiResponse response) {
-                        callback.onDataLoaded(response.getMsg());
-                    }
-
-                    @Override
-                    public void onError(ApiException exception) {
-
-                        callback.onFailedLoaded(exception.getMsg());
-
-                    }
-                });
-    }
-
-    /**
-     * 提取现金
-     *
-     * @param presenter
-     * @param callback
-     */
-    @SuppressWarnings("unchecked")
-    public void withdrawMoney(IBaseContract.IBasePresenter presenter, final IDataCallback.Callback callback) {
-        addNotifyListener(presenter, callback);
-
-        NetworkFactory
-                .getService()
-                .withdrawMoney()
-                .compose(BaseObserver.<ApiResponse>setThread())
-                .subscribe(new BaseObserver() {
-                    @Override
-                    public void onSuccess(ApiResponse response) {
-                        callback.onDataLoaded(response.getMsg());
-                    }
-
-                    @Override
-                    public void onError(ApiException exception) {
-                        callback.onFailedLoaded(exception.getMsg());
-                    }
-                });
-    }
-
 
 }

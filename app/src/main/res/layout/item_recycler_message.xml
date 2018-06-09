@@ -2,16 +2,19 @@
 <com.hrsoft.taskgo.widget.SwipeItemLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
-    android:layout_marginTop="1dp"
-    android:background="@drawable/selector_bg_recycler_item">
+    android:layout_height="80dp"
+    android:layout_marginTop="1dp">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:paddingRight="20dp">
+        android:paddingRight="20dp"
+        android:background="@drawable/bg_ripple"
+        android:clickable="true"
+        android:focusable="true"
+        >
 
 
         <LinearLayout
@@ -20,7 +23,9 @@
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="5dp"
+            >
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_avatar"

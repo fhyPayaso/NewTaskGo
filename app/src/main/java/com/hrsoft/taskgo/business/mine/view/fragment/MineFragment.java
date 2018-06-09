@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.mvp.view.BasePresenterFragment;
+import com.hrsoft.taskgo.business.mine.view.activity.MyWalletActivity;
 import com.hrsoft.taskgo.common.Config;
 import com.hrsoft.taskgo.common.MyTaskConfig;
 import com.hrsoft.taskgo.business.mine.contract.MineInformationContract;
@@ -26,6 +27,8 @@ import com.hrsoft.taskgo.utils.ToastUtil;
 import butterknife.BindView;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 /**
  * @author FanHongyu.
@@ -127,7 +130,7 @@ public class MineFragment extends BasePresenterFragment<MineInformationContract.
                 MineCardActivity.startMineCardActivity(getContext());
                 break;
             case R.id.rlayout_mine_money_package:
-                MoneyPackageActivity.startActivity(getContext(),mMineInformationModel);
+                MyWalletActivity.startActivity(getContext());
                 break;
             default:
                 break;
@@ -152,9 +155,9 @@ public class MineFragment extends BasePresenterFragment<MineInformationContract.
             txtMineFollower.setText(String.valueOf(mineInformationModel.getFollowCount()));
             txtMineFans.setText(String.valueOf(mineInformationModel.getFansCount()));
 
-            Glide
-                    .with(MineFragment.this)
+            Glide.with(getContext())
                     .load(mineInformationModel.getAvatar())
+                    .transition(withCrossFade())
                     .into(imgPortrait);
         }
     }
@@ -169,9 +172,10 @@ public class MineFragment extends BasePresenterFragment<MineInformationContract.
             txtMineFollower.setText("N/A");
             return false;
         } else if (mineInformationModel.getAvatar().equals(getString(R.string.empty))) {
-            Glide
-                    .with(MineFragment.this)
+
+            Glide.with(getContext())
                     .load(getString(R.string.default_avater))
+                    .transition(withCrossFade())
                     .into(imgPortrait);
 
             ToastUtil.showToast(getString(R.string.error_avater));

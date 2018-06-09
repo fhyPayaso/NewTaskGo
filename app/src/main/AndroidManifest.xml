@@ -111,7 +111,8 @@
         <activity android:name=".business.mine.view.activity.MineCardActivity"/>
 
         <activity android:name=".business.mine.view.activity.AboutActivity"/>
-        <activity android:name=".business.mine.view.activity.MoneyPackageActivity"/>
+        <!--<activity android:name=".business.mine.view.activity.MoneyPackageActivity"/>-->
+        <activity android:name=".business.mine.view.activity.MyWalletActivity"/>
     </application>
 
 </manifest>

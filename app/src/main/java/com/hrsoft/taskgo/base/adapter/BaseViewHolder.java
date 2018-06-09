@@ -1,6 +1,7 @@
 package com.hrsoft.taskgo.base.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.StringRes;
@@ -10,8 +11,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.GenericTransitionOptions;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.TransitionOptions;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.hrsoft.taskgo.R;
+
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 /**
  * @author FanHongyu.
@@ -84,7 +91,10 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
     public BaseViewHolder setImgUrl(@IdRes int viewId, String value) {
         ImageView imageView = findViewById(viewId);
         if (value != null) {
-            Glide.with(mContext).load(value).into(imageView);
+            Glide.with(mContext)
+                    .load(value)
+                    .transition(GenericTransitionOptions.<Drawable>withNoTransition())
+                    .into(imageView);
         }
         return this;
     }

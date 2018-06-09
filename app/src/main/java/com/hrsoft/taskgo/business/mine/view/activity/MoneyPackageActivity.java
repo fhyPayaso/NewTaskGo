@@ -42,6 +42,8 @@ public class MoneyPackageActivity extends BaseToolBarPresenterActivity {
         Intent intent = getIntent();
         mineInformationModel = new Gson().fromJson(intent.getStringExtra("MineInformationModel"),
                 MineInformationModel.class);
+
+
         setActivityTitle(getString(R.string.txt_money_package_title));
         mTxtMoneyCount.setText("￥"+mineInformationModel.getBalance());
 

@@ -15,8 +15,6 @@
     </style>
 
 
-
-
     <style name="toolbar_style" parent="@style/ThemeOverlay.AppCompat.ActionBar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -99,7 +97,7 @@
     </style>
 
 
-    <!--item样式-->
+    <!--添加照片底部弹窗item样式-->
     <style name="dialog_add_photo">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">45dp</item>
@@ -107,7 +105,6 @@
         <item name="android:textSize">16sp</item>
         <item name="android:background">@color/white</item>
     </style>
-
 
 
     <!--弹窗样式-->
@@ -133,6 +130,16 @@
     <style name="dialog_bottom_anim">
         <item name="android:windowEnterAnimation">@anim/dialog_bottom_in</item>
         <item name="android:windowExitAnimation">@anim/dialog_bottom_out</item>
+    </style>
+
+    <!--我的钱包card样式-->
+    <style name="card_my_wallet">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
     </style>
 
 </resources>

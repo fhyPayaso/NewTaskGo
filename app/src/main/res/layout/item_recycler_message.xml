@@ -38,6 +38,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/txt_gray"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textSize="10sp"/>
         </LinearLayout>
 
@@ -50,6 +52,8 @@
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/ly_avatar"
             android:text="12:00ssssss"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textColor="@color/txt_gray"
             android:textSize="10sp"
             />
@@ -62,6 +66,8 @@
             android:layout_below="@id/txt_message_time"
             android:layout_marginTop="5dp"
             android:text="ssssss"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textSize="14sp"/>
 
 

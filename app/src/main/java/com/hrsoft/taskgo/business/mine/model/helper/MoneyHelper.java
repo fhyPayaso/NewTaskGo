@@ -87,7 +87,7 @@ public class MoneyHelper extends BaseModel{
 
                     @Override
                     public void onError(ApiException exception) {
-                        callback.onFailedLoaded(exception.getMsg());
+                        callback.onFailedLoaded("提现失败，请重试");
                     }
                 });
     }

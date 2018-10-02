@@ -141,12 +141,4 @@ public class TaskGridActivity extends BaseToolBarPresenterActivity<TaskGridContr
         intent.putExtra(TaskTypeConfig.KEY_MODULE_TYPE, moduleType);
         context.startActivity(intent);
     }
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

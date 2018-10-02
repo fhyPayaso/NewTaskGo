@@ -66,7 +66,7 @@ public class MyWalletPresenter extends BasePresenter<MyWalletContract.View> impl
                     double myMoney = mineInformationModel.getBalance()/100.0;
                     String bankCardNum = mineInformationModel.getBankCard();
                     if (bankCardNum != null) {
-                        bankCardNum = bankCardNum.substring(bankCardNum.length()-5);
+                        bankCardNum = bankCardNum.substring(bankCardNum.length()-4);
                     }
                     mView.getWalletInfoSuccess(String.valueOf(myMoney), bankCardNum);
                 }

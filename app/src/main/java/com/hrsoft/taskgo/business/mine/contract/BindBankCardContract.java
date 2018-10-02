@@ -10,24 +10,31 @@ import com.hrsoft.taskgo.business.mine.model.request.UpdateInformationModel;
  */
 public interface BindBankCardContract {
 
-    interface Presenter extends IBaseContract.IBasePresenter{
+    interface Presenter extends IBaseContract.IBasePresenter {
 
+        /**
+         * 绑定银行卡
+         *
+         * @param bindBankCardModel
+         */
         void bindBankCard(BindBankCardModel bindBankCardModel);
-
-
-
-
     }
 
 
-    interface View extends IBaseContract.IBaseView{
+    interface View extends IBaseContract.IBaseView {
 
 
-
+        /**
+         * 绑定银行卡成功
+         */
         void bindBankCardSuccess();
 
 
-
-
+        /**
+         * 绑定银行卡失败
+         *
+         * @param error
+         */
+        void bindBankCardError(String error);
     }
 }

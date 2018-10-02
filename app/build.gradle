@@ -6,7 +6,7 @@ android {
         release {
             keyAlias 'NewTaskGo'
             keyPassword '123456'
-            storeFile file('/Users/apple/Desktop/hrsoft/TaskGo/TaskGo_Android/NewTaskGo.')
+            storeFile file('/Users/abtion/workspace/AndroidStudioProjects/jks/NewTaskGo')
             storePassword '123456'
         }
     }
@@ -34,10 +34,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+           // signingConfig signingConfigs.release
         }
         debug {
-            signingConfig signingConfigs.release
+            //signingConfig signingConfigs.release
         }
     }
 }

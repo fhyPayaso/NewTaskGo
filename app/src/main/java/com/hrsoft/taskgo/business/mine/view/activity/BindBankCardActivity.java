@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.hrsoft.taskgo.R;
 import com.hrsoft.taskgo.base.mvp.view.BaseToolBarPresenterActivity;
@@ -15,14 +14,14 @@ import com.hrsoft.taskgo.utils.BankUtil;
 import com.hrsoft.taskgo.utils.ToastUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
  * @author：lszr on 2018/6/9 18:34
  * @email：1085963811@qq.com
  */
-public class BindBankCardActivity extends BaseToolBarPresenterActivity<BindBankCardContract.Presenter> implements BindBankCardContract.View {
+public class BindBankCardActivity extends BaseToolBarPresenterActivity<BindBankCardContract.Presenter> implements
+        BindBankCardContract.View {
     @BindView(R.id.edit_get_name)
     EditText mEditGetName;
     @BindView(R.id.edit_get_card_number)
@@ -53,8 +52,15 @@ public class BindBankCardActivity extends BaseToolBarPresenterActivity<BindBankC
 
     @Override
     public void bindBankCardSuccess() {
+        dismissProgressDialog();
         ToastUtil.showToast("绑定银行卡成功！");
         finish();
+    }
+
+    @Override
+    public void bindBankCardError(String error) {
+        dismissProgressDialog();
+        ToastUtil.showToast(error);
     }
 
     @Override
@@ -64,28 +70,34 @@ public class BindBankCardActivity extends BaseToolBarPresenterActivity<BindBankC
 
 
     @OnClick(R.id.btn_bind)
-    public void onbindClicked() {
-        if(inputOrNot()){
+    public void onBindClicked() {
+
+        if (isDataTrue()) {
+            showProgressDialog();
             mPresenter.bindBankCard(mBindBankCardModel);
         }
     }
 
-    private boolean inputOrNot() {
-        if("".equals(mEditGetName.getText().toString())){
-            ToastUtil.showToast("请输入真实姓名");
+    private boolean isDataTrue() {
+
+        String cardName = mEditGetName.getText().toString().trim();
+        String cardNum = mEditGetCardNumber.getText().toString().trim();
+
+        if ("".equals(cardName)) {
+            ToastUtil.showToast("请输入持卡人姓名");
             return false;
-        }else if("".equals(mEditGetName.getText().toString())) {
+        } else if ("".equals(cardNum)) {
             ToastUtil.showToast("请输入银行卡号");
             return false;
         }
-        int bankType= BankUtil.getNameOfBank(mEditGetCardNumber.getText().toString().trim());
-        if(bankType==-1){
-            ToastUtil.showToast("请输入正确的银行卡号");
+
+        int bankType = BankUtil.getNameOfBank(cardNum);
+        if (bankType == -1) {
+            ToastUtil.showToast("暂不支持该类型银行卡");
             return false;
         }
 
-        mBindBankCardModel=new BindBankCardModel(mEditGetCardNumber.getText().toString().trim(),mEditGetName.getText().toString().trim(),String.valueOf(bankType));
-
+        mBindBankCardModel = new BindBankCardModel(cardNum, cardName, String.valueOf(bankType));
         return true;
     }
 

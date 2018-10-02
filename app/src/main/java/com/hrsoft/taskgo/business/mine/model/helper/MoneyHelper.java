@@ -1,5 +1,7 @@
 package com.hrsoft.taskgo.business.mine.model.helper;
 
+import android.util.Log;
+
 import com.hrsoft.taskgo.base.mvp.IBaseContract;
 import com.hrsoft.taskgo.base.mvp.IDataCallback;
 import com.hrsoft.taskgo.base.mvp.model.BaseModel;
@@ -8,6 +10,8 @@ import com.hrsoft.taskgo.network.BaseObserver;
 import com.hrsoft.taskgo.network.NetworkFactory;
 import com.hrsoft.taskgo.network.response.ApiException;
 import com.hrsoft.taskgo.network.response.ApiResponse;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * @author FanHongyu.
@@ -50,13 +54,13 @@ public class MoneyHelper extends BaseModel{
                     @Override
                     public void onSuccess(ApiResponse response) {
                         callback.onDataLoaded(response.getMsg());
+
+                        Log.i(TAG, "onSuccess: "+response.getMsg());
                     }
 
                     @Override
                     public void onError(ApiException exception) {
-
                         callback.onFailedLoaded(exception.getMsg());
-
                     }
                 });
     }

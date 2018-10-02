@@ -3,8 +3,6 @@ package com.hrsoft.taskgo.business.mine.model.request;
 import com.google.gson.annotations.SerializedName;
 import com.hrsoft.taskgo.base.mvp.model.BaseBean;
 
-import java.io.Serializable;
-
 /**
  * @author FanHongyu.
  * @since 18/6/7 19:07.
@@ -16,28 +14,42 @@ public class BindBankCardModel extends BaseBean {
     /**
      * 银行卡号
      */
-    @SerializedName("backCard_id")
-    private String bankCradId;
+    @SerializedName("bankCard_id")
+    private String bankCardId;
     /**
      * 银行卡用户名
      */
     @SerializedName("bankCard_userName")
-    private String bankCradUserName;
+    private String bankCardUserName;
 
-    public String getBankCradId() {
-        return bankCradId;
+    /**
+     * 银行卡类型
+
+     */
+    @SerializedName("bankCard_type")
+    private String bankType;
+
+
+    public BindBankCardModel(String bankCardId, String bankCardUserName, String bankType) {
+        this.bankCardId = bankCardId;
+        this.bankCardUserName = bankCardUserName;
+        this.bankType = bankType;
     }
 
-    public void setBankCradId(String bankCradId) {
-        this.bankCradId = bankCradId;
+    public String getBankCardId() {
+        return bankCardId;
     }
 
-    public String getBankCradUserName() {
-        return bankCradUserName;
+    public void setBankCardId(String bankCardId) {
+        this.bankCardId = bankCardId;
     }
 
-    public void setBankCradUserName(String bankCradUserName) {
-        this.bankCradUserName = bankCradUserName;
+    public String getBankCardUserName() {
+        return bankCardUserName;
+    }
+
+    public void setBankCardUserName(String bankCardUserName) {
+        this.bankCardUserName = bankCardUserName;
     }
 
     public String getBankType() {
@@ -47,20 +59,6 @@ public class BindBankCardModel extends BaseBean {
     public void setBankType(String bankType) {
         this.bankType = bankType;
     }
-
-    public BindBankCardModel(String bankCradId, String bankCradUserName, String bankType) {
-
-        this.bankCradId = bankCradId;
-        this.bankCradUserName = bankCradUserName;
-        this.bankType = bankType;
-    }
-
-    /**
-     * 银行卡类型
-
-     */
-    @SerializedName("bank_type")
-    private String bankType;
 
 
     @Override

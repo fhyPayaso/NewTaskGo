@@ -16,7 +16,6 @@ import com.hrsoft.taskgo.business.mine.presenter.MineInformationPresenter;
 import com.hrsoft.taskgo.business.mine.view.activity.EditDataActivity;
 import com.hrsoft.taskgo.business.mine.view.activity.FeedbackActivity;
 import com.hrsoft.taskgo.business.mine.view.activity.MineCardActivity;
-import com.hrsoft.taskgo.business.mine.view.activity.MoneyPackageActivity;
 import com.hrsoft.taskgo.business.mine.view.activity.MyFollowFansActivity;
 import com.hrsoft.taskgo.business.mine.view.activity.RealNameActivity;
 import com.hrsoft.taskgo.business.mine.view.activity.SettingActivity;

@@ -83,9 +83,7 @@ public class BankUtil {
         }
 
         return -1;
-    }
-
-    ;
+    };
 
     /**
      * bin号
